@@ -8,7 +8,7 @@
 </head>
 <body>
 <h1>REGISTER</h1>
-<form action="#">
+<form action="login">
 <input type="text" placeholder="닉네임">
 <input type="button" value="중복확인"><br>
 <input type="text" placeholder="아이디">
