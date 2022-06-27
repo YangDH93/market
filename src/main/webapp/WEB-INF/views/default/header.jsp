@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +24,16 @@
 						</a>
 					</div>
 					<div class="jYMzIJ">
-						<a class="hvNQEV" href="#">로그인/회원가입</a>
-						<a class="hvNQEV" href="#">내상점</a>
+						<c:choose>
+							<c:when test="${loginUser == null }">
+								<a class="hvNQEV" href="${contextPath}/member/login">로그인/회원가입</a>
+								<a class="hvNQEV" href="${contextPath}/member/login">내상점</a>
+							</c:when>
+							<c:otherwise>
+								<a class="hvNQEV" href="${contextPath}/member/logout">로그아웃</a>
+								<a class="hvNQEV" href="#">내상점</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>
