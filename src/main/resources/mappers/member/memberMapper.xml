@@ -19,13 +19,17 @@
   	<select id="logChk" resultMap="member">
   		select * from mbr_info where mbr_id=#{mbrId}
   	</select>
-  	<!-- 자동로그인 -->
-  	<!-- 아이디 기준으로 sessionId와 세션유효시간 저장 -->
+  	
+	<!-- 자동로그인 : 아이디 기준으로 sessionId와 세션유효시간 저장 -->
   	<update id="keepLogin">
   		update mbr_info set session_id=#{s},
   							limit_time=#{d}
   							where mbr_id=#{id}
   	</update>
   	
-  	
+	<!-- 자동로그인 : 회원 방문 시 sessionId일치 회원조회 -->
+	<select id="chkSessionId" resultMap="member">
+	  	select * from mbr_info where session_id=#{sessionId}
+	</select>
+	
   </mapper>
