@@ -7,6 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
+<style>
+    ul, ol, li { list-style:none; margin:0; padding:0; }
+   
+    ul.myMenu {}
+    ul.myMenu > li { display:inline-block; width:80px; padding:5px 10px; background:#eee; border:1px solid #eee; text-align:center; position:relative; }
+    ul.myMenu > li:hover { background:#fff; }
+    ul.myMenu > li ul.submenu { display:none; position:absolute; top:30px; left:0; }
+    ul.myMenu > li:hover ul.submenu { display:block; }
+    ul.myMenu > li ul.submenu > li { display:inline-block; width:80px; padding:5px 10px; background:#eee; border:1px solid #eee; text-align:center; }
+    ul.myMenu > li ul.submenu > li:hover { background:#fff; }
+</style>
 </head>
 <body>
 	<div id="root">
@@ -70,7 +82,7 @@
 							width="23" height="24" alt="내상점버튼 이미지">
 							내상점
 							</a>
-							<a class="elwjyI" href="#">
+							<a class="elwjyI" href="${contextPath }/product/prodNew">
 								<img src="https://cdn-icons-png.flaticon.com/512/1611/1611178.png" width="23" height="26" alt="판매하기버튼 이미지">
 								판매하기
 							</a>

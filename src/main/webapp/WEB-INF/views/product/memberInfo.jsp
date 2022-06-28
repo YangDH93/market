@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="UTF-8">
+<title>오!리!마!켓!</title>
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
@@ -42,7 +46,6 @@
   border-top: none;
 }
 </style>
-<title>memberInfo</title>
 </head>
 <body>
 	<jsp:include page="../default/header.jsp" />
@@ -59,7 +62,7 @@
 							동훈맨
 							<button>상점명 수정</button>
 						</div>
-						<div align="right">봉인인증 완료</div>
+						<div align="right">본인인증 완료</div>
 					</div>
 				</div>
 				<div>

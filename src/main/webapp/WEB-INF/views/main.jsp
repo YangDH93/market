@@ -6,8 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오!이!마!켓!</title>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
+<title>오!리!마!켓!</title>
 </head>
 <body>
 <%@include file="default/header.jsp" %>
