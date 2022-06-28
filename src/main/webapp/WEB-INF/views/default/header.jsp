@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
 <style>
     ul, ol, li { list-style:none; margin:0; padding:0; }
    
@@ -81,7 +82,7 @@
 							width="23" height="24" alt="내상점버튼 이미지">
 							내상점
 							</a>
-							<a class="elwjyI" href="#">
+							<a class="elwjyI" href="${contextPath }/product/prodNew">
 								<img src="https://cdn-icons-png.flaticon.com/512/1611/1611178.png" width="23" height="26" alt="판매하기버튼 이미지">
 								판매하기
 							</a>

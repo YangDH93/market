@@ -62,7 +62,7 @@
 							동훈맨
 							<button>상점명 수정</button>
 						</div>
-						<div align="right">봉인인증 완료</div>
+						<div align="right">본인인증 완료</div>
 					</div>
 				</div>
 				<div>

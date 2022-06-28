@@ -1,5 +1,8 @@
 package com.market.root.product.service;
 
-public interface ProductService {
+import org.springframework.ui.Model;
 
+public interface ProductService {
+	//상품관리 게시판
+	public void psAllView(Model model, int num);
 }

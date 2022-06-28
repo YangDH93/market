@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="pageContext" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%-- <%@include file="../default/header.jsp" %> --%>
 <section class="eeRGVw">
 <table border="1" style="width: 70%; margin: auto;">
 	<tr>
@@ -24,5 +27,6 @@
 	</tr>
 </table>
 </section>
+<%-- <%@include file="../default/footer.jsp" %> --%>
 </body>
 </html>
