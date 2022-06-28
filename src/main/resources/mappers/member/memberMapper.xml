@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.market.root.mybatis.member.MemberMapper">
+  <resultMap type="com.market.root.member.dto.MemberDTO" id="member">
+	<result property="mbrId" column="mbr_id"/>  
+	<result property="mbrPw" column="mbr_pw"/>  
+	<result property="mbrEmail" column="mbr_email"/>  
+	<result property="mbrName" column="mbr_name"/>  
+	<result property="mbrScore" column="mbr_score"/>  
+	<result property="mbrLevel" column="mbr_level"/>
+	<result property="mbrDate" column="mbr_date"/>
+  </resultMap>
+
+	<!-- 로그인 -->
+  	<select id="logChk" resultMap="member">
+  		select * from mbr_info where mbr_id=#{mbrId}
+  	</select>
+  	
+  	
+  </mapper>
