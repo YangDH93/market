@@ -11,12 +11,21 @@
 	<result property="mbrScore" column="mbr_score"/>  
 	<result property="mbrLevel" column="mbr_level"/>
 	<result property="mbrDate" column="mbr_date"/>
+	<result property="sessionId" column="session_id"/>
+	<result property="limitTime" column="limit_time"/>
   </resultMap>
 
 	<!-- 로그인 -->
   	<select id="logChk" resultMap="member">
   		select * from mbr_info where mbr_id=#{mbrId}
   	</select>
+  	<!-- 자동로그인 -->
+  	<!-- 아이디 기준으로 sessionId와 세션유효시간 저장 -->
+  	<update id="keepLogin">
+  		update mbr_info set session_id=#{s},
+  							limit_time=#{d}
+  							where mbr_id=#{id}
+  	</update>
   	
   	
   </mapper>

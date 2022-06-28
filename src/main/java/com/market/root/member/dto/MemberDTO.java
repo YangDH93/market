@@ -11,6 +11,22 @@ public class MemberDTO {
 	private int mbrLevel;
 	private Date mbrDate;
 	
+	private String sessionId;
+	private Date limitTime;
+	
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	public Date getLimitTime() {
+		return limitTime;
+	}
+	public void setLimitTime(Date limitTime) {
+		this.limitTime = limitTime;
+	}
+	
 	public String getMbrId() {
 		return mbrId;
 	}
@@ -54,4 +70,18 @@ public class MemberDTO {
 		this.mbrDate = mbrDate;
 	}
 	
+	// 로그인 세션 update쿼리문관련 String값 가져오기
+	@Override
+	public String toString() {
+		return "MemberDTO [mbrId=" + mbrId
+						+ ", mbrPw=" + mbrPw
+						+ ", mbrName=" + mbrName
+						+ ", mbrEmail=" + mbrEmail
+						+ ", mbrScore=" + mbrScore
+						+ ", mbrLevel=" + mbrLevel
+						+ ", mbrDate=" + mbrDate
+						+ ", sessionId=" + sessionId
+						+ ", limitTime=" + limitTime
+						+"]";
+	}
 }
