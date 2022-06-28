@@ -66,5 +66,12 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 
+	@Override
+	public MemberDTO chkSessionId(String sessionId) {
+		mapper.chkSessionId(sessionId);
+		return null;
+	}
+
+
 	
 }
