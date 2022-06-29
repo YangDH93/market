@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.market.root.member.dto.MemberDTO;
 import com.market.root.member.service.RegisterService;
@@ -32,5 +34,25 @@ public class RegisterController {
 		
 		return "redirect:login";
 	}
+	
+	//id 중복체크 + 메시지 돌려줌
+	@ResponseBody //ajax 값 리턴
+	@PostMapping(value = "getId",
+				produces = "application/json; charset=utf-8")
+	public int getId(String inputId,
+						RedirectAttributes ra) {
+		// 돌려줄 값 ( 0 : 사용가능, 1 : 중복)
+		int result = rs.regIdChk(inputId);
+		
+		if(result == 0) {
+			ra.addFlashAttribute("message", "사용 가능한 아이디");
+		}else { //1
+			ra.addFlashAttribute("message", "중복 아이디");
+		}
+		
+		
+		return result;
+	}
+	
 	
 }

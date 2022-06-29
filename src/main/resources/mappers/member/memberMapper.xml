@@ -32,4 +32,9 @@
 	  	select * from mbr_info where session_id=#{sessionId}
 	</select>
 	
+	<!-- 아이디 중복확인 -->
+	<select id="regIdChk" resultMap="member">
+  		select mbr_id from mbr_info where mbr_id=#{inputId}
+  	</select>
+	
   </mapper>
