@@ -9,4 +9,5 @@ public interface MemberMapper {
 	public void keepLogin(Map<String, Object> map);
 	public MemberDTO chkSessionId(String sessionId);
 	public MemberDTO regIdChk(String inputId);
+	public int register(MemberDTO dto);
 }
