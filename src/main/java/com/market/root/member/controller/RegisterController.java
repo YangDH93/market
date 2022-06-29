@@ -15,22 +15,22 @@ public class RegisterController {
 
 	@Autowired RegisterService rs;
 	
+	//회원가입 폼
 	@GetMapping("register")
 	public String register() {
 		return "member/register";
 	}
+	
 	//회원가입 정보 전달
 	@PostMapping("reg")
 	public String reg(MemberDTO dto) {
-		
-		/* 들어온 정보 확인 -- 삭제해도 상관 x
-		System.out.println(dto.getMbrName());
-		System.out.println(dto.getMbrId());
-		System.out.println(dto.getMbrPw());
-		System.out.println(dto.getMbrEmail());
-		*/
-		
-		return "redirect:login";
+		int result = rs.register(dto);
+		//회원가입 성공시 로그인 화면으로 이동
+		if(result == 1) {
+			return "redirect:login";
+		}
+		//회원가입 실패시 회원가입 창으로 다시 이동
+		return "redirect:register";
 	}
 	
 }

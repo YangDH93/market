@@ -32,4 +32,10 @@
 	  	select * from mbr_info where session_id=#{sessionId}
 	</select>
 	
+	<!-- 회원 가입 -->
+	<insert id="register">
+		insert into mbr_info(mbr_name,mbr_id,mbr_pw,mbr_email) values(#{mbrName},#{mbrId},#{mbrPw},#{mbrEmail})
+	</insert>
+	
+	
   </mapper>
