@@ -23,16 +23,19 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		
 		// 자동로그인체크
+		// 로컬의 쿠키값 가져오기
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-		//  request에서 MemberController의 "loginCookie"찾음
+		// 로그인 유지를 위해 세션 데이터 만들어줌
+		HttpSession session = request.getSession();
 		
-		if(loginCookie != null) { // 쿠키값 있음(자동로그인 체크)
-			String sessionId = loginCookie.getValue(); // 세션아이디 저장
+		if(loginCookie != null) { // 쿠키값 있음(자동로그인 체크유저)
 			
-			// DB 조회
-			MemberDTO dto = ms.chkSessionId(sessionId);
+			String sessionId = loginCookie.getValue(); // 세션아이디 저장
+			//System.out.println(sessionId);
+			
+			MemberDTO dto = ms.chkSessionId(sessionId); // DB 조회
+			
 			if(dto != null) { // 일치 세션아이디 있음
-				HttpSession session = request.getSession();
 				session.setAttribute(SessionId.LOGIN, dto.getMbrId());
 			}
 		}

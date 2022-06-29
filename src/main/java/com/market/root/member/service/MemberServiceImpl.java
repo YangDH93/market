@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService{
 				if(en.matches(mbrPw, dto.getMbrPw()) || dto.getMbrPw().equals(mbrPw)) {
 					// 관리자계정 때문에 두 가지로 확인(관리자계정 - 암호화 안됨)
 					session.setAttribute(SessionId.LOGIN, dto.getMbrId());
-					//System.out.println(dto.getId()); // 아이디 세션저장
+					System.out.println(dto.getMbrId()); // 아이디 세션저장
 					
 					// 이름으로 사용 할 경우 주석 풀고 userName변수로 사용~
 					// session.setAttribute("userName", dto.getMbrName());
@@ -68,8 +68,14 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberDTO chkSessionId(String sessionId) {
-		mapper.chkSessionId(sessionId);
-		return null;
+		MemberDTO dto = null;
+		try {
+			dto = mapper.chkSessionId(sessionId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 

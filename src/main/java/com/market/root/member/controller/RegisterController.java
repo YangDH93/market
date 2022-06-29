@@ -1,5 +1,8 @@
 package com.market.root.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,10 +52,22 @@ public class RegisterController {
 		}else { //1
 			ra.addFlashAttribute("message", "중복 아이디");
 		}
-		
-		
 		return result;
 	}
+	
+	//가입 메일인증 ajax Controller
+	@ResponseBody //ajax후 값 리턴
+	@PostMapping(value = "sendMail",
+				produces = "application/json; charset=utf-8")
+	public String sendMail(String mail,
+							HttpServletResponse response,
+							HttpServletRequest request) 
+										throws Exception{
+		//System.out.println(mail);
+		String key = rs.gmailSend(mail);//메일 전송 메소드
+		return key; //key값 ajax 리턴
+	}
+	
 	
 	
 }
