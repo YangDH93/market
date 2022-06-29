@@ -29,8 +29,14 @@
 	<!-- 인터셉터 설정 -->
 	<interceptors>
 	
+		<!-- 자동로그인 작동 페이지 -->
 		<interceptor>
-			<mapping path="/"/>
+			<mapping path="/**"/><!-- 모든페이지 적용 -->
+			
+			<!-- 자동로그인 제외 페이지 -->
+			<exclude-mapping path="/member/login"/>
+			<exclude-mapping path="/error"/>
+			
 			<beans:ref bean="loginInterceptor"/>
 		</interceptor>
 		
