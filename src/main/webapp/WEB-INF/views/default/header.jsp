@@ -58,9 +58,10 @@
 						</a>
 						<div class="keyjxL">
 							<div class="voMyM">
-								<form action="">
-								<input type="text" placeholder="상품명, 지역명, @상점명 입력" class="cLfdog" size="50">
-								</form>
+								<form action="${contextPath}/product/prodSearch" id="fo" method="get">
+                        <input type="text" name="keyword"
+                        placeholder="제목, 상품이름 입력" class="cLfdog" size="50">
+                        </form>
 							</div>
 							<div class="iOzCaT">
 								<div class="letkud">

@@ -26,6 +26,14 @@ public class ProductController {
 	public String prodNew() {
 		return "product/prodNew";
 	}
+	
+	//검색 보여주기
+	@GetMapping("products")
+	public String products() {
+		System.out.println();
+		return "product/products";
+	}
+	
 	//상품등록(가입)
 	@PostMapping("prodRegister")
 	public String prodRegister() {
@@ -41,6 +49,14 @@ public class ProductController {
 		
 		return "product/prodStatus";
 	}
+	
+	//상품 검색기능
+	@GetMapping("prodSearch")
+	public String prodSearch(@RequestParam(value="keyword", required = false) String keyword) {
+		System.out.println(keyword);
+		return "redirect:products";
+	}
+	
 }
 
 
