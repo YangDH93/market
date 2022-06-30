@@ -21,6 +21,26 @@ public class RegisterServiceImpl implements RegisterService{
 
 	// reg Id 중복확인
 	@Override
+	public int regNameChk(String inputName) {
+		
+		int result = 0; //기본값?
+		MemberDTO dto = null;
+		
+		try {
+			dto = mapper.regNameChk(inputName);
+			if(dto != null) { // 값 있음 = 중복
+				result = 1;
+			}else { // 사용가능
+				result = 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	// reg Id 중복확인
+	@Override
 	public int regIdChk(String inputId) {
 		
 		int result = 0; //기본값?
@@ -106,5 +126,7 @@ public class RegisterServiceImpl implements RegisterService{
 		sendGmail(to,subject,body);
 		return key; // key값 돌려줌
 	}
+
+
 	
 }

@@ -40,6 +40,23 @@ public class RegisterController {
 	
 	//id 중복체크 + 메시지 돌려줌
 	@ResponseBody //ajax 값 리턴
+	@PostMapping(value = "getName",
+	produces = "application/json; charset=utf-8")
+	public int getName(String inputName,
+			RedirectAttributes ra) {
+		// 돌려줄 값 ( 0 : 사용가능, 1 : 중복)
+		int result = rs.regNameChk(inputName);
+		
+		if(result == 0) {
+			ra.addFlashAttribute("message", "사용 가능한 아이디");
+		}else { //1
+			ra.addFlashAttribute("message", "중복 아이디");
+		}
+		return result;
+	}
+	
+	//id 중복체크 + 메시지 돌려줌
+	@ResponseBody //ajax 값 리턴
 	@PostMapping(value = "getId",
 				produces = "application/json; charset=utf-8")
 	public int getId(String inputId,

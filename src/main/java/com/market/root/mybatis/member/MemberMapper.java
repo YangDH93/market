@@ -8,6 +8,7 @@ public interface MemberMapper {
 	public MemberDTO logChk(String mbrId);
 	public void keepLogin(Map<String, Object> map);
 	public MemberDTO chkSessionId(String sessionId);
+	public MemberDTO regNameChk(String inputName);
 	public MemberDTO regIdChk(String inputId);
 	public int register(MemberDTO dto);
 }
