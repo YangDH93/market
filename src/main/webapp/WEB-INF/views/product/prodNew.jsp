@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>오!리!마!켓!</title>
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <head>
 <meta charset="UTF-8">
@@ -17,41 +17,101 @@
 function daumPost(){
     new daum.Postcode({
         oncomplete: function(data) {
-			console.log(data.userSelectedType)
-			console.log(data.roadAddress)
-			console.log(data.jibunAddress)
-			console.log(data.zonecode)
-			var addr=""
-			if(data.userSelectedType == 'R'){
-				addr = data.roadAddress
-			}else{
-				addr = data.jibunAddress
-			}
-			document.getElementById("addr1").value=data.zonecode
-        	$("#addr2").val( addr )
+         console.log(data.userSelectedType)
+         console.log(data.roadAddress)
+         console.log(data.jibunAddress)
+         console.log(data.zonecode)
+         var addr=""
+         if(data.userSelectedType == 'R'){
+            addr = data.roadAddress
+         }else{
+            addr = data.jibunAddress
+         }
+         document.getElementById("addr1").value=data.zonecode
+           $("#addr2").val( addr )
         }
     }).open();
 }
 function register(){
-	var addr1 = $("#addr1").val()
-	var addr2 = $("#addr2").val()
-	$("#addr1").val( addr1+"/"+addr2 )
-	fo.submit()
+   var addr1 = $("#addr1").val()
+   var addr2 = $("#addr2").val()
+   $("#addr1").val( addr1+"/"+addr2 )
+   fo.submit()
 }
-/* 글자수 제한 */
+
 $(document).ready(function(){
-	$("#textbox").on('keyup',function(){
-		$("#textcount").html("("+$(this).val().length+" / 500)");
+   $("#textbox").on('keyup',function(){
+      $("#textcount").html("("+$(this).val().length+" / 500)");
+      
+      if($(this).val().length > 500){
+         $(this).val($(this).val().substring(0,500));
+         alert("글자수는 500자까지 입력 가능합니다.")
+         $("#textcount").html("(500 / 500)");
+      }
+   });
+});
+	
+$(document).ready(function(){
+	 $("#fileItem").change(function(e){
 		
-		if($(this).val().length > 500){
-			$(this).val($(this).val().substring(0,500));
-			alert("글자수는 500자까지 입력 가능합니다.")
-			$("#textcount").html("(500 / 500)");
+		let formData = new FormData(); 
+		let fileInput = $('input[name="uploadFile"]');
+		let fileList = fileInput[0].files;
+		let fileObj = fileList[0];
+
+		if(!fileCheck(fileObj.name, fileObj.size)){
+			return false;
 		}
+		
+		for(let i = 0; i < fileList.length; i++){
+			formData.append("uploadFile", fileList[i]);
+			let fileObj = fileList[i];
+			console.log(fileObj)
+			let reader = new FileReader();
+			reader.readAsDataURL(fileObj);//파일의 정보를 토대로 파일 읽고
+			reader.onload = function(e){ //파일 로드한 값을 표현
+				// e : 이벤트 안에 result값이 파일의 정보를 가지고 있다
+				$("#preview").attr('src',e.target.result); 
+				
+			}
+		 }
+	
+		/* formData.append("uploadFile", fileObj); */
+		
+		$.ajax({
+			url: 'uploadAjaxAction',
+	    	processData : false,
+	    	contentType : false,
+	    	data : formData,
+	    	type : 'POST',
+	    	dataType : 'json'
+		});	
+		
 	});
 });
-</script>
 
+/* var, method related with attachFile */
+let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG)$");
+let maxSize = 1048576; //1MB	
+
+function fileCheck(fileName, fileSize){
+
+	if(fileSize >= maxSize){
+		alert("파일 사이즈 초과");
+		return false;
+	}
+		  
+	if(!regex.test(fileName)){
+		alert("해당 종류의 파일은 업로드할 수 없습니다.");
+		return false;
+	}
+	
+	return true;		
+	
+}
+	
+
+</script>
 
 <style type="text/css">
 .flex {
@@ -71,6 +131,7 @@ $(document).ready(function(){
 
 </style>
 </head>
+
 <body>
 <%@include file="../default/header.jsp" %>
    <form id="fo" action="prodRegister" method="post">
@@ -87,9 +148,15 @@ $(document).ready(function(){
                상품 이미지<label>*</label>
             </div>
             <div>
-               <input type="file" accept="image/jsp, image/jpeg, image/png" multiple><br> 설명맨~
+            	<div>
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadFile' multiple>
+                </div>
+                <div>
+					<img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음">
+				                    									<!-- 선택 이미지 없음 사진 추가  -->
+				</div>
             </div>
-         </div>
+         </div>	
          <hr>
          <div class="flex">
             <div>
@@ -131,7 +198,7 @@ $(document).ready(function(){
                거래지역<label>*</label>
             <div class="size2">
             <div>
-               	<div>
+                  <div>
                   <input type="button" value="내 위치">
                   <input type="button" onclick="daumPost()" value="주소 검색"><br>
                 </div>
@@ -158,7 +225,7 @@ $(document).ready(function(){
             <div>
             <textarea id="textbox" maxlength="500" style="resize: none;"
                rows="6" cols="50" placeholder="상품 설명을 작성해주세요."></textarea>
-			   <div id="textcount">(0 / 500)</div>
+            <div id="textcount">(0 / 500)</div>
             </div>
          </div>
          <hr>
@@ -167,6 +234,6 @@ $(document).ready(function(){
          </div>
       </section>
    </form>
-<%@include file="../default/footer.jsp" %>
+<%@ include file="../default/footer.jsp" %>
 </body>
 </html>

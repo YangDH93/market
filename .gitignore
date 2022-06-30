@@ -3,8 +3,5 @@
 .project
 .springBeans
 target/*
-<<<<<<< HEAD
 */target/*
-=======
-*/target/*
->>>>>>> 94dfcd79ed46459b9118f19a910639fe456750ff
+
