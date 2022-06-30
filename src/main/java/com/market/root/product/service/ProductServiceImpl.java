@@ -32,4 +32,9 @@ public class ProductServiceImpl implements ProductService{
 				//게시글 모든 정보 가져옴
 				model.addAttribute("psList", mapper.psAllView(start,end) );	
 	}
+	//검색항목 불러오기
+	public void search(String keyword, Model model) {
+		model.addAttribute("keyList",mapper.search(keyword));
+	}
+	
 }

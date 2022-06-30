@@ -19,6 +19,11 @@
     ul.myMenu > li ul.submenu > li { display:inline-block; width:80px; padding:5px 10px; background:#eee; border:1px solid #eee; text-align:center; }
     ul.myMenu > li ul.submenu > li:hover { background:#fff; }
 </style>
+<script type="text/javascript">
+function search(){
+	fo.submit();
+}
+</script>
 </head>
 <body>
 	<div id="root">
@@ -58,8 +63,9 @@
 						</a>
 						<div class="keyjxL">
 							<div class="voMyM">
-								<form action="">
-								<input type="text" placeholder="상품명, 지역명, @상점명 입력" class="cLfdog" size="50">
+								<form action="${contextPath}/product/prodSearch" id="fo" method="get">
+								<input type="text" name="keyword"
+								placeholder="제목, 상품이름 입력" class="cLfdog" size="50">
 								</form>
 							</div>
 							<div class="iOzCaT">

@@ -11,4 +11,5 @@ public interface ProductMapper {
 			@Param("s")int start,
 			@Param("e")int end);
 	public int selectBoardCount();
+	public List<ProductDTO> search(String keyword);
 }
