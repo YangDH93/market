@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/main.css">
 <style>
     ul, ol, li { list-style:none; margin:0; padding:0; }
    

@@ -6,7 +6,6 @@
 <resultMap type="com.market.root.product.dto.ProductDTO" id="product">
 	<result property="mbrId" column="mbr_id"/>
 	<result property="prodId" column="prod_id"/>
-	<result property="prodNum" column="prodNum"/>
 	<result property="prodTitle" column="prod_title"/>
 	<result property="price" column="price"/>
 	<result property="hit" column="hit"/>
@@ -19,7 +18,7 @@
 <!-- 게시글 개수 불러오기 -->
 <select id="psAllView" resultMap="product">
 	select B.* from(select rownum rn, A.* from
-	(select * from prod_info order by prod_num desc)A)B 
+	(select * from prod_info order by prod_id desc)A)B 
 	where rn between #{s} and #{e}
 </select>
 
