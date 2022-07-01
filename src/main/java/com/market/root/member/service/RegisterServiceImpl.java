@@ -1,5 +1,7 @@
 package com.market.root.member.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -19,15 +21,31 @@ public class RegisterServiceImpl implements RegisterService{
 	@Autowired MemberMapper mapper;
 	@Autowired JavaMailSender gmailSender;
 
-	// reg Id 중복확인
+	// 중복체크
 	@Override
-	public int regIdChk(String inputId) {
-		
-		int result = 0; //기본값?
+	public int dupChk(String cIn, String uIn) {
+		int result = 0; // 기본값 사용불가
 		MemberDTO dto = null;
 		
+		Map<String, String> map =
+				new HashMap<String, String>();
+		
+		if(cIn.equals("1")) {
+			map.put("col1", "mbr_name");
+			map.put("col2", "mbr_name");
+			map.put("uIn", uIn);
+		}else if(cIn.equals("2")) {
+			map.put("col1", "mbr_id");
+			map.put("col2", "mbr_id");
+			map.put("uIn", uIn);
+		}else if(cIn.equals("3")) {
+			map.put("col1", "mbr_email");
+			map.put("col2", "mbr_email");
+			map.put("uIn", uIn);
+		}else { return result; }
+		
 		try {
-			dto = mapper.regIdChk(inputId);
+			dto = mapper.dupChk(map);
 			if(dto != null) { // 값 있음 = 중복
 				result = 1;
 			}else { // 사용가능
@@ -37,12 +55,12 @@ public class RegisterServiceImpl implements RegisterService{
 			e.printStackTrace();
 		}
 		return result;
-	}	
-
+		
+	}
+	
 	//비밀번호 암호화 객체 생성
 	BCryptPasswordEncoder en =
 					new BCryptPasswordEncoder();
-	
 	
 	@Override
 	//회원가입
@@ -106,5 +124,6 @@ public class RegisterServiceImpl implements RegisterService{
 		sendGmail(to,subject,body);
 		return key; // key값 돌려줌
 	}
+
 	
 }

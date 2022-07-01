@@ -17,8 +17,8 @@ public class MailConfig {
 		jms.setHost("smtp.gmail.com"); //프로토콜설정(어디메일?)
 		jms.setPort(587); //포트번호
 
-		//jms.setUsername("chlwl9402@gmail.com"); //개인이메일 작성
-		jms.setPassword("xldgqgftmvgmoqxy"); //gmail앱 비번(2차비번)
+		//jms.setUsername("id@domain.com"); //gmail 계정
+		//jms.setPassword("0000000000000"); //gmail앱 비번(2차비번)
 		
 		Properties prop = new Properties();
 		prop.setProperty("mail.transportprotocol", "smtp"); //프로토콜 형식

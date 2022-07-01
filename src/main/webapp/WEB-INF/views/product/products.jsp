@@ -10,18 +10,21 @@
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
-         <div class="iWIYdZ">
-            <section class="eeRGVw">
-               <h2>오늘의 상품 추천</h2>
-               <div class="eIZYPa">
-                  <div class="dSYEIN">
-                     <div class="cXyXMN">
-                        	상품 이미지들
-                     </div>
-                  </div>
-               </div>
-            </section>
-         </div>
+			<div class="iWIYdZ">
+				<section class="eeRGVw">
+					<h2>오늘의 상품 추천</h2>
+					<div class="eIZYPa">
+						<div class="dSYEIN">
+							<div class="cXyXMN">
+								상품 이미지들
+								<c:forEach var="key" items="${keyList }">
+									${key.prodTitle }
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
 <%@include file="../default/footer.jsp" %>
 </body>
 </html>

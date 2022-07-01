@@ -38,4 +38,9 @@ public class ProductServiceImpl implements ProductService{
 			// TODO: handle exception
 		}
 	}
+	//검색항목 불러오기
+	public void search(String keyword, Model model) {
+		model.addAttribute("keyList",mapper.search(keyword));
+	}
+	
 }

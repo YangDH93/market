@@ -6,7 +6,6 @@
 <resultMap type="com.market.root.product.dto.ProductDTO" id="product">
 	<result property="mbrId" column="mbr_id"/>
 	<result property="prodId" column="prod_id"/>
-	<result property="prodNum" column="prodNum"/>
 	<result property="prodTitle" column="prod_title"/>
 	<result property="price" column="price"/>
 	<result property="hit" column="hit"/>
@@ -16,15 +15,24 @@
 	<result property="prodStat" column="prod_stat"/>
 </resultMap>
 
+<!-- 게시글 개수 불러오기 -->
 <select id="psAllView" resultMap="product">
 	select B.* from(select rownum rn, A.* from
-	(select * from prod_info order by prod_num desc)A)B 
+	(select * from prod_info order by prod_id desc)A)B 
 	where rn between #{s} and #{e}
 </select>
 
+<!-- 게시글 모든 행 불러오기 -->
 <select id="selectBoardCount" resultType="Integer">
 	select count(*) from prod_info
 </select>
+
+<!-- 상품 검색항목 모두 불러오기 -->
+<select id="search" resultMap="product">
+	select * from prod_info where prod_title = #{keyword}
+</select>
+
+
 
 
 </mapper>
