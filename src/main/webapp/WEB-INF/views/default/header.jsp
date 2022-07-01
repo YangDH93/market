@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/main.css">
 <style>
     ul, ol, li { list-style:none; margin:0; padding:0; }
    
@@ -27,7 +27,8 @@
 				<div class="kaFNmQ">
 					<div class="jYMzIJ">
 						<a class="hvNQEV">
-							<img src="data:image/png;base64,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" width="16" height="17" alt="앱다운로드버튼 이미지">
+							<img src="${contextPath}/resources/image/duck.png"
+							width="16" height="17" alt="앱다운로드버튼 이미지">
 							앱 다운로드
 						</a>
 						<a class="hvNQEV">
@@ -52,9 +53,8 @@
 			<div class="hLFFUa">
 				<div class=" zvczX">
 					<div class="gLAQAm">
-						<a class="hDmINX">
-							<img src="https://cdn.startupn.kr/news/photo/202201/22599_22935_3715.jpg" width="136"
-							height="40" alt="번개장터 로고">
+						<a class="hDmINX" href="${contextPath}">
+							<img src="${contextPath}/resources/image/duck.png" width="150" height="120" alt="오리마켓 로고" >
 						</a>
 						<div class="keyjxL">
 							<div class="voMyM">
