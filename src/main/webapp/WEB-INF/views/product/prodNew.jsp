@@ -42,7 +42,6 @@ function register(){
 $(document).ready(function(){
    $("#prodContent").on('keyup',function(){
       $("#textcount").html("("+$(this).val().length+" / 500)");
-      
       if($(this).val().length > 500){
          $(this).val($(this).val().substring(0,500));
          alert("글자수는 500자까지 입력 가능합니다.")
@@ -114,34 +113,29 @@ function fileCheck(fileName, fileSize){
 	
 /* 필수항목 체크 */
 function buttonChk(){
-	if($('#prodContent').length < 10){
-		$('#textChk').html('글자수 부족');
-	}	
-	
-	
 	if($('#fileItem').val() == ''){
-		alert('이미지는 필수항목 입니다.');
 		$("#fileItem").focus();
+		alert('이미지는 필수항목 입니다.');
 	}else if($('#prodTitle').val() == ''){
-		alert('제목은 필수항목 입니다.');
 		$("#prodTitle").focus();
+		alert('제목은 필수항목 입니다.');
 	}else if($('#addr1').val() == ''){
-		alert('우편번호는 필수항목 입니다');
 		$("#addr1").focus();
+		alert('우편번호는 필수항목 입니다');
 	}else if($('#addr2').val() == ''){
-		alert('도로명주소,지번주소는 필수항목 입니다');
 		$("#addr2").focus();
+		alert('도로명주소,지번주소는 필수항목 입니다');
 	}else if($('#price').val() == ''){
-		alert('가격은 필수항목 입니다.');
 		$("#price").focus();
+		alert('가격은 필수항목 입니다.');
 	}else if($('#category').val() == ''){
-		alert('카테고리는 필수항목 입니다');
 		$("#category").focus();
+		alert('카테고리는 필수항목 입니다');
 	}else if($('#prodContent').val() == ''){
-		alert('상품은 설명은 필수항목 입니다');
 		$("#prodContent").focus();
+		alert('상품은 설명은 필수항목 입니다');
 	}else{
-		fo.submit();
+		$('#fo').submit();
 	}
 }
 
@@ -269,12 +263,12 @@ function buttonChk(){
             <div>
             <textarea id="prodContent" maxlength="500" style="resize: none;"
                rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)"></textarea>
-            <div id="textcount">(0 / 500)<span id="textChk" class="redmen"> </span></div>
+            <div id="textcount">(0 / 500)<span class="redmen" id="contentChk"> </span></div>
             </div>
          </div>
          <hr>
 	      <div>
-	         <input type="button" onclick="buttonChk()" value="등록하기">
+	         <input type ="button" onclick="buttonChk()" value="등록하기">
 	      </div>
       </section>
    </form>	
