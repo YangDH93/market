@@ -40,9 +40,8 @@ function register(){
 }
 
 $(document).ready(function(){
-   $("#textbox").on('keyup',function(){
+   $("#prodContent").on('keyup',function(){
       $("#textcount").html("("+$(this).val().length+" / 500)");
-      
       if($(this).val().length > 500){
          $(this).val($(this).val().substring(0,500));
          alert("글자수는 500자까지 입력 가능합니다.")
@@ -51,6 +50,7 @@ $(document).ready(function(){
    });
 });
 	
+/* 파일 추가  */
 $(document).ready(function(){
 	 $("#fileItem").change(function(e){
 		
@@ -60,6 +60,7 @@ $(document).ready(function(){
 		let fileObj = fileList[0];
 
 		if(!fileCheck(fileObj.name, fileObj.size)){
+			fileList = null;
 			return false;
 		}
 		
@@ -72,7 +73,6 @@ $(document).ready(function(){
 			reader.onload = function(e){ //파일 로드한 값을 표현
 				// e : 이벤트 안에 result값이 파일의 정보를 가지고 있다
 				$("#preview").attr('src',e.target.result); 
-				
 			}
 		 }
 	
@@ -90,7 +90,7 @@ $(document).ready(function(){
 	});
 });
 
-/* var, method related with attachFile */
+/* 파일 유효성 테스트 */
 let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG)$");
 let maxSize = 1048576; //1MB	
 
@@ -110,6 +110,34 @@ function fileCheck(fileName, fileSize){
 	
 }
 	
+	
+/* 필수항목 체크 */
+function buttonChk(){
+	if($('#fileItem').val() == ''){
+		$("#fileItem").focus();
+		alert('이미지는 필수항목 입니다.');
+	}else if($('#prodTitle').val() == ''){
+		$("#prodTitle").focus();
+		alert('제목은 필수항목 입니다.');
+	}else if($('#addr1').val() == ''){
+		$("#addr1").focus();
+		alert('우편번호는 필수항목 입니다');
+	}else if($('#addr2').val() == ''){
+		$("#addr2").focus();
+		alert('도로명주소,지번주소는 필수항목 입니다');
+	}else if($('#price').val() == ''){
+		$("#price").focus();
+		alert('가격은 필수항목 입니다.');
+	}else if($('#category').val() == ''){
+		$("#category").focus();
+		alert('카테고리는 필수항목 입니다');
+	}else if($('#prodContent').val() == ''){
+		$("#prodContent").focus();
+		alert('상품은 설명은 필수항목 입니다');
+	}else{
+		$('#fo').submit();
+	}
+}
 
 </script>
 
@@ -120,7 +148,7 @@ function fileCheck(fileName, fileSize){
 .flex-direction{
    flex-direction:column;
 }
-.size{
+.size_150{
    height: 150px;
    width: 150px;
 }
@@ -128,24 +156,32 @@ function fileCheck(fileName, fileSize){
    height: 100px;
    width: 100px;
 }
+.size_30{
+	height: 30px;
+	width: 150px;
+}
+.redmen{
+	color: red;
+	font-size: medium;
+}
 
 </style>
 </head>
 
 <body>
 <%@include file="../default/header.jsp" %>
-   <form id="fo" action="prodRegister" method="post">
+   <form id="fo" action="${contextPath }" method="post">
       <section class="eeRGVw">
          <div>
                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">기본 정보
-               <span style="color: red; font-size: medium;">*은 필수항목 입니다.</span></h2>
+               <span class="redmen">*은 필수항목 입니다.</span></h2>
             <div class="flex">
             </div>
          </div>
          <hr>
          <div class="flex">
-            <div class="size">
-               상품 이미지<label>*</label>
+            <div class="size_150">
+               	상품 이미지<span class="redmen">*</span>
             </div>
             <div>
             	<div>
@@ -159,17 +195,17 @@ function fileCheck(fileName, fileSize){
          </div>	
          <hr>
          <div class="flex">
-            <div>
-               제목<label>*</label>
+            <div class="size_30">
+              	 제목<span class="redmen">*</span>
             </div>
             <div>
-               <input type="text" name="title" placeholder="상품 제목을 입력해주세요.">
+               <input type="text" id="prodTitle" name="prodTitle" placeholder="상품 제목을 입력해주세요." size="100px">
             </div>
          </div>
          <hr>
          <div class="flex">
-            <div class="size">
-               카테고리<label>*</label>
+            <div class="size_150">
+               	카테고리<span class="redmen">*</span>
             </div>
             <div>
                <div>
@@ -195,11 +231,13 @@ function fileCheck(fileName, fileSize){
          </div>
          <hr>
         <div class="flex">
-               거래지역<label>*</label>
+        	<div class="size_150">
+              	 거래지역<span class="redmen">*</span>
+            </div>
             <div class="size2">
             <div>
-                  <div>
-                  <input type="button" value="내 위치">
+                 <div>
+                  <input type="button" value="내 위치"><br>
                   <input type="button" onclick="daumPost()" value="주소 검색"><br>
                 </div>
                   <input type="text" readonly id="addr1" name="addr" placeholder="우편번호"><br>
@@ -209,31 +247,31 @@ function fileCheck(fileName, fileSize){
          </div>
          <hr>
          <div class="flex">
-            <div>
-               가격<label>*</label>
+            <div class="size_30">
+               	가격<span class="redmen">*</span>
             </div>
             <div>
-               <input type="text" name="price" placeholder="숫자만 입력해주세요."
+               <input type="text" id="price" name="price" placeholder="숫자만 입력해주세요."
                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">원<br><br>
             </div>
          </div>
          <hr>
          <div class="flex">
-            <div>
-               설명<label>*</label>
+            <div class="size_150">
+               	설명<span class="redmen">*</span>
             </div>
             <div>
-            <textarea id="textbox" maxlength="500" style="resize: none;"
-               rows="6" cols="50" placeholder="상품 설명을 작성해주세요."></textarea>
+            <textarea id="prodContent" maxlength="500" style="resize: none;"
+               rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)"></textarea>
             <div id="textcount">(0 / 500)</div>
             </div>
          </div>
          <hr>
-         <div>
-            <input type="submit" value="등록하기">
-         </div>
+	      <div>
+	         <input type ="button" onclick="buttonChk()" value="등록하기">
+	      </div>
       </section>
-   </form>
+   </form>	
 <%@ include file="../default/footer.jsp" %>
 </body>
 </html>
