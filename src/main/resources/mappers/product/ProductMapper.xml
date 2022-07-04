@@ -13,6 +13,7 @@
 	<result property="prodContent" column="prod_content"/>
 	<result property="prodDate" column="prod_date"/>
 	<result property="prodStat" column="prod_stat"/>
+	<result property="cateCode" column="cate_code"/>
 </resultMap>
 
 <!-- 게시글 개수 불러오기 -->
@@ -32,7 +33,10 @@
 	select * from prod_info where prod_title = #{keyword}
 </select>
 
-
-
+<!-- 물품 등록 -->
+<insert id="prodRegister">
+	insert into pbr_info(mbr_id,prod_id,prod_title,price,trd_location,prod_content) 
+	values('market1',prod_id_seq.nextval,#{prodTitle},#{price},#{trdLocation},#{prodContent})
+</insert>
 
 </mapper>

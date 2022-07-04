@@ -1,45 +1,155 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>드롭다운 메뉴</title>
+<title>드롭다운 메뉴</title>
 <style>
-    ul, ol, li { list-style:none; margin:0; padding:0; }
-   
-    ul.myMenu {}
-    ul.myMenu > li { display:inline-block; width:80px; padding:5px 10px; background:#eee; border:1px solid #eee; text-align:center; position:relative; }
-    ul.myMenu > li:hover { background:#fff; }
-    ul.myMenu > li ul.submenu { display:none; position:absolute; top:30px; left:0; }
-    ul.myMenu > li:hover ul.submenu { display:block; }
-    ul.myMenu > li ul.submenu > li { display:inline-block; width:80px; padding:5px 10px; background:#eee; border:1px solid #eee; text-align:center; }
-    ul.myMenu > li ul.submenu > li:hover { background:#fff; }
+#menu2 {
+   border-left: 10px solidblack;
+}
+
+#menu2 a {
+   display: block;
+   color: #fff;
+}
+
+.M01 {
+   margin-left: 20px;
+   width: 100px;
+   background: #000;
+}
+
+.M01>li, .M02>li, .M03>li {
+   position: relative;
+   width: 100%; height : 50px;
+   background: #000;
+   text-align: center;
+   line-height: 50px;
+}
+
+.M01>li:hover .M02 {
+   left: 100px;
+}
+
+.M01>li a:hover {
+   display: block;
+   background: #AB06AD;
+}
+
+.M02, .M03 {
+   width: 100px;
+   background: black;
+   position: absolute; top : 0;
+   left: -9999px;
+}
+
+.M02>li:hover .M03 {
+   left: 100px;
+}
+
+.M02>li a:hover {
+   display: block;
+   background: red;
+}
+
+.M03>li a:hover {
+   display: block;
+   background: blue;
+}
 </style>
 </head>
 <body>
-
-<div id="container">
-<ul class="myMenu">
-    <li class="menu1">메뉴 1</li>
-    <li class="menu2">
-        메뉴 2
-        <ul class="menu2_s submenu">
-            <li>메뉴 2-1</li>
-            <li>메뉴 2-2</li>
-            <li>메뉴 2-3</li>
-        </ul>   
-    </li>
-    <li class="menu3">
-        메뉴 3
-        <ul class="menu3_s submenu">
-            <li>메뉴 3-1</li>
-            <li>메뉴 3-2</li>
-            <li>메뉴 3-3</li>
-        </ul>   
-    </li>
-    <li class="menu4">메뉴 4</li>
-    <li class="menu5">메뉴 5</li>   
-</ul>
-</div>
+   <div id="menu2">
+      <ul class="M01">
+         <li><a href="#">대메뉴1</a>
+            <ul class="M02">
+               <li><a href="#">소메뉴1</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul></li>
+               <li><a href="#">소메뉴2</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul></li>
+               <li><a href="#">소메뉴3</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul></li>
+            </ul>  </li>
+         <li><a href="#">대메뉴2</a>           
+            <ul class="M02">
+               <li><a href="#">소메뉴1</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul>  </li>
+               <li><a href="#">소메뉴2</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul>               </li>
+               <li><a href="#">소메뉴3</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul>  </li>
+            </ul></li>
+         <li><a href="#">대메뉴3</a>           
+            <ul class="M02">
+               <li><a href="#">소메뉴1</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul></li>
+               <li><a href="#">소메뉴2</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul></li>
+               <li><a href="#">소메뉴3</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul>  </li>
+            </ul></li>
+         <li><a href="#">대메뉴4</a>           
+            <ul class="M02">
+               <li><a href="#">소메뉴1</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul>  </li>
+               <li><a href="#">소메뉴2</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul></li>
+               <li><a href="#">소메뉴3</a>                   
+                  <ul class="M03">
+                     <li><a href="#">2단소메뉴1</a></li>
+                     <li><a href="#">2단소메뉴2</a></li>
+                     <li><a href="#">2단소메뉴3</a></li>
+                  </ul></li>
+            </ul>  </li>
+      </ul>
+   </div>
 </body>
 </html>

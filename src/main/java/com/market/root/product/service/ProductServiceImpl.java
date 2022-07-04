@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.market.root.mybatis.product.ProductMapper;
+import com.market.root.product.dto.ProductDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -43,4 +44,16 @@ public class ProductServiceImpl implements ProductService{
 		model.addAttribute("keyList",mapper.search(keyword));
 	}
 	
+	@Override
+	public int prodRegister(ProductDTO dto) {
+		int result = 0;
+		System.out.println("service실행");
+		try {
+			//결과 1 또는 0 반환
+			result = mapper.prodRegister(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

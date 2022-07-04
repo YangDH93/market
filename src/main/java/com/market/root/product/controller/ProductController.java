@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.market.root.member.dto.MemberDTO;
+import com.market.root.product.dto.ProductDTO;
 import com.market.root.product.service.ProductService;
 
 @Controller
@@ -16,7 +18,7 @@ public class ProductController {
 	
 	@Autowired ProductService ps;
 	
-	//회원등록(정보)
+	//회원등록(정보) // (무시) 지울놈임
 	@GetMapping("memberInfo")
 	public String memberInfo() {
 		return "product/memberInfo";
@@ -31,11 +33,7 @@ public class ProductController {
 	public String products() {
 		return "product/products";
 	}
-	//상품등록(가입)
-	@PostMapping("prodRegister")
-	public String prodRegister() {
-		return "redirect:prodNew";
-	}
+	
 	//구매,판매목록, 찜목록, 등 상품관리 기능
 	//페이징 기능 추가
 	@GetMapping("prodStatus")
@@ -46,6 +44,7 @@ public class ProductController {
 		
 		return "product/prodStatus";
 	}
+	
 	//상품 검색기능
 	@GetMapping("prodSearch")
 	public String prodSearch(@RequestParam(value="keyword", required = false) String keyword,
@@ -55,6 +54,18 @@ public class ProductController {
 		ps.search(keyword,model);
 		
 		return "redirect:products";
+	}
+	
+	//상품 추가기능
+	@PostMapping("reg")
+	public String reg(ProductDTO dto) {
+		int result = ps.prodRegister(dto);
+		// 임시로 전체 상품 보여주는 곳으로 넘김
+		if(result == 1) {
+			return "redirect:products";
+		}
+		// 상품등록 실패시 다시 상품등록으로 이동
+		return "redirect:prodNew";
 	}
 }
 

@@ -170,7 +170,7 @@ function buttonChk(){
 
 <body>
 <%@include file="../default/header.jsp" %>
-   <form id="fo" action="${contextPath }" method="post">
+   <form id="fo" action="reg" method="post">
       <section class="eeRGVw">
          <div>
                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">기본 정보
