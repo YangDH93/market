@@ -263,7 +263,7 @@ function buttonChk(){
             <div>
             <textarea id="prodContent" maxlength="500" style="resize: none;"
                rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)"></textarea>
-            <div id="textcount">(0 / 500)<span class="redmen" id="contentChk"> </span></div>
+            <div id="textcount">(0 / 500)</div>
             </div>
          </div>
          <hr>
