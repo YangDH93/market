@@ -59,8 +59,6 @@
 	<insert id="register">
 		insert into mbr_info(mbr_name,mbr_id,mbr_pw,mbr_email) values(#{mbrName},#{mbrId},#{mbrPw},#{mbrEmail})
 	</insert>
-	
-	
 
 	<!-- 회원정보 수정 -->
 	<update id="mbrUpdate">
@@ -71,6 +69,11 @@
 	<select id="memberInfo" resultMap="member">
 		select * from mbr_info where mbr_id=#{id}
 	</select>
+	
+	<!-- 유저 계정 삭제 -->
+	<delete id="userDelete">
+		delete from mbr_info where mbr_id=#{mbrId}
+	</delete>
 	
 	
   </mapper>

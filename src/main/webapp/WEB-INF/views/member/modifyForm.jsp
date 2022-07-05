@@ -251,6 +251,19 @@ function subChk(){
   	fo.submit()
 	
 }
+
+function deleteChk(){
+    if (!confirm("정말 계정을 삭제 하시겠습니까?")) {
+    	alert("계정 삭제를 취소하셨습니다. 메인 화면으로 돌아갑니다.");
+        location.href="../";
+    } else {
+    	delfo.submit();    	
+    	/*
+        alert("계정 삭제가 완료되었습니다. 메인 화면으로 돌아갑니다.");
+        location.href="../";
+        */
+    }
+}
 </script>
 
 </head>
@@ -315,11 +328,14 @@ function subChk(){
 		
 		
 	</table>
-	<hr>
-		<h6 align="right">탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.
-			<input type="button" onclick="" value="회원탈퇴">
-		</h6>
 	</form>
+	<hr>
+		<form id="delfo" action="userDelete">
+			<h6 align="right">탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.
+				<input type="text" value="${dto.mbrId }" name="mbrId" style="display: none;">
+				<input type="button" onclick="deleteChk()" value="회원탈퇴">
+			</h6>
+		</form>
 	
 
 </body>

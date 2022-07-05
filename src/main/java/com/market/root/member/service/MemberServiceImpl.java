@@ -150,6 +150,18 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return result;
 	}
+	//계정 삭제
+	public int userDelete(String mbrId) {
+		int result = 0;
+		if(mbrId != null) {
+			try {
+				result = mapper.userDelete(mbrId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 	
 }

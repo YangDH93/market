@@ -175,5 +175,22 @@ public class MemberController{
 			return "member/modifyForm";
 		}
 	}
+	//계정삭제
+	@GetMapping("userDelete")
+	public String userDelete(@RequestParam (required = false) String mbrId) {
+		System.out.println("삭제할 계정 : "+mbrId);
+		int result;
+		
+		result = ms.userDelete(mbrId);
+		
+		if(result == 1) {
+			System.out.println(mbrId + " : 계정 삭제 성공!");
+			return "redirect:/";
+		}else {
+			System.out.println(mbrId + " : 계정 삭제 실패!");
+		}
+		
+		return "redirect:/";
+	}
 	
 }
