@@ -17,26 +17,11 @@
 function daumPost(){
     new daum.Postcode({
         oncomplete: function(data) {
-         console.log(data.userSelectedType)
-         console.log(data.roadAddress)
-         console.log(data.jibunAddress)
-         console.log(data.zonecode)
-         var addr=""
-         if(data.userSelectedType == 'R'){
-            addr = data.roadAddress
-         }else{
-            addr = data.jibunAddress
-         }
-         document.getElementById("addr1").value=data.zonecode
-           $("#addr2").val( addr )
-        }
+         var trdLocation=data.jibunAddress
+         document.getElementById("trdLocation").value=data.zonecode
+           $("#trdLocation").val( trdLocation )
+         } 
     }).open();
-}
-function register(){
-   var addr1 = $("#addr1").val()
-   var addr2 = $("#addr2").val()
-   $("#addr1").val( addr1+"/"+addr2 )
-   fo.submit()
 }
 
 $(document).ready(function(){
@@ -55,7 +40,7 @@ $(document).ready(function(){
 	 $("#fileItem").change(function(e){
 		
 		let formData = new FormData(); 
-		let fileInput = $('input[name="uploadFile"]');
+		let fileInput = $('input[name="orgImg"]');
 		let fileList = fileInput[0].files;
 		let fileObj = fileList[0];
 
@@ -65,7 +50,7 @@ $(document).ready(function(){
 		}
 		
 		for(let i = 0; i < fileList.length; i++){
-			formData.append("uploadFile", fileList[i]);
+			formData.append("orgImg", fileList[i]);
 			let fileObj = fileList[i];
 			console.log(fileObj)
 			let reader = new FileReader();
@@ -76,7 +61,7 @@ $(document).ready(function(){
 			}
 		 }
 	
-		/* formData.append("uploadFile", fileObj); */
+		/* formData.append("orgImg", fileObj); */
 		
 		$.ajax({
 			url: 'uploadAjaxAction',
@@ -91,7 +76,7 @@ $(document).ready(function(){
 });
 
 /* 파일 유효성 테스트 */
-let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG)$");
+let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG|JPEG|jpeg)$");
 let maxSize = 1048576; //1MB	
 
 function fileCheck(fileName, fileSize){
@@ -119,12 +104,9 @@ function buttonChk(){
 	}else if($('#prodTitle').val() == ''){
 		$("#prodTitle").focus();
 		alert('제목은 필수항목 입니다.');
-	}else if($('#addr1').val() == ''){
-		$("#addr1").focus();
-		alert('우편번호는 필수항목 입니다');
-	}else if($('#addr2').val() == ''){
-		$("#addr2").focus();
-		alert('도로명주소,지번주소는 필수항목 입니다');
+	}else if($('#trdLocation').val() == ''){
+		$("#trdLocation").focus();
+		alert('주소는 필수항목 입니다');
 	}else if($('#price').val() == ''){
 		$("#price").focus();
 		alert('가격은 필수항목 입니다.');
@@ -135,7 +117,7 @@ function buttonChk(){
 		$("#prodContent").focus();
 		alert('상품은 설명은 필수항목 입니다');
 	}else{
-		$('#fo').submit();
+		frm.submit();
 	}
 }
 
@@ -170,8 +152,9 @@ function buttonChk(){
 
 <body>
 <%@include file="../default/header.jsp" %>
-   <form id="fo" action="reg" method="post">
+   <form id="frm" action="${contextPath}/product/prodRegister" method="post">	
       <section class="eeRGVw">
+   	  	 <input name="mbrId" value="${loginUser}" style="display: none;">
          <div>
                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">기본 정보
                <span class="redmen">*은 필수항목 입니다.</span></h2>
@@ -185,7 +168,8 @@ function buttonChk(){
             </div>
             <div>
             	<div>
-                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadFile' multiple>
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='orgImg' multiple>
+                	<input name="tumImg" style="display: none;">
                 </div>
                 <div>
 					<img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음">
@@ -236,13 +220,12 @@ function buttonChk(){
             </div>
             <div class="size2">
             <div>
-                 <div>
+                  <div>
                   <input type="button" value="내 위치"><br>
                   <input type="button" onclick="daumPost()" value="주소 검색"><br>
-                </div>
-                  <input type="text" readonly id="addr1" name="addr" placeholder="우편번호"><br>
-                  <input type="text" readonly id="addr2" placeholder="도로명주소, 지번주소"><br>
-               </div>
+                  </div>
+                  <input type="text" readonly id="trdLocation" name="trdLocation" placeholder="도로명주소, 지번주소"><br>
+                  </div>
             </div>
          </div>
          <hr>
@@ -261,7 +244,7 @@ function buttonChk(){
                	설명<span class="redmen">*</span>
             </div>
             <div>
-            <textarea id="prodContent" maxlength="500" style="resize: none;"
+            <textarea id="prodContent" name="prodContent" maxlength="500" style="resize: none;"
                rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)"></textarea>
             <div id="textcount">(0 / 500)</div>
             </div>

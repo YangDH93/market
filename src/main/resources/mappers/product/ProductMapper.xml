@@ -35,8 +35,9 @@
 
 <!-- 물품 등록 -->
 <insert id="prodRegister">
-	insert into pbr_info(mbr_id,prod_id,prod_title,price,trd_location,prod_content) 
-	values('market1',prod_id_seq.nextval,#{prodTitle},#{price},#{trdLocation},#{prodContent})
+	insert all into prod_info (mbr_id, prod_id, prod_title, price,trd_location,prod_content)
+	values(#{mbrId}, prod_id_seq.nextval,#{prodTitle},#{price},#{trdLocation},#{prodContent}) 
+	into image (prod_id, tum_img, org_img) values(prod_id_seq.currval,#{tumImg},#{orgImg}) select * from dual
 </insert>
 
 </mapper>

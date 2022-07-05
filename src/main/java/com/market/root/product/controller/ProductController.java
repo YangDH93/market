@@ -1,5 +1,7 @@
 package com.market.root.product.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,11 +59,11 @@ public class ProductController {
 	}
 	
 	//상품 추가기능
-	@PostMapping("reg")
-	public String reg(ProductDTO dto) {
-		int result = ps.prodRegister(dto);
+	@PostMapping("prodRegister")
+	public String prodRegister(@RequestParam Map<Object, Object> map){
+		int result = ps.prodRegister(map);
 		// 임시로 전체 상품 보여주는 곳으로 넘김
-		if(result == 1) {
+		if(result == 2) {
 			return "redirect:products";
 		}
 		// 상품등록 실패시 다시 상품등록으로 이동

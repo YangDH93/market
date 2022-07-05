@@ -1,5 +1,7 @@
 package com.market.root.product.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -43,17 +45,18 @@ public class ProductServiceImpl implements ProductService{
 	public void search(String keyword, Model model) {
 		model.addAttribute("keyList",mapper.search(keyword));
 	}
-	
+
 	@Override
-	public int prodRegister(ProductDTO dto) {
+	public int prodRegister(Map<Object, Object> map) {
+		
 		int result = 0;
-		System.out.println("service실행");
+		map.put("tumImg","s_"+ map.get("orgImg"));
 		try {
-			//결과 1 또는 0 반환
-			result = mapper.prodRegister(dto);
+			// 결과 2 또는 0 반환 (행 2개 추가로 반환됨)
+			result = mapper.prodRegister(map);	
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}	
 		return result;
 	}
 }
