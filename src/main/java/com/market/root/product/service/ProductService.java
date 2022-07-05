@@ -7,4 +7,6 @@ public interface ProductService {
 	public void psAllView(Model model, int num);
 	//검색항목 불러오기
 	public void search(String keyword, Model model);
+	//카테고리 항복 불러오기
+	public void cateAllList(Model model);
 }

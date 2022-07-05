@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.market.root.mybatis.categories.CategoriesMapper;
 import com.market.root.mybatis.product.ProductMapper;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 	
 	@Autowired ProductMapper mapper;
+	@Autowired CategoriesMapper cMapper; //카테고리 mapper
 	
 	//상품관리 게시판
 	public void psAllView(Model model, int num) {
@@ -42,5 +44,15 @@ public class ProductServiceImpl implements ProductService{
 	public void search(String keyword, Model model) {
 		model.addAttribute("keyList",mapper.search(keyword));
 	}
+	//카테고리 불러오기
+	@Override
+	public void cateAllList(Model model) {
+		try {
+			model.addAttribute("cateList", cMapper.cateAllList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }

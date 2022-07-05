@@ -23,7 +23,10 @@ public class ProductController {
 	}
 	//상품등록
 	@GetMapping("prodNew")
-	public String prodNew() {
+	public String prodNew(Model model) {
+		
+		ps.cateAllList(model);
+		
 		return "product/prodNew";
 	}
 	//검색상품 보여줄 페이지

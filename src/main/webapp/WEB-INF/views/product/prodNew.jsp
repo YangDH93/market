@@ -36,7 +36,6 @@ function register(){
    var addr1 = $("#addr1").val()
    var addr2 = $("#addr2").val()
    $("#addr1").val( addr1+"/"+addr2 )
-   fo.submit()
 }
 
 $(document).ready(function(){
@@ -109,7 +108,12 @@ function fileCheck(fileName, fileSize){
 	return true;		
 	
 }
+
+/* 카테고리 관련코드 */
+function openCate2(){
 	
+}
+
 	
 /* 필수항목 체크 */
 function buttonChk(){
@@ -135,7 +139,7 @@ function buttonChk(){
 		$("#prodContent").focus();
 		alert('상품은 설명은 필수항목 입니다');
 	}else{
-		$('#fo').submit();
+		frm.submit();
 	}
 }
 
@@ -170,7 +174,7 @@ function buttonChk(){
 
 <body>
 <%@include file="../default/header.jsp" %>
-   <form id="fo" action="${contextPath }" method="post">
+   <form id="frm" action="${contextPath }/product/prodRegister" method="post">
       <section class="eeRGVw">
          <div>
                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">기본 정보
@@ -207,28 +211,45 @@ function buttonChk(){
             <div class="size_150">
                	카테고리<span class="redmen">*</span>
             </div>
-            <div>
-               <div>
-                  <ul>
-                     <li>의상</li>
-                     <li>신발</li>
-                     <li>아무개</li>
-                  </ul>
-                  <ul style="display: none;">
-                     <li>남성</li>
-                     <li>여성</li>
-                     <li>아동</li>
-                  </ul>
-                  <ul style="display: none;">
-                     <li>큰사이즈</li>
-                     <li>중간사이즈</li>
-                     <li>작은사이즈</li>
-                  </ul>
-               <br>
-               <label>선택한 카테고리 : </label>
-               </div>
-            </div>
-         </div>
+				<div>
+				
+					<div>
+						<c:forEach var="dto" items="${cateList }" >
+							<c:choose>
+								<!-- 대분류 전체 -->
+								<ul id="cate1">
+									<c:when test="${dto.tier == 1 }">
+											<li id="code" onclick="openCate2()" value="${dto.cateCode }">
+												${dto.cateName }
+											</li>
+									</c:when>
+								</ul>
+								
+								<%-- 
+								<c:when test="${dto.tier == 2 && dto.cateParent == 선택 code랑같은거}">
+								</c:when> 
+								--%>
+								
+							</c:choose>
+						</c:forEach>
+						<ul style="display: none;">
+							<li>남성</li>
+							<li>여성</li>
+							<li>아동</li>
+						</ul>
+						<ul style="display: none;">
+							<li>큰사이즈</li>
+							<li>중간사이즈</li>
+							<li>작은사이즈</li>
+						</ul>
+					</div>
+					
+					<br>
+					<div>
+						<label>선택한 카테고리 : </label>
+					</div>
+				</div>
+			</div>
          <hr>
         <div class="flex">
         	<div class="size_150">
