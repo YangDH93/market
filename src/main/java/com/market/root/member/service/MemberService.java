@@ -19,5 +19,5 @@ public interface MemberService {
 	public void memberInfo(String id, Model model);
 	public void pwChkForm(String mbrId, Model model);
 	public int pwChk(String mbrId,String mbrPw,Model model);
-	public int mbrUpdate(Map<String, String> map);
+	public int mbrUpdate(Map<Object, Object> map);
 }

@@ -46,10 +46,12 @@ public class ProductController {
 		
 		return "product/prodStatus";
 	}
-	//검색 기능
+
+	//상품 검색기능
 	@GetMapping("prodSearch")
-	public String prodSearch(@RequestParam String keyword,
+	public String prodSearch(@RequestParam(value="keyword", required = false) String keyword,
 							Model model) {
+		System.out.println(keyword);
 		
 		ps.prodSearch(keyword,model);
 		

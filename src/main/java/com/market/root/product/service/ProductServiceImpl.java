@@ -44,10 +44,11 @@ public class ProductServiceImpl implements ProductService{
 	public void prodSearch(String keyword, Model model) {
 		try {
 			model.addAttribute("prodList", mapper.prodSearch(keyword));
-			//System.out.println("디비연결"); 
+			System.out.println("디비연결"); 
 		} catch (Exception e) {
 			System.out.println("디비고장");
 			e.printStackTrace(); 
 		}
 	}
+	
 }

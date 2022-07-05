@@ -138,7 +138,7 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	//회원정보 수정 - 업데이트
-	public int mbrUpdate(Map<String, String> map) { 
+	public int mbrUpdate(Map<Object, Object> map) { 
 		int result=0;
 		
 		if(map.size() != 0) {

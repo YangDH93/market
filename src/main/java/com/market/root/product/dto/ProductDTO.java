@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class ProductDTO {
 	private String mbrId; //primary key
-	private String prodId; //primary key
+	private int prodId; //primary key
 	private String prodTitle;
 	private String prodContent;
 	private String price;
@@ -17,73 +17,59 @@ public class ProductDTO {
 	public String getMbrId() {
 		return mbrId;
 	}
-
 	public void setMbrId(String mbrId) {
 		this.mbrId = mbrId;
 	}
-
-	public String getProdId() {
+	public int getProdId() {
 		return prodId;
 	}
-
-	public void setProdId(String prodId) {
+	public void setProdId(int prodId) {
 		this.prodId = prodId;
 	}
-
 	public String getProdTitle() {
 		return prodTitle;
 	}
-
 	public void setProdTitle(String prodTitle) {
 		this.prodTitle = prodTitle;
 	}
-
 	public String getProdContent() {
 		return prodContent;
 	}
-
 	public void setProdContent(String prodContent) {
 		this.prodContent = prodContent;
 	}
-
 	public String getPrice() {
 		return price;
 	}
-
 	public void setPrice(String price) {
 		this.price = price;
 	}
-
 	public String getTrdLocation() {
 		return trdLocation;
 	}
-
 	public void setTrdLocation(String trdLocation) {
 		this.trdLocation = trdLocation;
 	}
-
 	public int getHit() {
 		return hit;
 	}
-
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-
 	public int getProdStat() {
 		return prodStat;
 	}
-
 	public void setProdStat(int prodStat) {
 		this.prodStat = prodStat;
 	}
-
 	public Date getProdDate() {
 		return prodDate;
 	}
-
 	public void setProdDate(Date prodDate) {
 		this.prodDate = prodDate;
 	}
+	
+	
+	
 
 }

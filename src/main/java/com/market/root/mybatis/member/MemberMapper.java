@@ -17,7 +17,7 @@ public interface MemberMapper {
 	
 	public int modify(String id);
 	public MemberDTO memberInfo(String id);
-	public int mbrUpdate(Map<String, String> map);
+	public int mbrUpdate(Map<Object, Object> map);
 	
 	
 }

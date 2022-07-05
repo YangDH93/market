@@ -256,7 +256,7 @@ function subChk(){
 </head>
 <body>
 	<h1>MEMBER UPDATE</h1>
-	<form id="fo" action="memberUpdate" method="post" enctype="multipart/form-data">
+	<form id="fo" action="memberUpdate" method="post">
 		<!-- 기존 닉네임. 업데이트 전송을 위해 숨김 -->
 		<input type="text" value="${dto.mbrName }" name="dName" style="display:none;">
 	<table border="1">
@@ -305,13 +305,6 @@ function subChk(){
                 <input type="text" readonly id="addr1" name="mbrAddr" placeholder="우편번호"><br>
                 <input type="text" readonly id="addr2" placeholder="도로명주소, 지번주소">
                 <input type="button" onclick="daumPost()" value="주소 검색">
-			</td>
-		</tr>
-		<tr>
-			<th>프로필 사진</th>
-			<td>
-				<input type="file" value="${dto.mbrImg }" placeholder="img" 
-				id="mbrImg" name="mbrImg">
 			</td>
 		</tr>
 		<tr>

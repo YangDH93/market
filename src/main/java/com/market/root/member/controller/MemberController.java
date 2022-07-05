@@ -163,8 +163,8 @@ public class MemberController{
 	//회원정보 수정 - 업데이트
 	//동훈이형 나중에 여기 이미지 업데이트시 modifyForm.jsp에서 multipart로 받을것
 	@PostMapping("memberUpdate")
-	public String memberUpdate(@RequestParam Map<String, String> map) {
-		
+	public String memberUpdate(@RequestParam Map<Object, Object> map) {
+		System.out.println(map.get("mbrImg"));
 		int result = ms.mbrUpdate(map);
 		
 		if(result == 1) {
