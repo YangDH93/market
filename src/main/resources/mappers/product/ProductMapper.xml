@@ -6,7 +6,6 @@
 <resultMap type="com.market.root.product.dto.ProductDTO" id="product">
 	<result property="mbrId" column="mbr_id"/>
 	<result property="prodId" column="prod_id"/>
-	<result property="prodNum" column="prodNum"/>
 	<result property="prodTitle" column="prod_title"/>
 	<result property="price" column="price"/>
 	<result property="hit" column="hit"/>
@@ -15,16 +14,21 @@
 	<result property="prodDate" column="prod_date"/>
 	<result property="prodStat" column="prod_stat"/>
 </resultMap>
-
+<!-- prod_info 페이징 기능/목록 보기 -->
 <select id="psAllView" resultMap="product">
 	select B.* from(select rownum rn, A.* from
-	(select * from prod_info order by prod_num desc)A)B 
+	(select * from prod_info order by prod_id desc)A)B 
 	where rn between #{s} and #{e}
 </select>
 
+<!-- prod_info 전체 행 호출 -->
 <select id="selectBoardCount" resultType="Integer">
 	select count(*) from prod_info
 </select>
 
+<!-- 상품 제목 검색 -->
+<select id="prodSearch" resultMap="product">
+     select * from prod_info where prod_title like '%'||#{keyword}||'%'
+</select>
 
 </mapper>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +28,7 @@
 </head>
 <jsp:include page="../default/header.jsp"/>
 <body>
-<div class="wrap_manage" style="min-width: 1280px; width: 1280px; margin: 0 auto;">
+<div class="wrap_manage" style="min-width: 1024px; width: 1024px; margin: 0 auto;">
 	<!-- 페이지 메뉴바 상품관리/구매판매내역 -->
 	<div class="" style="border-top: 1px solid #e4e8eb;
 						border-bottom: 1px solid #e4e8eb;">

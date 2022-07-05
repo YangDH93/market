@@ -5,15 +5,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.market.root.mybatis.product.ProductMapper;
+import com.market.root.product.dto.ProductDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
-	
+
 	@Autowired ProductMapper mapper;
-	
+
 	//상품관리 게시판
 	public void psAllView(Model model, int num) {
-		
+
 		try {
 			//한 페이지당 보여줄 게시글 수
 			int pageLetter = 5; 
@@ -33,9 +34,20 @@ public class ProductServiceImpl implements ProductService{
 			model.addAttribute("repeat",repeat);
 			//게시글 모든 정보 가져옴
 			model.addAttribute("psList", mapper.psAllView(start,end) );	
-			
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+
+	//상품 검색 기능
+	public void prodSearch(String keyword, Model model) {
+		try {
+			model.addAttribute("prodList", mapper.prodSearch(keyword));
+			//System.out.println("디비연결"); 
+		} catch (Exception e) {
+			System.out.println("디비고장");
+			e.printStackTrace(); 
 		}
 	}
 }

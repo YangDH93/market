@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import com.market.root.common.SessionId;
 import com.market.root.member.dto.MemberDTO;
@@ -77,7 +78,78 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return dto;
 	}
+	//한 명의 회원 모든정보 가져옴
+	public void memberInfo(String id, Model model) {
+		try {
+			System.out.println(id);
+			model.addAttribute("mbrInfo",mapper.memberInfo(id));
+			System.out.println("DB 다녀옴");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("DB 실행불가");
+		}
+	}
+	
+	//회원정보 수정
+	public int modify(String si, Model model) {
+		int result = 0;
+		
+		try {
+			result = mapper.modify(si);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 
+
+	//비밀번호 확인 전 DTO값 전송
+	public void pwChkForm(String mbrId,Model model) {
+		try {
+			model.addAttribute("mbrInfo", mapper.logChk(mbrId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//회원정보 수정 폼으로 DTO 전송 및 비밀번호 체크
+	public int pwChk(String mbrId, String mbrPw, Model model) {
+		int result = 1; //비밀번호 일치
+		MemberDTO dto = null;
+		try {
+			dto = mapper.logChk(mbrId);
+			if(dto != null) {
+				if(en.matches(mbrPw, dto.getMbrPw()) || dto.getMbrPw().equals(mbrPw)) {
+					//비밀번호 일치.
+					model.addAttribute("mbrInfo",dto);
+					return result;
+				}else {
+					//비번 다름
+					result = 0;
+				}
+			}else {
+				//dto값이 없음
+				result = -1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//회원정보 수정 - 업데이트
+	public int mbrUpdate(Map<String, String> map) { 
+		int result=0;
+		
+		if(map.size() != 0) {
+			try {
+				result = mapper.mbrUpdate(map);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 	
 }

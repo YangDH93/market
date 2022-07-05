@@ -2,15 +2,20 @@ package com.market.root.member.controller;
 
 
 import java.util.Calendar;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,12 +24,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.market.root.common.SessionId;
+import com.market.root.member.dto.MemberDTO;
 import com.market.root.member.service.MemberService;
 
 // 주소값 ~root/member/로 시작
 @Controller
 @RequestMapping("member")
-public class MemberController {
+public class MemberController{
 
 	@Autowired MemberService ms; //Member 관련 class
 	
@@ -32,7 +38,57 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
-
+	//회원정보 수정 전 - 비밀번호 확인 페이지
+	@GetMapping("pwdChkForm")
+	public String pwdChkForm(@RequestParam String mbrId,
+						Model model) {
+		System.out.println(mbrId + "회원정보 수정 전 확인");
+		ms.pwChkForm(mbrId, model);
+		
+		return "member/pwdChkForm";
+	}
+	//비밀번호 일치 확인 후 회원정보 수정 페이지로 DTO값 전송
+	@PostMapping("pwdChk")
+	public String pwdChk(@RequestParam String mbrId,
+						@RequestParam String mbrPw,
+						Model model) {
+		int result = ms.pwChk(mbrId, mbrPw, model);
+		
+		if(result == 1) {
+			System.out.println("비밀번호 일치합니다.");
+			return "member/modifyForm";
+		}else {
+			
+			System.out.println("비밀번호 불일치 혹은 id값 전송 실패(dto == null)");
+			return "redirect:pwdChkForm?mbrId="+mbrId;
+		}
+		
+	}
+	//회원정보 수정/추가 페이지
+	@GetMapping("modifyForm")
+	public String memberModify(Model model,
+			@RequestParam String id) {
+		System.out.println(id);
+		ms.memberInfo(id, model);
+		
+		return "member/modifyForm";
+	}
+	//회원정보 수정/추가 메소드
+	@PostMapping("modify")
+	public String modify(String si,Model model) {
+		
+		int result=0;
+		result = ms.modify(si, model);
+		
+		if(result == 0) {
+			System.out.println("수정 실패!");
+			return "redirect:memberModify";
+		}
+		
+		System.out.println("수정완료!!");
+		return "product/prodStatus";
+	}
+	
 	@PostMapping("logChk") //로그인 확인 페이지
 	public String logChk(@RequestParam String mbrId,
 						@RequestParam String mbrPw,
@@ -103,6 +159,21 @@ public class MemberController {
 			}
 		}
 		return new ModelAndView("redirect:/");
+	}
+	//회원정보 수정 - 업데이트
+	//동훈이형 나중에 여기 이미지 업데이트시 modifyForm.jsp에서 multipart로 받을것
+	@PostMapping("memberUpdate")
+	public String memberUpdate(@RequestParam Map<String, String> map) {
+		
+		int result = ms.mbrUpdate(map);
+		
+		if(result == 1) {
+			System.out.println("업데이트 완료!");
+			return "redirect:/";
+		}else {
+			System.out.println("업데이트 실패!");
+			return "member/modifyForm";
+		}
 	}
 	
 }

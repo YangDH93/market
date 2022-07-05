@@ -176,6 +176,7 @@ function pwCheck(){
         else{
             document.getElementById('pwCheck').innerHTML=':: 비밀번호가 일치하지 않습니다. ::';
             document.getElementById('pwCheck').style.color='red';
+            bool4 = false;
         }
     }
 }
@@ -214,15 +215,12 @@ function mailChk(){
 	if(mail == ""){ // 입력 이메일 공백
 		alert("이메일 입력")
 		$("#mbrEmail1").focus()
-		bool3 = false;
 	}else if(!email_IdRegExp.test(mail)){ // 입력 이메일 아이디 유효성 검사
 		alert("1~12자의 영문 대소문자, 숫자만 입력")
 		$("#mbrEmail1").focus()
-		bool3 = false;
 	}else if(!email_DoRegExp.test(mbr_email2.val())){ // 이메일 도메인 유효성 검사
 		alert("이메일 주소 확인")
 		$("#mbrEmail3").focus()
-		bool4 = false; // 도메인
 	}else{ // 중복체크
 		
 		mail = mail + "@" + mbr_email2.val() //이메일 전체 입력값 저장
@@ -234,7 +232,7 @@ function mailChk(){
 			gmailSend(mail); // 함수호출
 		}else{
 			alert("중복 이메일")
-			bool3 = false;
+			bool5 = false;
 		}
 		
 	}

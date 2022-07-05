@@ -15,5 +15,9 @@ public interface MemberMapper {
 	
 	public MemberDTO dupChk(Map<String, String> map);
 	
+	public int modify(String id);
+	public MemberDTO memberInfo(String id);
+	public int mbrUpdate(Map<String, String> map);
+	
 	
 }
