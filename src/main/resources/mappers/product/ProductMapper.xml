@@ -34,10 +34,17 @@
 </select>
 
 <!-- 물품 등록 -->
+<!-- insert all into / 
+into image (prod_id, tum_img, org_img) values(prod_id_seq.currval,#{tumImg},#{orgImg}) select * from dual -->
 <insert id="prodRegister">
-	insert all into prod_info (mbr_id, prod_id, prod_title, price,trd_location,prod_content)
+	insert into prod_info (mbr_id, prod_id, prod_title, price,trd_location,prod_content)
 	values(#{mbrId}, prod_id_seq.nextval,#{prodTitle},#{price},#{trdLocation},#{prodContent}) 
-	into image (prod_id, tum_img, org_img) values(prod_id_seq.currval,#{tumImg},#{orgImg}) select * from dual
+	
+</insert>
+
+<!-- 사진 등록 -->
+<insert id="prodImgRegister">
+	insert into image (prod_id, tum_img, org_img) values(prod_id_seq.currval,#{tumImg},#{orgImg})
 </insert>
 
 </mapper>

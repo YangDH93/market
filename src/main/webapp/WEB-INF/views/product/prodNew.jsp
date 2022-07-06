@@ -57,19 +57,31 @@ $(document).ready(function(){
 			reader.readAsDataURL(fileObj);//파일의 정보를 토대로 파일 읽고
 			reader.onload = function(e){ //파일 로드한 값을 표현
 				// e : 이벤트 안에 result값이 파일의 정보를 가지고 있다
-				$("#preview").attr('src',e.target.result); 
+				$('#preview').attr('src',e.target.result); 
+			
+				let str = "";
+				str += "<img src='"+e.target.result +"'>";
+				$("#uploadResult").append(str);
+				
 			}
 		 }
 	
 		/* formData.append("orgImg", fileObj); */
 		
+		// 이미지 파일 업로드
 		$.ajax({
 			url: 'uploadAjaxAction',
 	    	processData : false,
 	    	contentType : false,
 	    	data : formData,
 	    	type : 'POST',
-	    	dataType : 'json'
+	    	dataType : 'json',
+	    	success : function(result) {
+	    		showUploadImage(result);
+			},
+			error : function(result) {
+				alert("이미지 파일이 아닙니다");
+			}
 		});	
 		
 	});
@@ -121,6 +133,27 @@ function buttonChk(){
 	}
 }
 
+/* 이미지 출력 */
+function showUploadImage(uploadResultArr){
+	
+	/* 전달받은 데이터 검증 */
+	if(!uploadResultArr || uploadResultArr.length == 0){return}
+	
+	let uploadResult = $("#uploadResult");
+	
+	let obj = uploadResultArr[0];
+	
+	let fileCallPath = obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName;
+	
+	let str = "";
+	
+	str += "<div id='result_card'>";
+	str += "<img src='/display?fileName=" + fileCallPath +"'>";
+	str += "<div class='imgDeleteBtn'>x</div>";
+	str += "</div>";		
+	
+	uploadResult.append(str);     
+}	
 </script>
 
 <style type="text/css">
@@ -175,8 +208,11 @@ function buttonChk(){
 					<img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음">
 				                    									<!-- 선택 이미지 없음 사진 추가  -->
 				</div>
-            </div>
-         </div>	
+				<div id="uploadResult">
+					<div class="imgDeleteBtn">x</div>
+				</div>
+         	</div>	
+         </div>
          <hr>
          <div class="flex">
             <div class="size_30">
@@ -197,16 +233,6 @@ function buttonChk(){
                      <li>의상</li>
                      <li>신발</li>
                      <li>아무개</li>
-                  </ul>
-                  <ul style="display: none;">
-                     <li>남성</li>
-                     <li>여성</li>
-                     <li>아동</li>
-                  </ul>
-                  <ul style="display: none;">
-                     <li>큰사이즈</li>
-                     <li>중간사이즈</li>
-                     <li>작은사이즈</li>
                   </ul>
                <br>
                <label>선택한 카테고리 : </label>
@@ -256,5 +282,6 @@ function buttonChk(){
       </section>
    </form>	
 <%@ include file="../default/footer.jsp" %>
+
 </body>
 </html>

@@ -1,5 +1,7 @@
 package com.market.root.product.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,15 +60,34 @@ public class ProductController {
 		return "redirect:products";
 	}
 	
+//	//상품 추가기능
+//	@PostMapping("prodRegister")
+//	public String prodRegister(@RequestParam Map<Object, Object> map){
+//		
+//		
+//		int result = ps.prodRegister(map);
+//		// 임시로 전체 상품 보여주는 곳으로 넘김
+//		if(result == 2) {
+//			return "redirect:products";
+//		}
+//		// 상품등록 실패시 다시 상품등록으로 이동
+//		System.out.println("등록 실패");
+//		return "redirect:prodNew";
+//	}
+	
 	//상품 추가기능
 	@PostMapping("prodRegister")
-	public String prodRegister(@RequestParam Map<Object, Object> map){
-		int result = ps.prodRegister(map);
-		// 임시로 전체 상품 보여주는 곳으로 넘김
-		if(result == 2) {
+	public String prodRegister(@RequestParam(value="orgImg", required = false) String orgImg 
+								,ProductDTO dto){
+		System.out.println(dto.getProdTitle());
+		System.out.println(orgImg);
+		int result = ps.prodRegister(dto,orgImg);
+		//임시로 전체 상품 보여주는 곳으로 넘김
+		if(result == 1) {
 			return "redirect:products";
 		}
 		// 상품등록 실패시 다시 상품등록으로 이동
+		System.out.println("등록 실패");
 		return "redirect:prodNew";
 	}
 }

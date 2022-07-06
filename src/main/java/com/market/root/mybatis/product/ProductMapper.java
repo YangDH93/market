@@ -11,5 +11,6 @@ public interface ProductMapper {
 			@Param("e")int end);
 	public int selectBoardCount();
 	public List<ProductDTO> search(String keyword);
-	public int prodRegister(Map<Object, Object> map);
+	public int prodRegister(ProductDTO dto);
+	public int prodImgRegister(Map<Object,Object> map);
 }

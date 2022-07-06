@@ -1,5 +1,6 @@
 package com.market.root.product.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,16 +48,32 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int prodRegister(Map<Object, Object> map) {
+	public int prodRegister(ProductDTO dto , String orgImg) {
 		
+		System.out.println(dto.getProdTitle());
+		System.out.println(orgImg);
+		String[] orgImg1 = orgImg.split(",");
+		orgImg = "";
+		String tumImg = "";
+		for(int i=0;i<orgImg1.length;i++) {
+			tumImg += "s_" + orgImg1[i];
+			orgImg += orgImg1[i];
+			if(i != orgImg1.length -1) {
+				tumImg += "/";
+				orgImg += "/";
+			}
+		}
 		int result = 0;
-		map.put("tumImg","s_"+ map.get("orgImg"));
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("orgImg", orgImg);
+		map.put("tumImg", tumImg);
 		try {
-			// 결과 2 또는 0 반환 (행 2개 추가로 반환됨)
-			result = mapper.prodRegister(map);	
+			// 결과 1 또는 0 반환
+			result = mapper.prodRegister(dto);
+			result = mapper.prodImgRegister(map);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}		
 		return result;
 	}
 }
