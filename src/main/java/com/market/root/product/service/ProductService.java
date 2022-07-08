@@ -12,6 +12,6 @@ public interface ProductService {
 	//검색항목 불러오기
 	public void search(String keyword, Model model);
 	//상품 추가
-	public int prodRegister(ProductDTO dto,String orgImg);
+	public int prodRegister(ProductDTO dto,String orgImg,String uploadPath,String UUID);
 	
 }

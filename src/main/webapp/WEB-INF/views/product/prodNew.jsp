@@ -34,41 +34,29 @@ $(document).ready(function(){
       }
    });
 });
-	
+
+
+let uuidList = "";
+let orgImg = "";
+var count = 0; 
 /* 파일 추가  */
 $(document).ready(function(){
 	 $("#fileItem").change(function(e){
 		
 		let formData = new FormData(); 
-		let fileInput = $('input[name="orgImg"]');
+		let fileInput = $('input[name="uploadImg"]');
 		let fileList = fileInput[0].files;
 		let fileObj = fileList[0];
 
-		if(!fileCheck(fileObj.name, fileObj.size)){
-			fileList = null;
-			return false;
-		}
 		
 		for(let i = 0; i < fileList.length; i++){
-			formData.append("orgImg", fileList[i]);
+			formData.append("uploadImg", fileList[i]);
 			let fileObj = fileList[i];
-			console.log(fileObj)
 			let reader = new FileReader();
-			reader.readAsDataURL(fileObj);//파일의 정보를 토대로 파일 읽고
-			reader.onload = function(e){ //파일 로드한 값을 표현
-				// e : 이벤트 안에 result값이 파일의 정보를 가지고 있다
-				$('#preview').attr('src',e.target.result); 
-			
-				let str = "";
-				str += "<img src='"+e.target.result +"'>";
-				$("#uploadResult").append(str);
-				
-			}
+			reader.readAsDataURL(fileObj);
 		 }
-	
-		/* formData.append("orgImg", fileObj); */
 		
-		// 이미지 파일 업로드
+		// 이미지 파일 저장 및 출력
 		$.ajax({
 			url: 'uploadAjaxAction',
 	    	processData : false,
@@ -76,16 +64,65 @@ $(document).ready(function(){
 	    	data : formData,
 	    	type : 'POST',
 	    	dataType : 'json',
-	    	success : function(result) {
+	    	success : function(result){
+	    		$('#uploadPath').val(result[0].uploadPath);
+	    		for(let i=0;i<result.length;i++){
+	    			uuidList += result[i].uuid;
+	    			orgImg += result[i].orgImg;
+	    			if(i != result.lenght-1){
+		    			uuidList += "/";
+		    			orgImg += "/";
+	    			}
+		    		count++;
+    				console.log(count);
+	    		}
+	    			    		
+    			if(count >= 10){
+    				alert("이미지는 10개까지 가능합니다");
+    				return false;
+    			}
+    			
+    			// 월요일에 나 부탁해 이미지 10개 들어가는 부분 수정 필요 
+    			
+	    		/* 이미지 출력 부분 */
 	    		showUploadImage(result);
-			},
-			error : function(result) {
-				alert("이미지 파일이 아닙니다");
-			}
+	    		
+	    		/* UUID 추가 부분 */
+	    		$('#UUID').val(uuidList);
+	    		console.log(uuidList);
+	    		
+	    		/* orgImg 추가 부분 */
+	    		$('#orgImg').val(orgImg);
+	    		console.log(orgImg);
+	    		
+	    	},
+	    	error : function(result){
+	    		alert("해당 종류의 파일은 업로드할 수 없습니다.");
+	    	}
 		});	
-		
 	});
 });
+
+/* 이미지 출력 */
+function showUploadImage(uploadResultArr){
+	
+	/* 전달받은 데이터 검증 */
+	if(!uploadResultArr || uploadResultArr.length == 0){return}
+	
+	let uploadResult = $("#uploadResult");
+	for(let i=0;i<uploadResultArr.length;i++){
+		let obj = uploadResultArr[i];
+		let str = "";
+		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
+		str += "<div style='margin: 5px;'>"
+		str += "<img src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='120px' height='120px' >";
+		str += "<div class='imgDeeteBtn'>x</div>";
+		str += "</div>"; 
+		
+		uploadResult.append(str);
+	}
+    
+}
 
 /* 파일 유효성 테스트 */
 let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG|JPEG|jpeg)$");
@@ -106,7 +143,6 @@ function fileCheck(fileName, fileSize){
 	return true;		
 	
 }
-	
 	
 /* 필수항목 체크 */
 function buttonChk(){
@@ -133,27 +169,7 @@ function buttonChk(){
 	}
 }
 
-/* 이미지 출력 */
-function showUploadImage(uploadResultArr){
-	
-	/* 전달받은 데이터 검증 */
-	if(!uploadResultArr || uploadResultArr.length == 0){return}
-	
-	let uploadResult = $("#uploadResult");
-	
-	let obj = uploadResultArr[0];
-	
-	let fileCallPath = obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName;
-	
-	let str = "";
-	
-	str += "<div id='result_card'>";
-	str += "<img src='/display?fileName=" + fileCallPath +"'>";
-	str += "<div class='imgDeleteBtn'>x</div>";
-	str += "</div>";		
-	
-	uploadResult.append(str);     
-}	
+
 </script>
 
 <style type="text/css">
@@ -201,17 +217,15 @@ function showUploadImage(uploadResultArr){
             </div>
             <div>
             	<div>
-                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='orgImg' multiple>
-                	<input name="tumImg" style="display: none;">
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple>
                 </div>
-                <div>
-					<img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음">
-				                    									<!-- 선택 이미지 없음 사진 추가  -->
-				</div>
-				<div id="uploadResult">
-					<div class="imgDeleteBtn">x</div>
+                <div id="uploadResult" class="flex" style="width: 600; flex-flow: wrap;">
+					<!-- <img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음"> -->
 				</div>
          	</div>	
+         	<input id="orgImg" name='orgImg' style="display: none;">
+         	<input id="uploadPath" name='uploadPath' style="display: none;">
+         	<input id="UUID" name='UUID' style="display: none;">
          </div>
          <hr>
          <div class="flex">

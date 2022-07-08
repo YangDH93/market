@@ -26,7 +26,17 @@
 					<div class="eIZYPa">
 						<div class="dSYEIN">
 							<div class="cXyXMN">
-								상품 이미지들
+								ㅇㅇ
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
+								ㅇㅇㅇ
+								<img src="${contextPath}/display?fileName=test2.PNG">
+								ㅇㅇㅇ
+								<img src="${contextPath}/display?fileName=test3.jpg">
+								ㅇㅇㅇ
+								<img src="${contextPath}/display?fileName=test4.PNG">
+								ㅇㅇㅇ
+								<img src="${contextPath}/display?fileName=test5.PNG">
+								ㅇㅇ
 							</div>
 						</div>
 					</div>

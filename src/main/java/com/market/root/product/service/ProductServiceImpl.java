@@ -48,25 +48,12 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 	@Override
-	public int prodRegister(ProductDTO dto , String orgImg) {
-		
-		System.out.println(dto.getProdTitle());
-		System.out.println(orgImg);
-		String[] orgImg1 = orgImg.split(",");
-		orgImg = "";
-		String tumImg = "";
-		for(int i=0;i<orgImg1.length;i++) {
-			tumImg += "s_" + orgImg1[i];
-			orgImg += orgImg1[i];
-			if(i != orgImg1.length -1) {
-				tumImg += "/";
-				orgImg += "/";
-			}
-		}
+	public int prodRegister(ProductDTO dto , String orgImg,String uploadPath,String UUID) {
 		int result = 0;
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("orgImg", orgImg);
-		map.put("tumImg", tumImg);
+		map.put("uploadPath",uploadPath);
+		map.put("UUID",UUID);
 		try {
 			// 결과 1 또는 0 반환
 			result = mapper.prodRegister(dto);

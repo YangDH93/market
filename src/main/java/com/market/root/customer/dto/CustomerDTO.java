@@ -9,7 +9,6 @@ public class CustomerDTO {
 	private String csImg;
 	private String csContent;
 	private Date date;
-	private String mbrEmail;
 	private int replyStat;
 	
 	public int getCsNum() {
@@ -47,12 +46,6 @@ public class CustomerDTO {
 	}
 	public void setDate(Date date) {
 		this.date = date;
-	}
-	public String getMbrEmail() {
-		return mbrEmail;
-	}
-	public void setMbrEmail(String mbrEmail) {
-		this.mbrEmail = mbrEmail;
 	}
 	public int getReplyStat() {
 		return replyStat;

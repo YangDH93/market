@@ -60,28 +60,13 @@ public class ProductController {
 		return "redirect:products";
 	}
 	
-//	//상품 추가기능
-//	@PostMapping("prodRegister")
-//	public String prodRegister(@RequestParam Map<Object, Object> map){
-//		
-//		
-//		int result = ps.prodRegister(map);
-//		// 임시로 전체 상품 보여주는 곳으로 넘김
-//		if(result == 2) {
-//			return "redirect:products";
-//		}
-//		// 상품등록 실패시 다시 상품등록으로 이동
-//		System.out.println("등록 실패");
-//		return "redirect:prodNew";
-//	}
-	
 	//상품 추가기능
 	@PostMapping("prodRegister")
-	public String prodRegister(@RequestParam(value="orgImg", required = false) String orgImg 
-								,ProductDTO dto){
-		System.out.println(dto.getProdTitle());
-		System.out.println(orgImg);
-		int result = ps.prodRegister(dto,orgImg);
+	public String prodRegister(@RequestParam(value="orgImg", required = false) String orgImg,
+								@RequestParam(value="uploadPath", required = false) String uploadPath,
+								@RequestParam(value="UUID", required = false) String UUID,
+								ProductDTO dto){
+		int result = ps.prodRegister(dto,orgImg,uploadPath,UUID);
 		//임시로 전체 상품 보여주는 곳으로 넘김
 		if(result == 1) {
 			return "redirect:products";
