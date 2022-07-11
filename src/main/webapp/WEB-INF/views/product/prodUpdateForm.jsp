@@ -397,8 +397,7 @@ function buttonChk(){
          <div class="flex">
             <div class="size_150">
                	카테고리<span class="redmen">*</span>
-	         	<input type="text" id="cateCode" name="cateCode" 
-	         	value="${prod.cateCode }" style="display: none;">
+	         	<input type="text" id="cateCode" name="cateCode" style="display: none;">
             </div>
             
 			<div class="catewrap">
@@ -420,7 +419,7 @@ function buttonChk(){
 		</div>
 		
 		<div>
-			<label>선택한 카테고리 : </label>
+			<label>선택한 카테고리 : </label>${prod.cateCode }
 			<span id="userSel1"></span>
 			<span id="userSel2"></span>
 			<span id="userSel3"></span>
