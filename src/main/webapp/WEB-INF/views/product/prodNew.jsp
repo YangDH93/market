@@ -66,7 +66,19 @@ $(document).ready(function(){
 	    	dataType : 'json',
 	    	success : function(result){
 	    		$('#uploadPath').val(result[0].uploadPath);
+	    		
+	    		if(count+result.length > 10){
+	    			alert("이미지는 최대 10개까지 등록 가능합니다.\n\n 현재 이미지 갯수 : " + count);
+	    			return false;
+	    		}
 	    		for(let i=0;i<result.length;i++){
+	    			console.log(count);
+	    			
+	    			if(count >= 10){
+	    				alert("이미지는 최대 10개까지 등록 가능합니다.");
+	    				break;
+	    			}else{
+	    			
 	    			uuidList += result[i].uuid;
 	    			orgImg += result[i].orgImg;
 	    			if(i != result.lenght-1){
@@ -74,16 +86,10 @@ $(document).ready(function(){
 		    			orgImg += "/";
 	    			}
 		    		count++;
-    				console.log(count);
+	    			}
+	    			
 	    		}
 	    			    		
-    			if(count >= 10){
-    				alert("이미지는 10개까지 가능합니다");
-    				return false;
-    			}
-    			
-    			// 월요일에 나 부탁해 이미지 10개 들어가는 부분 수정 필요 
-    			
 	    		/* 이미지 출력 부분 */
 	    		showUploadImage(result);
 	    		
@@ -94,6 +100,7 @@ $(document).ready(function(){
 	    		/* orgImg 추가 부분 */
 	    		$('#orgImg').val(orgImg);
 	    		console.log(orgImg);
+	    		
 	    		
 	    	},
 	    	error : function(result){
@@ -115,7 +122,7 @@ function showUploadImage(uploadResultArr){
 		let str = "";
 		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
 		str += "<div style='margin: 5px;'>"
-		str += "<img src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='120px' height='120px' >";
+		str += "<img src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='150px' height='150px' >";
 		str += "<div class='imgDeeteBtn'>x</div>";
 		str += "</div>"; 
 		
