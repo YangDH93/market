@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,7 @@
 			top: 0px; left: 0px; right: 0px;">
 	<header>
 		<img src="https://help.bunjang.co.kr/static/media/icon-ic-chevron-left.0609bd8b.svg">
-		<a href="">취소</a>
+		<a href="csList">취소</a>
 	</header>
 </div>
 <!-- 페이지 이름 -->
@@ -42,17 +43,21 @@
 	</div>
 <!-- 내용 -->
 	<div>
-		<form action="">
+		<form action="csWrite" id="csfo">
 			<div>제목<label>*</label></div><br>
-			<input type="text" placeholder="제목입력">
-
+			<input type="text" placeholder="제목입력"
+			name="csTitle">
+			
+			<!-- 해당 작성 아이디 hidden으로 전달 -->
+			<input type="text" style="display: none;" name="mbrId" value="${param.mbrId }">
+			
 			<!-- 글작성 -->
 			<div>
 				<div>문의 내용<label>*</label></div>
 				<div>
 					<textarea style="resize: none; height: 50px; width: 200px"
-								placeholder="문의 내용을 자세히 입력해주세요.">
-					</textarea>
+								placeholder="문의 내용을 자세히 입력해주세요."
+								name="csContent"></textarea>
 					<!-- 
 					https://bskyvision.com/1012
 					글자 수 제한 코드 jQuery
@@ -62,9 +67,9 @@
 			<!-- 이미지첨부 -->
 			<div>
 				<div>사진첨부</div><br>
-				<button>사진첨부하기</button>
+				<input type="file" name="csImg">
 			</div>
-			<button class="cs-btn">문의하기</button>
+			<input type="submit" class="cs-btn" value="문의하기">
 		</form>
 	</div>
 </section>

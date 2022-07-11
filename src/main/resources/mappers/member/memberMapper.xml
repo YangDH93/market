@@ -9,9 +9,7 @@
 	<result property="mbrEmail" column="mbr_email"/>  
 	<result property="mbrName" column="mbr_name"/>  
 	<result property="mbrScore" column="mbr_score"/>  
-	<result property="mbrLevel" column="mbr_level"/>
 	<result property="mbrDate" column="mbr_date"/>
-	<result property="mbrImg" column="mbr_img"/>
 	<result property="mbrAddr" column="mbr_addr"/>
 	<result property="mbrTel" column="mbr_tel"/>
 	<result property="sessionId" column="session_id"/>

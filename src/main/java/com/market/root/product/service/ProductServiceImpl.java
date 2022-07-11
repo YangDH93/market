@@ -1,5 +1,8 @@
 package com.market.root.product.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -50,5 +53,73 @@ public class ProductServiceImpl implements ProductService{
 			e.printStackTrace(); 
 		}
 	}
+	//한 개의 상품정보 가져오기 - prodTrade로 연결 + 조회수 증가
+	//시간 계산
+	public void oneProduct(Map<Object, Object> map, Model model) {
+			try {
+				System.out.println("등록된 상품시간 : " + map.get("prodDate"));
+				String prodTime = String.valueOf(map.get("prodDate"));
+				//등록상품 시간
+				long pTime = Long.parseLong(prodTime);
+				//현재 시간
+				long time = System.currentTimeMillis();
+				long setTime = time-pTime;
+				
+				long sec = setTime / 1000; //초
+				long min = setTime / 60000; //분
+				long hour = setTime / 3600000; // 시
+				long days = sec / (24*60*60); //일
+				
+				System.out.println(days + "일" + hour + "시 " + min + "분 " + sec + "초");
+				
+				Map<Object, Object> timer = new HashMap<Object, Object>();
+				timer.put("sec",sec);
+				timer.put("hour", hour);
+				timer.put("min", min);
+				timer.put("days", days);
+				
+				mapper.upHit(map);
+				model.addAttribute("timer",timer);
+				model.addAttribute("prod",mapper.oneProduct(map));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
+	//자신의 상품 삭제
+	public int prodDelete(int prodId) {
+		int result = 0;
+		try {
+			result = mapper.prodDelete(prodId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//상품 정보 업데이트
+	public int prodUpdate(int prodId) {
+		int result = 0;
+		try {
+			result = mapper.prodUpdate(prodId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	//한개 상품 정보만을 가져옴 - 시간처리 x	
+	public void prodStatus(int prodId, Model model) {
+		try {
+			model.addAttribute("prod", mapper.prodStatus(prodId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 }
+
+
+
+
+
+
+	

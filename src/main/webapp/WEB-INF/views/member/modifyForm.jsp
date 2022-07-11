@@ -77,13 +77,6 @@ function daumPost(){
         }
     }).open();
 }
-function register(){
-   var addr1 = $("#addr1").val()
-   var addr2 = $("#addr2").val()
-   $("#addr1").val( addr1+"/"+addr2 )
-   fo.submit()
-}
-		
 /* 중복체크 함수 */
 //그대로 쓰고 닉네임 번호만 수정해서 사용~~(코드 변경x) 
 function dupChk(userInput, chkCode){
@@ -247,7 +240,8 @@ function subChk(){
 	   var addr1 = $("#addr1").val()
 	   var addr2 = $("#addr2").val()
 	  $("#addr1").val( addr1+"/"+addr2 )
-	  
+	
+	alert("회원정보 수정이 완료되셨습니다.")
   	fo.submit()
 	
 }
@@ -257,11 +251,8 @@ function deleteChk(){
     	alert("계정 삭제를 취소하셨습니다. 메인 화면으로 돌아갑니다.");
         location.href="../";
     } else {
+    	alert("계정 삭제가 완료되었습니다. 메인 화면으로 돌아갑니다.")
     	delfo.submit();    	
-    	/*
-        alert("계정 삭제가 완료되었습니다. 메인 화면으로 돌아갑니다.");
-        location.href="../";
-        */
     }
 }
 </script>

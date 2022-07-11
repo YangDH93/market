@@ -11,6 +11,7 @@
 	<result property="hit" column="hit"/>
 	<result property="trdLocation" column="trd_location"/>
 	<result property="prodContent" column="prod_content"/>
+	<result property="cateCode" column="catecode"/>
 	<result property="prodDate" column="prod_date"/>
 	<result property="prodStat" column="prod_stat"/>
 </resultMap>
@@ -32,6 +33,25 @@
      select * from prod_info where prod_title like '%'||#{keyword}||'%'
 </select>
 
+<!-- 한개의 상품 정보 불러오기 + 시간설정-->
+<select id="oneProduct" resultMap="product">
+	select * from prod_info where prod_id=#{prodId}
+</select>
+
+<!-- 한개의 상품 정보만을 불러옴 / 시간처리 x-->
+<select id="prodStatus" resultMap="product">
+	select * from prod_info where prod_id=#{prodId}
+</select>
+
+<!-- 조회수 증가 -->
+<update id="upHit">
+	update prod_info set hit=hit+1 where prod_id=#{prodId}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="prodDelete">
+	delete prod_info where prod_id=#{prodId}
+</delete>
 
 
 

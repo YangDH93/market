@@ -166,7 +166,7 @@ public class MemberController{
 	public String memberUpdate(@RequestParam Map<Object, Object> map) {
 		System.out.println(map.get("mbrImg"));
 		int result = ms.mbrUpdate(map);
-		
+		System.out.println(map.get("mbrAddr"));
 		if(result == 1) {
 			System.out.println("업데이트 완료!");
 			return "redirect:/";

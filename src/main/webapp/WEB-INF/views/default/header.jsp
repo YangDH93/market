@@ -45,6 +45,7 @@
 							<c:otherwise>
 								<a class="hvNQEV" href="${contextPath}/member/pwdChkForm?mbrId=${loginUser }">회원정보 수정</a>
 								<a class="hvNQEV" href="${contextPath}/member/logout">로그아웃</a>
+								<a class="hvNQEV" href="${contextPath}/customer/csList">고객센터</a>
 							</c:otherwise>
 						</c:choose>
 					</div>

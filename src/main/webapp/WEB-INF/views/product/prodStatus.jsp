@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -81,8 +82,16 @@
 			<!-- DB에서 반복문으로 데이터 list로 가져올때 사용 -->
 			<c:forEach var="psdto" items="${psList }">
 				<tr>
-					<td>사진</td> <td>판매상태${psdto.prodStat }</td> <td>상품명${psdto.prodId }</td>
-					<td>가격${psdto.price}</td> <td>찜/댓글</td> <td>최근수정일${psdto.prodDate }</td>
+					<td></td> 
+					<td>${psdto.prodStat }</td>
+					
+					<td>
+						<a href="${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}">${psdto.prodTitle }</a>
+					</td>
+					
+					<td>${psdto.price}</td> 
+					<td></td> 
+					<td>${psdto.prodDate }</td>
 					<td>
 						<button>UP</button><br>
 						<button>수정</button>

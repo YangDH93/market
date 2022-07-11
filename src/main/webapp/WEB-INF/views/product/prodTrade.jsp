@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="prod" value="${prod }"/>
+<c:set var="time" value="${timer }"/>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +20,28 @@
 }
 
 </style>
+<script type="text/javascript">
+//등록된 상품의 시간
+var days = ${time.days}
+var hour = ${time.hour}
+var min = ${time.min}
+var sec = ${time.sec}
+
+	console.log(days)
+	console.log(hour)
+	console.log(min)
+	console.log(sec)
+	
+function deleteChk(){
+    if (!confirm("정말 삭제 하시겠습니까?")) {
+    	alert("삭제를 취소하셨습니다.");
+        location.href="#";
+    } else {
+    	alert("삭제가 완료되었습니다. 상품목록 페이지로 돌아갑니다.");
+    	location.href="prodDelete?prodId="+${prod.prodId};   	
+    }
+}	
+</script>
 </head>
 <body>
 <section class="eeRGVw">
@@ -56,10 +82,10 @@
 	    					border-bottom: 1px solid rgb(238, 238, 238);">
 					<div style="font-size: 24px;margin-bottom: 25px;
 								font-weight: 600;line-height: 1.4;">
-					글제목
+					글제목${prod.prodTitle }
 					</div>
 					<div style="font-size: 40px; font-weight: 500;">
-					가격
+					가격${prod.price }
 						<span style="font-size: 28px;font-weight: 400;
 									margin-left: 5px;">
 						원</span>
@@ -80,21 +106,31 @@
 						<img style="margin-right: 5px;" width="21" height="13" 
 							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAaCAYAAADMp76xAAAAAXNSR0IArs4c6QAABAdJREFUWAm9mFtIFFEYx9tZ11UW1tLoaoGEPShqq3ahgogyIgnqQXqIgih6qKgEH4JIqCgIIoowIrSn6i0irOxCQdAN7wb2IiSlSUZuGJGyumu/b9lZZo8zs7ObdeBwvvNd/uc/53zznWFcs9Js7e3tczVNWzs1NbUKiErGfJfLNYcxVyCRg8g/GAeZdiC3eTyeN2VlZd/Enm5zpRLY09Pjm5yc3EnMbghUMbpTiYd8BP8X9Dt+v/9uYWHhz1TixdcR4YGBgezh4eFD+J+gz5XAGWijYFzKycm5nArxpIQ5+hqAr9AXzgBJM4ggqXWyvLz8uplR1VkShmgOR3iVo9+jBv2LOWs9pu+H+JAdvilhyC4j6AldxqSNhT7g1Oh2u59mZWV9loDx8fGl4XB4C+IBHrpIdA7ad7C2V1RUvLPynUa4u7s7wIvVQsB8qyCDfgK5jgUaWChs0MdFyLo7OjoOo7hI98QN1sJvsHaB+cDMJYFwV1fXCnblJY5+M2dFN8GOVgcCgWeK3nQKdhXYDzE6IR2GdA2k76lgmq7o7OxcBGAzcydkJazOKVlxjvnWieyguTmZ25y21PiEFt3h/v7+rJGRkddYyhOsFhOe/gMvR6lVGliEzZL0YGPep5DTw16vd2VJScmAjhnd4WAweBaFI7KxwEaVLCQyIHOafB2ULrLo9IVkjMU0GnVJ5PmhUOim0UejIqwGuNaoTCZLNVB9yNFTkUikHqzF0kUWnepnFqv6GOdgbWYDDuo6jaduYOLWFU5Gvgk+qX4A73ei08ue6ms3B/ui3LbiozExLUd2AOxSQnWx850h2+f8/PyQYGksfoRxMhVguRRUf06qyYnOLFaNM87BjdAP0KMbq1Fu2phcMDolk2M3WIIbOGf5JjgD1hfpIosuwYmJWazqo8yvGG++6NH29vZmjo2NPcdxveJsOoXQ/yprXcKpsrLyt04kWtaKi4tDPp9vB0T6dIPdSN4Xxa5bO7dpNomR2GkGEwVchjIyMrYbyYpbwstDGSqkHL0CdJ4Jhqr6l1ezfNhvhGynumj8ahYDOSc7vI7+UeZJmke+DajjR3lAy7IoNvERX/CcfEd8pRBsMCMrfBJ2WCdITi8gpx8xD+g6u1FyGvtff15KSlLjt5aWllpumClhIdfX1+cdHR09D0gtu2TpZ/cgKdqasrOzj/M+/bKLS0qEb4JN5PU1QJbbAaVrY0M+UQKPkY73nWAkJSwgkoe84fsQ6+lLRDcD7Stkz3FV35Aq5RTPEWEdLFavt7HQXnTVPEimbnM4ThDbQtytvLy85oKCgnGHcXG3lAjHoxAogbNJlTWIq6VDQn6k5DLmih+y/EgJMsqPlFaOvZW3/y0v1A+xp9v+ADhPuomDsZuZAAAAAElFTkSuQmCC">
 						<div>
-						조회수
+						조회수 ${prod.hit }
 						</div>
 					</div>
 					<div style="display: flex; align-items: center;">
 						<img style="margin-right: 5px;" width="16" height="16" 
 							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAuRJREFUWAnFV01rE1EUzUwSMWATENpFRNyIi0YI+eiui4LoogWFgkvBH6Dgpip+dONKgivdC3XlpkWELkTQRVw1H4QwWQmhLrKwq1IwxHyM54zvDck4mc6bTO3AY97MO/eeM/e9d+c+LeLzqlQq8Wg0ujIajW6ZprkIs7SmaRfQN9HvsOG5pev6h+Fw+LVYLPb9uNaOAzUajYXBYPAcPHeATR2HF+OHEPMuFou9yGazP71spgowDONMt9t9BOMNtDkvJx5jRxgrJRKJl5lM5rcbzlVArVabR6i3YbDsZhTgXRlTs57P5w+ctv8IAPkiwr2LdskJnuUZU7KPtgoRrXE/EwL45SDeC5tcEgoRS+OR0OUg55xhPyly8tA3OcgleW0BYsEpzTnm9THaknTm874suCy4JYBbDU9c7UoXvugzwllRMvoL3hCcEUsA9zneB91qAfgjc4IzojPD4UuYZP7rRU5y60yvYPab4cIUmSK3ztweplcVX+TWEYqMilGYWHJzEabDdKroK60jO52aAHLbiUhReShwTIHJNcBiYqYLX/IxoIMOIxBYANLweRIXCoWb2FJrEPJdUUiHa8BQNLLh2EY7+IM+a7fbZ3O53G4ymbwKf08B+GWDPDrAtrR6vX4dNdwnD5yfoR9w9hCReE9ws9m82Ov1XqF728sYUbuhMR0CxEoljGz4DdPyQP6gqtXqXayxt1NEHOL9vFWQAPgawHtTgEqvEQm4Mrcg5An6VxDdL24OMPYGEbtvCeCvsd/vcwGF+UdkZRyFmHMuAo7i8fhlVsxWHhClc8kFOMur1BRy+izJct1ORCydMVCehdGnbVlwWXBbAOt2zNs6wrbv05EyjL7JMX5GsAXQG6tVgFZPQgR90vd4RUzOCQFCRAtAFpphTkeZPkE+cSZwFSBEHGCerqG/icbjVdCLtpv05fxy6dDahvLB7X5qh1OnGMfxnFUUj+dWLYHtJo/nBhaZ0vH8D6NELRJSWvu9AAAAAElFTkSuQmCC">
 						<div>
-						시간
+							<c:choose>
+								<c:when test="${time.hour == 0 && time.min == 0}">
+									${time.sec % 60 }초 전
+								</c:when>
+								<c:when test="${time.hour == 0 }">
+									${time.min % 60 }분 전
+								</c:when>
+								<c:otherwise>
+									${time.hour }시간 ${time.min % 60}분 전
+								</c:otherwise>
+							</c:choose>
 						</div>
 					</div>
 				</div>
 				<!-- 거래지역 -->
 				<div style="display: flex">
 					<div style="width: 90px; color: rgb(153, 153, 153);">
-					거래지역
+					거래지역${prod.trdLocation }
 					</div>
 					<div style="display: flex; align-items: center;">
 						<img style="padding-right: 10px;" width="12" height="15"
@@ -105,13 +141,19 @@
 				<!-- 상세정보 글 -->
 				<h4 style="border-bottom: 1px solid rgb(238, 238, 238);
 							padding-bottom: 30px;">상품정보</h4>
-				글내용~~
+				글내용~~${prod.prodContent }
 			</div>
 		</div>
 		
 		<div><!-- 하단 -->
 			<div style="padding-top: 30px">
-				사진목록
+				<div align="right">
+					<input type="button" value="수정"
+					onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">
+					<input type="button" value="삭제"
+					onclick="deleteChk()">
+				</div>
+				사진목록<br>
 			</div>
 		</div>
 	</div>
