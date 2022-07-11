@@ -1,11 +1,15 @@
 package com.market.root.product.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.market.root.mybatis.categories.CategoriesMapper;
 import com.market.root.mybatis.product.ProductMapper;
+import com.market.root.product.dto.CategoriesDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -44,7 +48,7 @@ public class ProductServiceImpl implements ProductService{
 	public void search(String keyword, Model model) {
 		model.addAttribute("keyList",mapper.search(keyword));
 	}
-	//카테고리 불러오기
+	//카테고리 대분류 불러오기
 	@Override
 	public void cateAllList(Model model) {
 		try {
@@ -53,6 +57,19 @@ public class ProductServiceImpl implements ProductService{
 			e.printStackTrace();
 		}
 	}
+	//카테고리 하위분류 불러오기
+	@Override
+	public ArrayList<CategoriesDTO> cateList(String sltCode) {
+		ArrayList<CategoriesDTO> arr = new ArrayList<CategoriesDTO>();
+		try {
+			arr = cMapper.cateList(sltCode);
+		} catch (Exception e) {
+			
+		}
+		return arr;
+	}
+	
+	
 	
 	
 }

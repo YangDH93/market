@@ -10,9 +10,15 @@
 	<result property="cateParent" column="cate_parent"/>
 </resultMap>
 
-<!-- 카테고리 전체 목록 불러오기 -->
+<!-- 카테고리 대분류 목록 불러오기 -->
 <select id="cateAllList" resultMap="categories">
-	select * from categories
+	select * from categories where tier=1
 </select>
+
+<!-- 카테고리 하위 목록 불러오기 -->
+<select id="cateList" resultMap="categories">
+	select * from categories where cate_parent = #{sltCode}
+</select>
+
 
 </mapper>

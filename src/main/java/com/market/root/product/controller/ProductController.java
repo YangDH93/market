@@ -1,5 +1,7 @@
 package com.market.root.product.controller;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.market.root.product.dto.CategoriesDTO;
 import com.market.root.product.service.ProductService;
 
 @Controller
@@ -24,9 +28,7 @@ public class ProductController {
 	//상품등록
 	@GetMapping("prodNew")
 	public String prodNew(Model model) {
-		
 		ps.cateAllList(model);
-		
 		return "product/prodNew";
 	}
 	//검색상품 보여줄 페이지
@@ -34,6 +36,16 @@ public class ProductController {
 	public String products() {
 		return "product/products";
 	}
+	@ResponseBody //값 리턴
+	@PostMapping(value = "getList",
+	produces = "application/json; charset=utf-8")
+	public ArrayList<CategoriesDTO> getList(String sltCode) {
+		ArrayList<CategoriesDTO> arr = ps.cateList(sltCode);
+		return arr;
+	}
+	
+	
+	
 	//상품등록(가입)
 	@PostMapping("prodRegister")
 	public String prodRegister() {
