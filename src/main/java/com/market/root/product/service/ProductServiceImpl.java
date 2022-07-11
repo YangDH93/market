@@ -1,5 +1,6 @@
 package com.market.root.product.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.market.root.mybatis.categories.CategoriesMapper;
 import com.market.root.mybatis.product.ProductMapper;
+import com.market.root.product.dto.CategoriesDTO;
 import com.market.root.product.dto.ProductDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
 
 	@Autowired ProductMapper mapper;
-
+	@Autowired CategoriesMapper cMapper; //카테고리 mapper
+	
 	//상품관리 게시판
 	public void psAllView(Model model, int num) {
 
@@ -42,7 +46,7 @@ public class ProductServiceImpl implements ProductService{
 			e.printStackTrace();
 		}
 	}
-
+	
 	//상품 검색 기능
 	public void prodSearch(String keyword, Model model) {
 		try {
@@ -115,6 +119,44 @@ public class ProductServiceImpl implements ProductService{
 		}
 	}
 	
+	//카테고리 대분류 불러오기
+	@Override
+	public void cateAllList(Model model) {
+		try {
+			model.addAttribute("cateList", cMapper.cateAllList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//카테고리 하위분류 불러오기
+	@Override
+	public ArrayList<CategoriesDTO> cateList(String sltCode) {
+		ArrayList<CategoriesDTO> arr = new ArrayList<CategoriesDTO>();
+		try {
+			arr = cMapper.cateList(sltCode);
+		} catch (Exception e) {
+			
+		}
+		return arr;
+	}
+	
+	@Override
+	public int prodRegister(ProductDTO dto , String orgImg,String uploadPath,String UUID) {
+		int result = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("orgImg", orgImg);
+		map.put("uploadPath",uploadPath);
+		map.put("UUID",UUID);
+		try {
+			// 결과 1 또는 0 반환
+			result = mapper.prodRegister(dto);
+			result = mapper.prodImgRegister(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return result;
+	}
 }
 
 

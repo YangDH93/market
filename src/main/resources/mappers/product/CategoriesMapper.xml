@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.root.mybatis.categories.CategoriesMapper">
+<resultMap type="com.market.root.product.dto.CategoriesDTO" id="categories">
+	<id property="cateCode" column="cate_code"/>
+	<result property="tier" column="tier"/>
+	<result property="cateName" column="cate_name"/>
+	<result property="cateParent" column="cate_parent"/>
+</resultMap>
+
+<!-- 카테고리 대분류 목록 불러오기 -->
+<select id="cateAllList" resultMap="categories">
+	select * from categories where tier=1
+</select>
+
+<!-- 카테고리 하위 목록 불러오기 -->
+<select id="cateList" resultMap="categories">
+	select * from categories where cate_parent = #{sltCode}
+</select>
+
+
+</mapper>

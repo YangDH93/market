@@ -11,7 +11,6 @@
 	<result property="csImg" column="cs_img"/>
 	<result property="csContent" column="cs_content"/>
 	<result property="date" column="cs_date"/>
-	<result property="mbrEmail" column="mbr_email"/>
 	<result property="replyStat" column="reply_stat"/>
 </resultMap>
 

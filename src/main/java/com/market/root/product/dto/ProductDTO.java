@@ -8,11 +8,11 @@ public class ProductDTO {
 	private String prodContent;
 	private String price;
 	private String trdLocation; // 주소 : nan이 아닐경우 mbr_addr에서 값 가져옴, nan의 경우 페이지에서 입력
-	private String cateCode;
 	
 	private int hit; // default 0, 1000 넘으면 안들어가지게 한다. 
 	private int prodStat; // 판매중 상태 : default 0, ( 0 판매중 , 1 예약중 , 2 판매완료 )
 	private long prodDate; // 등록일
+	private String cateCode; // 물품 카테고리 고유번호
 	
 	public String getCateCode() {
 		return cateCode;
@@ -75,7 +75,4 @@ public class ProductDTO {
 		this.prodDate = prodDate;
 	}
 	
-	
-	
-
 }
