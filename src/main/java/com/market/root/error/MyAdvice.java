@@ -19,7 +19,6 @@ public class MyAdvice {
 	  model.addAttribute("msg", "<script>alert('잠시 후 다시 시도해주세요')</script>"); return
 	  "error/error"; }
 	
-	
 	  @ExceptionHandler(NoHandlerFoundException.class)
 	  @ResponseStatus(value = HttpStatus.NOT_FOUND) public String
 	  handle404(NoHandlerFoundException ex, Model model) { logger.error("404요청 발생",

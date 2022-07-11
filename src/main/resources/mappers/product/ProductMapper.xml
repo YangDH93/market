@@ -11,11 +11,12 @@
 	<result property="hit" column="hit"/>
 	<result property="trdLocation" column="trd_location"/>
 	<result property="prodContent" column="prod_content"/>
+	<result property="cateCode" column="catecode"/>
 	<result property="prodDate" column="prod_date"/>
 	<result property="prodStat" column="prod_stat"/>
 	<result property="cateCode" column="cate_code"/>
 </resultMap>
-
+<!-- prod_info 페이징 기능/목록 보기 -->
 <!-- 게시글 개수 불러오기 -->
 <select id="psAllView" resultMap="product">
 	select B.* from(select rownum rn, A.* from
@@ -23,23 +24,41 @@
 	where rn between #{s} and #{e}
 </select>
 
-<!-- 게시글 모든 행 불러오기 -->
+<!-- prod_info 전체 행 호출 -->
 <select id="selectBoardCount" resultType="Integer">
 	select count(*) from prod_info
 </select>
 
-<!-- 상품 검색항목 모두 불러오기 -->
-<select id="search" resultMap="product">
-	select * from prod_info where prod_title = #{keyword}
+<!-- 상품 제목 검색 -->
+<select id="prodSearch" resultMap="product">
+     select * from prod_info where prod_title like '%'||#{keyword}||'%'
 </select>
 
 <!-- 물품 등록 -->
-<!-- insert all into / 
-into image (prod_id, tum_img, org_img) values(prod_id_seq.currval,#{tumImg},#{orgImg}) select * from dual -->
 <insert id="prodRegister">
-	insert into prod_info (mbr_id, prod_id, prod_title,cate_code,price,trd_location,prod_content)
-	values(#{mbrId}, prod_id_seq.nextval,#{prodTitle},#{cateCode},#{price},#{trdLocation},#{prodContent}) 
+	insert into prod_info (mbr_id, prod_id, prod_title,cate_code,price,trd_location,prod_content,prod_date)
+	values(#{mbrId}, prod_id_seq.nextval,#{prodTitle},#{cateCode},#{price},#{trdLocation},#{prodContent},#{prodDate}) 
 </insert>
+
+<!-- 한개의 상품 정보 불러오기 + 시간설정-->
+<select id="oneProduct" resultMap="product">
+	select * from prod_info where prod_id=#{prodId}
+</select>
+
+<!-- 한개의 상품 정보만을 불러옴 / 시간처리 x-->
+<select id="prodStatus" resultMap="product">
+	select * from prod_info where prod_id=#{prodId}
+</select>
+
+<!-- 조회수 증가 -->
+<update id="upHit">
+	update prod_info set hit=hit+1 where prod_id=#{prodId}
+</update>
+
+<!-- 상품 삭제 -->
+<delete id="prodDelete">
+	delete prod_info where prod_id=#{prodId}
+</delete>
 
 <!-- 사진 등록 -->
 <insert id="prodImgRegister">

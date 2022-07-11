@@ -7,13 +7,27 @@ public class MemberDTO {
 	private String mbrPw;
 	private String mbrEmail;
 	private String mbrName;
+	private String mbrAddr;
+	private String mbrTel;
+	
 	private int mbrScore;
-	private int mbrLevel;
 	private Date mbrDate;
 	
 	private String sessionId;
 	private Date limitTime;
 	
+	public String getMbrAddr() {
+		return mbrAddr;
+	}
+	public void setMbrAddr(String mbrAddr) {
+		this.mbrAddr = mbrAddr;
+	}
+	public String getMbrTel() {
+		return mbrTel;
+	}
+	public void setMbrTel(String mbrTel) {
+		this.mbrTel = mbrTel;
+	}
 	public String getSessionId() {
 		return sessionId;
 	}
@@ -26,7 +40,6 @@ public class MemberDTO {
 	public void setLimitTime(Date limitTime) {
 		this.limitTime = limitTime;
 	}
-	
 	public String getMbrId() {
 		return mbrId;
 	}
@@ -57,12 +70,6 @@ public class MemberDTO {
 	public void setMbrScore(int mbrScore) {
 		this.mbrScore = mbrScore;
 	}
-	public int getMbrLevel() {
-		return mbrLevel;
-	}
-	public void setMbrLevel(int mbrLevel) {
-		this.mbrLevel = mbrLevel;
-	}
 	public Date getMbrDate() {
 		return mbrDate;
 	}
@@ -78,7 +85,6 @@ public class MemberDTO {
 						+ ", mbrName=" + mbrName
 						+ ", mbrEmail=" + mbrEmail
 						+ ", mbrScore=" + mbrScore
-						+ ", mbrLevel=" + mbrLevel
 						+ ", mbrDate=" + mbrDate
 						+ ", sessionId=" + sessionId
 						+ ", limitTime=" + limitTime

@@ -10,7 +10,12 @@ public interface ProductMapper {
 			@Param("s")int start,
 			@Param("e")int end);
 	public int selectBoardCount();
-	public List<ProductDTO> search(String keyword);
 	public int prodRegister(ProductDTO dto);
 	public int prodImgRegister(Map<Object,Object> map);
+	public List<ProductDTO> prodSearch(String keyword);
+	public ProductDTO oneProduct(Map<Object, Object> map);
+	public void upHit(Map<Object, Object> map);
+	public int prodDelete(int prodId);
+	public int prodUpdate(int prodId);
+	public ProductDTO prodStatus(int prodId);
 }

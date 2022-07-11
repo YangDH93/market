@@ -17,12 +17,34 @@
 <!-- 고객센터 문의글 보기 / 페이징 처리-->
 <select id="csAllView" resultMap="customer">
 	select B.* from(select rownum rn, A.* from
-	(select * from customer_service order by cs_num desc)A)B where rn between #{s} and #{e}
+	(select * from customer_service order by cs_num desc)A)B where (rn between #{s} and #{e})
+	and (mbr_id = #{mbrId}) 
 </select>
+
 <!-- 문의글의 총 개수(행 개수)를 받아옴 -->
 <select id="selectBoardCount" resultType="Integer">
 	select count(*) from customer_service
 </select>
+
+<!-- 문의글 한 개 가져오기 - 댓글 다는곳 -->
+<select id="getCsContent" resultMap="customer">
+	select * from customer_service where cs_num=#{csNum}
+</select>
+
+<!-- 문의글 작성 -->
+<insert id="csWrite">
+	insert into customer_service(cs_num,mbr_id,cs_title,cs_content,cs_img) values(cs_num_seq.nextval,#{mbrId},#{csTitle},#{csContent},#{csImg}) 
+</insert>
+
+<!-- 문의글 업데이트 -->
+<insert id="csUpdate">
+	update customer_service set cs_title=#{csTitle}, cs_img=#{csImg}, cs_content=#{csContent} where cs_num = #{csNum}
+</insert>
+
+<!-- 문의글 제거  -->
+<delete id="csContentDel">
+	delete customer_service where cs_num=#{csNum}
+</delete>
 
 
 

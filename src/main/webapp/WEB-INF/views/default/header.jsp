@@ -47,12 +47,13 @@ a:hover {
 					<div class="jYMzIJ">
 						<c:choose>
 							<c:when test="${loginUser == null }">
-								<a class="hvNQEV" href="${contextPath}/member/login">로그인/회원가입</a>
-								<a class="hvNQEV" href="${contextPath}/member/login">내상점</a>
+								<a class="hvNQEV" href="${contextPath}/member/register">회원가입</a>
+								<a class="hvNQEV" href="${contextPath}/member/login">로그인</a>
 							</c:when>
 							<c:otherwise>
+								<a class="hvNQEV" href="${contextPath}/member/pwdChkForm?mbrId=${loginUser }">회원정보 수정</a>
 								<a class="hvNQEV" href="${contextPath}/member/logout">로그아웃</a>
-								<a class="hvNQEV" href="#">내상점</a>
+								<a class="hvNQEV" href="${contextPath}/customer/csList">고객센터</a>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -67,9 +68,10 @@ a:hover {
 						</a>
 						<div class="keyjxL">
 							<div class="voMyM">
-								<form action="${contextPath}/product/prodSearch" method="get"> <!-- id값 일단 삭제함 id = fo -->
-		                     	   <input type="text" name="keyword" placeholder="제목, 상품이름 입력" class="cLfdog" size="50">
-		                        </form>
+								<form action="${contextPath}/product/prodSearch">
+									<input type="text" placeholder="제목, 상품이름 입력"
+									name="keyword" class="cLfdog" size="50">
+								</form>
 							</div>
 							<div class="iOzCaT">
 								<div class="letkud">
@@ -85,7 +87,7 @@ a:hover {
 								 width="23" height="24" alt="오리톡버튼 이미지">
 								오리톡
 							</a>
-							<a class="elwjyI" href="#">
+							<a class="elwjyI" href="${contextPath }/product/prodStatus">
 							<img src="data:image/png;base64,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" 
 							width="23" height="24" alt="내상점버튼 이미지">
 							내상점
