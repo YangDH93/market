@@ -29,29 +29,29 @@
 			<!-- 테이블 몸통(내용 리스트로 가져옴) -->
 			<tbody style="border-bottom: 1px solid black">
 				<!-- DB에서 반복문으로 데이터 list로 가져올때 사용 -->
-				<c:forEach var="csdto" items="${csList }">
 					<c:choose>
-					<c:when test="${csList.size() != 0}">
-					<tr>
-						<td align="center">${csdto.mbrId }</td> 
-						<td align="center">
-							<a href="${contextPath }/customer/csView?csNum=${csdto.csNum}">
-								${csdto.csTitle}
-							</a>
-						</td>
-						<td align="center">${csdto.date}</td> 
-						<td align="center">${csdto.replyStat}</td>
-					</tr>
-					</c:when>
-					<c:otherwise>
+					<c:when test="${csList.size() == 0}">
 						<tr>
 							<td colspan="4" align="center">
 								<b>작성된 글이 존재하지 않습니다.</b>
 							</td>
 						</tr>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="csdto" items="${csList }">
+							<tr>
+								<td align="center">${csdto.mbrId }</td> 
+								<td align="center">
+									<a href="${contextPath }/customer/csView?csNum=${csdto.csNum}">
+										${csdto.csTitle}
+									</a>
+								</td>
+								<td align="center">${csdto.date}</td> 
+								<td align="center">${csdto.replyStat}</td>
+							</tr>
+						</c:forEach>
 					</c:otherwise>
 					</c:choose>
-				</c:forEach>
 			</tbody>
 			<tr>
 				<td colspan="4" align="right">

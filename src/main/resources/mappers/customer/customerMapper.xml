@@ -19,7 +19,9 @@
 <select id="csAllView" resultMap="customer">
 	select B.* from(select rownum rn, A.* from
 	(select * from customer_service order by cs_num desc)A)B where (rn between #{s} and #{e})
-	and (mbr_id = #{mbrId}) 
+	<if test="mbrId != 'admin'">
+		and (mbr_id = #{mbrId})
+	</if> 
 </select>
 
 <!-- 문의글의 총 개수(행 개수)를 받아옴 -->
