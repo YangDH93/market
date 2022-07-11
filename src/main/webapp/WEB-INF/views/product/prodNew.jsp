@@ -121,12 +121,23 @@ function showUploadImage(uploadResultArr){
 		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
 		str += "<div style='margin: 5px;'>"
 		str += "<img src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='150px' height='150px' >";
-		str += "<div class='imgDeeteBtn'>x</div>";
 		str += "</div>"; 
 		
 		uploadResult.append(str);
 	}
     
+}
+
+function resetImg() {
+	count = 0;
+	uuidList = "";
+	orgImg = "";
+	/* 사진 출력 리셋부분 */
+	$("#uploadResult").empty();
+	/* UUID 리셋부분 */
+	$('#UUID').empty();
+	/* orgImg 리셋부분 */
+	$('#orgImg').empty();
 }
 
 /* 파일 유효성 테스트 */
@@ -354,6 +365,7 @@ function buttonChk(){
             <div>
             	<div>
                 	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple>
+                	<input type="button" value="사진 리셋" onclick="resetImg()">
                 </div>
                 <div id="uploadResult" class="flex" style="width: 600; flex-flow: wrap;">
 					<!-- <img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음"> -->

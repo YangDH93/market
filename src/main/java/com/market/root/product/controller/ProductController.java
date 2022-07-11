@@ -83,6 +83,8 @@ public class ProductController {
 		System.out.println("등록 실패");
 		return "redirect:prodNew";
 	}
+	
+	@GetMapping
 }
 
 

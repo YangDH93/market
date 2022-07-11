@@ -29,13 +29,13 @@
 								ㅇㅇ
 								<img src="${contextPath}/product/display?fileName=test1.PNG">
 								ㅇㅇㅇ
-								<img src="${contextPath}/display?fileName=test2.PNG">
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
 								ㅇㅇㅇ
-								<img src="${contextPath}/display?fileName=test3.jpg">
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
 								ㅇㅇㅇ
-								<img src="${contextPath}/display?fileName=test4.PNG">
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
 								ㅇㅇㅇ
-								<img src="${contextPath}/display?fileName=test5.PNG">
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
 								ㅇㅇ
 							</div>
 						</div>
