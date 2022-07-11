@@ -25,8 +25,4 @@ public class ErrorController {
 	public String method(Model model) {
 		return "home";
 	}
-	@GetMapping("test")
-	public String test() {
-		return "test";
-	}
 }

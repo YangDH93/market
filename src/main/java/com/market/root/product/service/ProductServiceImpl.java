@@ -1,15 +1,17 @@
 package com.market.root.product.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.market.root.mybatis.categories.CategoriesMapper;
 import com.market.root.mybatis.product.ProductMapper;
 import com.market.root.product.dto.CategoriesDTO;
+import com.market.root.product.dto.ProductDTO;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -44,10 +46,12 @@ public class ProductServiceImpl implements ProductService{
 			// TODO: handle exception
 		}
 	}
+	
 	//검색항목 불러오기
 	public void search(String keyword, Model model) {
 		model.addAttribute("keyList",mapper.search(keyword));
 	}
+	
 	//카테고리 대분류 불러오기
 	@Override
 	public void cateAllList(Model model) {
@@ -57,6 +61,7 @@ public class ProductServiceImpl implements ProductService{
 			e.printStackTrace();
 		}
 	}
+	
 	//카테고리 하위분류 불러오기
 	@Override
 	public ArrayList<CategoriesDTO> cateList(String sltCode) {
@@ -69,7 +74,20 @@ public class ProductServiceImpl implements ProductService{
 		return arr;
 	}
 	
-	
-	
-	
+	@Override
+	public int prodRegister(ProductDTO dto , String orgImg,String uploadPath,String UUID) {
+		int result = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("orgImg", orgImg);
+		map.put("uploadPath",uploadPath);
+		map.put("UUID",UUID);
+		try {
+			// 결과 1 또는 0 반환
+			result = mapper.prodRegister(dto);
+			result = mapper.prodImgRegister(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return result;
+	}
 }

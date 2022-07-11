@@ -13,28 +13,14 @@
 <meta charset="UTF-8">
 <!-- 우편번호 및 주소 -->
 <script>
-function daumPost() {
-	new daum.Postcode({
-		oncomplete : function(data) {
-			console.log(data.userSelectedType)
-			console.log(data.roadAddress)
-			console.log(data.jibunAddress)
-			console.log(data.zonecode)
-			var addr = ""
-			if (data.userSelectedType == 'R') {
-				addr = data.roadAddress
-			} else {
-				addr = data.jibunAddress
-			}
-			document.getElementById("addr1").value = data.zonecode
-			$("#addr2").val(addr)
-		}
-	}).open();
-}
-function register() {
-	var addr1 = $("#addr1").val()
-	var addr2 = $("#addr2").val()
-	$("#addr1").val(addr1 + "/" + addr2)
+function daumPost(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+         var trdLocation=data.jibunAddress
+         document.getElementById("trdLocation").value=data.zonecode
+           $("#trdLocation").val( trdLocation )
+         } 
+    }).open();
 }
 
 $(document).ready(function() {
@@ -48,48 +34,103 @@ $(document).ready(function() {
 	});
 });
 
+let uuidList = "";
+let orgImg = "";
+var count = 0; 
 /* 파일 추가  */
-$(document).ready(function() {
-	$("#fileItem").change(function(e) {
-
-		let formData = new FormData();
-		let fileInput = $('input[name="uploadFile"]');
+$(document).ready(function(){
+	 $("#fileItem").change(function(e){
+		
+		let formData = new FormData(); 
+		let fileInput = $('input[name="uploadImg"]');
 		let fileList = fileInput[0].files;
 		let fileObj = fileList[0];
 
-		if (!fileCheck(fileObj.name, fileObj.size)) {
-			fileList = null;
-			return false;
-		}
-
-		for (let i = 0; i < fileList.length; i++) {
-			formData.append("uploadFile", fileList[i]);
+		
+		for(let i = 0; i < fileList.length; i++){
+			formData.append("uploadImg", fileList[i]);
 			let fileObj = fileList[i];
-			console.log(fileObj)
 			let reader = new FileReader();
-			reader.readAsDataURL(fileObj);//파일의 정보를 토대로 파일 읽고
-			reader.onload = function(e) { //파일 로드한 값을 표현
-				// e : 이벤트 안에 result값이 파일의 정보를 가지고 있다
-				$("#preview").attr('src', e.target.result);
-			}
-		}
-
-		/* formData.append("uploadFile", fileObj); */
-
+			reader.readAsDataURL(fileObj);
+		 }
+		
+		// 이미지 파일 저장 및 출력
 		$.ajax({
-			url : 'uploadAjaxAction',
-			processData : false,
-			contentType : false,
-			data : formData,
-			type : 'POST',
-			dataType : 'json'
-		});
-
+			url: 'uploadAjaxAction',
+	    	processData : false,
+	    	contentType : false,
+	    	data : formData,
+	    	type : 'POST',
+	    	dataType : 'json',
+	    	success : function(result){
+	    		$('#uploadPath').val(result[0].uploadPath);
+	    		
+	    		if(count+result.length > 10){
+	    			alert("이미지는 최대 10개까지 등록 가능합니다.\n\n 현재 이미지 갯수 : " + count);
+	    			return false;
+	    		}
+	    		for(let i=0;i<result.length;i++){
+	    			console.log(count);
+	    			
+	    			if(count >= 10){
+	    				alert("이미지는 최대 10개까지 등록 가능합니다.");
+	    				break;
+	    			}else{
+	    			
+	    			uuidList += result[i].uuid;
+	    			orgImg += result[i].orgImg;
+	    			if(i != result.lenght-1){
+		    			uuidList += "/";
+		    			orgImg += "/";
+	    			}
+		    		count++;
+	    			}
+	    			
+	    		}
+	    			    		
+	    		/* 이미지 출력 부분 */
+	    		showUploadImage(result);
+	    		
+	    		/* UUID 추가 부분 */
+	    		$('#UUID').val(uuidList);
+	    		console.log(uuidList);
+	    		
+	    		/* orgImg 추가 부분 */
+	    		$('#orgImg').val(orgImg);
+	    		console.log(orgImg);
+	    		
+	    		
+	    	},
+	    	error : function(result){
+	    		alert("해당 종류의 파일은 업로드할 수 없습니다.");
+	    	}
+		});	
 	});
 });
 
+/* 이미지 출력 */
+function showUploadImage(uploadResultArr){
+	
+	/* 전달받은 데이터 검증 */
+	if(!uploadResultArr || uploadResultArr.length == 0){return}
+	
+	let uploadResult = $("#uploadResult");
+	for(let i=0;i<uploadResultArr.length;i++){
+		let obj = uploadResultArr[i];
+		let str = "";
+		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
+		str += "<div style='margin: 5px;'>"
+		str += "<img src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='150px' height='150px' >";
+		str += "<div class='imgDeeteBtn'>x</div>";
+		str += "</div>"; 
+		
+		uploadResult.append(str);
+	}
+    
+}
+
 /* 파일 유효성 테스트 */
-let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG)$");
+let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG|JPEG|jpeg)$");
 let maxSize = 1048576; //1MB	
 
 function fileCheck(fileName, fileSize) {
@@ -205,32 +246,29 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
 
 
 /* 필수항목 체크 */
-function buttonChk() {
-	if ($('#fileItem').val() == '') {
+function buttonChk(){
+	if($('#fileItem').val() == ''){
 		$("#fileItem").focus();
 		alert('이미지는 필수항목 입니다.');
-	} else if ($('#prodTitle').val() == '') {
+	}else if($('#prodTitle').val() == ''){
 		$("#prodTitle").focus();
 		alert('제목은 필수항목 입니다.');
-	} else if ($('#addr1').val() == '') {
-		$("#addr1").focus();
-		alert('우편번호는 필수항목 입니다');
-	} else if ($('#addr2').val() == '') {
-		$("#addr2").focus();
-		alert('도로명주소,지번주소는 필수항목 입니다');
-	} else if ($('#price').val() == '') {
+	}else if($('#trdLocation').val() == ''){
+		$("#trdLocation").focus();
+		alert('주소는 필수항목 입니다');
+	}else if($('#price').val() == ''){
 		$("#price").focus();
 		alert('가격은 필수항목 입니다.');
-	} else if ($('#cateCode').val() == '') {
+	}else if($('#cateCode').val() == ''){
 		$("#cateCode").focus();
 		alert('카테고리는 필수항목 입니다');
-	} else if ($('#prodContent').val() == '') {
+	}else if($('#prodContent').val() == ''){
 		$("#prodContent").focus();
 		alert('상품은 설명은 필수항목 입니다');
-	} else {
+	}else{
 		frm.submit();
 	}
-	}
+}
 </script>
 
 <style type="text/css">
@@ -299,9 +337,9 @@ function buttonChk() {
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
-
    <form id="frm" action="${contextPath }/product/prodRegister" method="post">
       <section class="eeRGVw">
+   	  	 <input name="mbrId" value="${loginUser}" style="display: none;">
          <div>
                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">기본 정보
                <span class="redmen">*은 필수항목 입니다.</span></h2>
@@ -315,14 +353,16 @@ function buttonChk() {
             </div>
             <div>
             	<div>
-                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadFile' multiple>
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple>
                 </div>
-                <div>
-					<img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음">
-				                    									<!-- 선택 이미지 없음 사진 추가  -->
+                <div id="uploadResult" class="flex" style="width: 600; flex-flow: wrap;">
+					<!-- <img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음"> -->
 				</div>
-            </div>
-         </div>	
+         	</div>	
+         	<input id="orgImg" name='orgImg' style="display: none;">
+         	<input id="uploadPath" name='uploadPath' style="display: none;">
+         	<input id="UUID" name='UUID' style="display: none;">
+         </div>
          <hr>
          <div class="flex">
             <div class="size_30">
@@ -371,13 +411,12 @@ function buttonChk() {
             </div>
             <div class="size2">
             <div>
-                 <div>
+                  <div>
                   <input type="button" value="내 위치"><br>
                   <input type="button" onclick="daumPost()" value="주소 검색"><br>
-                </div>
-                  <input type="text" readonly id="addr1" name="addr" placeholder="우편번호"><br>
-                  <input type="text" readonly id="addr2" placeholder="도로명주소, 지번주소"><br>
-               </div>
+                  </div>
+                  <input type="text" readonly id="trdLocation" name="trdLocation" placeholder="도로명주소, 지번주소"><br>
+                  </div>
             </div>
          </div>
          <hr>
@@ -396,7 +435,7 @@ function buttonChk() {
                	설명<span class="redmen">*</span>
             </div>
             <div>
-            <textarea id="prodContent" maxlength="500" style="resize: none;"
+            <textarea id="prodContent" name="prodContent" maxlength="500" style="resize: none;"
                rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)"></textarea>
             <div id="textcount">(0 / 500)</div>
             </div>
@@ -408,5 +447,6 @@ function buttonChk() {
       </section>
    </form>	
 <%@ include file="../default/footer.jsp" %>
+
 </body>
 </html>

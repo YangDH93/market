@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.root.product.dto.CategoriesDTO;
+import com.market.root.product.dto.ProductDTO;
 import com.market.root.product.service.ProductService;
 
 @Controller
@@ -20,7 +21,7 @@ public class ProductController {
 	
 	@Autowired ProductService ps;
 	
-	//회원등록(정보)
+	//회원등록(정보) // (무시) 지울놈임
 	@GetMapping("memberInfo")
 	public String memberInfo() {
 		return "product/memberInfo";
@@ -36,6 +37,7 @@ public class ProductController {
 	public String products() {
 		return "product/products";
 	}
+	
 	@ResponseBody //값 리턴
 	@PostMapping(value = "getList",
 	produces = "application/json; charset=utf-8")
@@ -44,13 +46,6 @@ public class ProductController {
 		return arr;
 	}
 	
-	
-	
-	//상품등록(가입)
-	@PostMapping("prodRegister")
-	public String prodRegister() {
-		return "redirect:prodNew";
-	}
 	//구매,판매목록, 찜목록, 등 상품관리 기능
 	//페이징 기능 추가
 	@GetMapping("prodStatus")
@@ -61,6 +56,7 @@ public class ProductController {
 		
 		return "product/prodStatus";
 	}
+	
 	//상품 검색기능
 	@GetMapping("prodSearch")
 	public String prodSearch(@RequestParam(value="keyword", required = false) String keyword,
@@ -70,6 +66,22 @@ public class ProductController {
 		ps.search(keyword,model);
 		
 		return "redirect:products";
+	}
+	
+	//상품 추가기능
+	@PostMapping("prodRegister")
+	public String prodRegister(@RequestParam(value="orgImg", required = false) String orgImg,
+								@RequestParam(value="uploadPath", required = false) String uploadPath,
+								@RequestParam(value="UUID", required = false) String UUID,
+								ProductDTO dto){
+		int result = ps.prodRegister(dto,orgImg,uploadPath,UUID);
+		//임시로 전체 상품 보여주는 곳으로 넘김
+		if(result == 1) {
+			return "redirect:products";
+		}
+		// 상품등록 실패시 다시 상품등록으로 이동
+		System.out.println("등록 실패");
+		return "redirect:prodNew";
 	}
 }
 
