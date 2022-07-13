@@ -6,8 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>오!이!마!켓!</title>
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/main.css">
+<title>오!리!마!켓!</title>
 </head>
 <body>
 <%@include file="default/header.jsp" %>
@@ -27,7 +26,17 @@
 					<div class="eIZYPa">
 						<div class="dSYEIN">
 							<div class="cXyXMN">
-								상품 이미지들
+								ㅇㅇ
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
+								ㅇㅇㅇ
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
+								ㅇㅇㅇ
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
+								ㅇㅇㅇ
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
+								ㅇㅇㅇ
+								<img src="${contextPath}/product/display?fileName=test1.PNG">
+								ㅇㅇ
 							</div>
 						</div>
 					</div>

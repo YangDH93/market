@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.root.mybatis.customer.CustomerMapper">
+
+<resultMap type="com.market.root.customer.dto.CustomerDTO" id="customer">
+	<result property="csNum" column="cs_num"/>
+	<result property="mbrId" column="mbr_id"/>
+	<result property="csTitle" column="cs_title"/>
+	<result property="csImg" column="cs_img"/>
+	<result property="csContent" column="cs_content"/>
+	<result property="date" column="cs_date"/>
+	<result property="replyStat" column="reply_stat"/>
+</resultMap>
+
+<!-- 고객센터 문의글 보기 / 페이징 처리-->
+<select id="csAllView" resultMap="customer">
+	select B.* from(select rownum rn, A.* from
+	(select * from customer_service order by cs_num desc)A)B where (rn between #{s} and #{e})
+	<if test="mbrId != 'admin'">
+		and (mbr_id = #{mbrId})
+	</if> 
+</select>
+
+<!-- 문의글의 총 개수(행 개수)를 받아옴 -->
+<select id="selectBoardCount" resultType="Integer">
+	select count(*) from customer_service
+</select>
+
+<!-- 문의글 한 개 가져오기 - 댓글 다는곳 -->
+<select id="getCsContent" resultMap="customer">
+	select * from customer_service where cs_num=#{csNum}
+</select>
+
+<!-- 문의글 작성 -->
+<insert id="csWrite">
+	insert into customer_service(cs_num,mbr_id,cs_title,cs_content,cs_img) values(cs_num_seq.nextval,#{mbrId},#{csTitle},#{csContent},#{csImg}) 
+</insert>
+
+<!-- 문의글 업데이트 -->
+<insert id="csUpdate">
+	update customer_service set cs_title=#{csTitle}, cs_img=#{csImg}, cs_content=#{csContent} where cs_num = #{csNum}
+</insert>
+
+<!-- 문의글 제거  -->
+<delete id="csContentDel">
+	delete customer_service where cs_num=#{csNum}
+</delete>
+
+
+
+
+
+
+
+
+</mapper>

@@ -21,7 +21,27 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	
+	<!-- 자동로그인 -->
+	<beans:bean id="loginInterceptor" class="com.market.root.common.LoginInterceptor"/>
+	
+	
+	<!-- 인터셉터 설정 -->
+	<interceptors>
+	
+		<!-- 자동로그인 작동 페이지 -->
+		<interceptor>
+			<mapping path="/**"/><!-- 모든페이지 적용 -->
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		
+	</interceptors>
+	
+	
 	<context:component-scan base-package="com.market.root" />
+	
+	<!-- 업로드 관련 빈 -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>	
 	
 	
 	

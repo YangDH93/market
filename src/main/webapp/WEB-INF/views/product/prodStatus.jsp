@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +27,9 @@
 }
 </style>
 </head>
+<jsp:include page="../default/header.jsp"/>
 <body>
-<div class="wrap_manage" style="min-width: 1280px; width: 1280px; margin: 0 auto;">
+<div class="wrap_manage" style="min-width: 1024px; width: 1024px; margin: 0 auto;">
 	<!-- 페이지 메뉴바 상품관리/구매판매내역 -->
 	<div class="" style="border-top: 1px solid #e4e8eb;
 						border-bottom: 1px solid #e4e8eb;">
@@ -77,38 +78,27 @@
 		</thead>
 		<!-- 테이블 몸통(내용 리스트로 가져옴) -->
 		<tbody style="border-bottom: 1px solid black">
+		
 			<!-- DB에서 반복문으로 데이터 list로 가져올때 사용 -->
-			<%-- <c:forEach var="" items=""> --%>
+			<c:forEach var="psdto" items="${psList }">
 				<tr>
-					<td>사진</td> <td>판매상태</td> <td>상품명</td>
-					<td>가격</td> <td>찜/댓글</td> <td>최근수정일</td>
+					<td></td> 
+					<td>${psdto.prodStat }</td>
+					
+					<td>
+						<a href="${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}">${psdto.prodTitle }</a>
+					</td>
+					
+					<td>${psdto.price}</td> 
+					<td></td> 
+					<td>${psdto.prodDate }</td>
 					<td>
 						<button>UP</button><br>
 						<button>수정</button>
 					</td>
 				</tr>
 				
-				<!-- 삭제할것 start 확인용 -->
-				<tr>
-					<td>사진</td> <td>판매상태</td> <td>상품명</td>
-					<td>가격</td> <td>찜/댓글</td> <td>최근수정일</td>
-					<td>
-						<button>UP</button><br>
-						<button>수정</button>
-					</td>
-				</tr>
-				<tr>
-					<td>사진</td> <td>판매상태</td> <td>상품명</td>
-					<td>가격</td> <td>찜/댓글</td> <td>최근수정일</td>
-					<td>
-						<button>UP</button><br>
-						<button>수정</button>
-					</td>
-				</tr>
-				<!-- 삭제할것 end 확인용 -->
-				
-				
-			<%-- </c:forEach> --%>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>
@@ -116,12 +106,9 @@
 <!-- 페이징 처리 -->
 <div class="" style="text-align: center; padding: 20px 0; ">
 	<a href="#">&laquo;</a>
-	<a href="#">1</a>
-	<a href="#">2</a>
-	<a href="#">3</a>
-	<a href="#">4</a>
-	<a href="#">5</a>
-	<a href="#">6</a>
+			<c:forEach var="num" begin="1" end="${repeat }">
+				<a href="prodStatus?num=${num }">[${num }]</a>
+			</c:forEach>
 	<a href="#">&raquo;</a>
 </div>
 

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.market.root.mybatis.member.MemberMapper">
+  <resultMap type="com.market.root.member.dto.MemberDTO" id="member">
+	<result property="mbrId" column="mbr_id"/>  
+	<result property="mbrPw" column="mbr_pw"/>  
+	<result property="mbrEmail" column="mbr_email"/>  
+	<result property="mbrName" column="mbr_name"/>  
+	<result property="mbrScore" column="mbr_score"/>  
+	<result property="mbrDate" column="mbr_date"/>
+	<result property="mbrAddr" column="mbr_addr"/>
+	<result property="mbrTel" column="mbr_tel"/>
+	<result property="sessionId" column="session_id"/>
+	<result property="limitTime" column="limit_time"/>
+  </resultMap>
+
+	<!-- 로그인 -->
+  	<select id="logChk" resultMap="member">
+  		select * from mbr_info where mbr_id=#{mbrId}
+  	</select>
+  	
+	<!-- 자동로그인 : 아이디 기준으로 sessionId와 세션유효시간 저장 -->
+  	<update id="keepLogin">
+  		update mbr_info set session_id=#{s},
+  							limit_time=#{d}
+  							where mbr_id=#{id}
+  	</update>
+  	
+	<!-- 자동로그인 : 회원 방문 시 sessionId일치 회원조회 -->
+	<select id="chkSessionId" resultMap="member">
+	  	select * from mbr_info where session_id=#{sessionId}
+	</select>
+	
+	<!-- 중복확인 -->
+	<select id="dupChk" resultMap="member">
+  		select ${col1} from mbr_info where ${col2}=#{uIn}
+  	</select>
+  	
+	<!-- 회원 가입 -->
+	<insert id="register">
+		insert into mbr_info(mbr_name,mbr_id,mbr_pw,mbr_email) values(#{mbrName},#{mbrId},#{mbrPw},#{mbrEmail})
+	</insert>
+
+	<!-- 회원정보 수정 -->
+	<update id="mbrUpdate">
+		update mbr_info set mbr_name=#{mbrName}, mbr_id=#{mbrId}, mbr_pw=#{mbrPw}, mbr_addr=#{mbrAddr}, mbr_tel=#{mbrTel} where mbr_name=#{dName}
+	</update> 
+	 
+	<!-- 한 사람 모든 정보 -->
+	<select id="memberInfo" resultMap="member">
+		select * from mbr_info where mbr_id=#{id}
+	</select>
+	
+	<!-- 유저 계정 삭제 -->
+	<delete id="userDelete">
+		delete from mbr_info where mbr_id=#{mbrId}
+	</delete>
+	
+	
+  </mapper>

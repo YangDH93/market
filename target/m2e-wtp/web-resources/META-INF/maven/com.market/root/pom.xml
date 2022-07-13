@@ -211,12 +211,25 @@
 			<artifactId>gson</artifactId>
 			<version>2.8.5</version>
 		</dependency>
-		<!-- ? -->
 		<!-- lucy-xss-servlet -->
 		<dependency>
 			<groupId>com.navercorp.lucy</groupId>
 			<artifactId>lucy-xss-servlet</artifactId>
 			<version>2.0.1</version>
+		</dependency>
+
+		<!-- 썸네일 라이브러리 thumbnailator -->
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.8</version>
+		</dependency>
+		<!-- 롬복. 코드를 간략하게 사용할 수 있게 해주는 라이브러리/lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.22</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- 채팅관련 -->

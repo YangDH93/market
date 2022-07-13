@@ -1,7 +1,6 @@
 *{
 	margin: 0px;
 	padding: 0px;
-	border: 0px;
 	font:inherit;
 	vertical-align: baseline;
 }
@@ -35,20 +34,6 @@
     padding: 0px 15px;
     position: relative;
     line-height: 1.4;
-}
-.bNBtQ {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    font-size: 13px;
-    color: rgb(102, 102, 102);
-    padding: 0px 15px;
-    position: relative;
-    line-height: 1.4;
-}
-.jYMzIJ {
-    display: flex;
-    flex-shrink: 0;
 }
 .bNBtQ {
     display: flex;
@@ -99,7 +84,7 @@
     align-items: center;
 }
 .keyjxL {
-    border: 2px solid rgb(247, 47, 51);
+    border: 2px solid rgb(255 ,160 ,0);
     width: 460px;
     height: 40px;
     box-sizing: border-box;
