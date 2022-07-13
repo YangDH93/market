@@ -34,115 +34,114 @@ import net.coobird.thumbnailator.Thumbnails;
 @RequestMapping("product")
 public class FileController{
 
-	/* 첨부 파일 업로드 */
-	@PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<FileDTO>> uploadAjaxActionPOST(MultipartFile[] uploadImg) {
-		
-		/* 이미지 파일 체크 */
-		for(MultipartFile multipartFile: uploadImg) {
-			
-			File checkfile = new File(multipartFile.getOriginalFilename());
-			String type = null;
-			
-			try {
-				type = Files.probeContentType(checkfile.toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			if(!type.startsWith("image")) {
-				List<FileDTO> list = null;
-				return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
-			}
-			
-		}// for		
-		
-		String uploadFolder = "C:\\market";
-		
-		/* 날짜 폴더 경로 */
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String str = sdf.format(date);
-		String datePath = str.replace("-", File.separator);
-		
-		/* 폴더 생성 */
-		File uploadPath = new File(uploadFolder, datePath);
-		if(uploadPath.exists() == false) {
-			uploadPath.mkdirs();
-		}
-		
-		/* 이미저 정보 담는 객체 */
-		List<FileDTO> list = new ArrayList();
-		
-		// 향상된 for
-		for(MultipartFile multipartFile : uploadImg) {
-			
-			/* 이미지 정보 객체 */
-			FileDTO dto = new FileDTO();
-			
-			/* 파일 이름 + 파일 저장하는 위치 */
-			String uploadImgName = multipartFile.getOriginalFilename();
-			dto.setOrgImg(uploadImgName);
-			dto.setUploadPath(datePath);
-			
-			/* uuid 적용 파일 이름 */
-			String uuid = UUID.randomUUID().toString();
-			
-			uploadImgName = uuid + "_" + uploadImgName;
-			dto.setUUID(uuid);
-			
-			/* 파일 위치, 파일 이름을 합친 File 객체 */
-			File saveFile = new File(uploadPath, uploadImgName);
-			
-			/* 파일 저장 */
-			try {
-				multipartFile.transferTo(saveFile);
-				
-				/* 썸네일 생성(ImageIO) */
-				File thumbnailFile = new File(uploadPath, "s_" + uploadImgName);	
-				
-				BufferedImage bo_image = ImageIO.read(saveFile);
-				//비율 
-				double ratio = 3;
-				//넓이 높이
-				int width = (int) (bo_image.getWidth() / ratio);
-				int height = (int) (bo_image.getHeight() / ratio);			
-				Thumbnails.of(saveFile).size(width, height).toFile(thumbnailFile);
-				 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			list.add(dto);
-			
-		} //for
+   /* 첨부 파일 업로드 */
+   @PostMapping(value="/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+   public ResponseEntity<List<FileDTO>> uploadAjaxActionPOST(MultipartFile[] uploadImg) {
+      
+      /* 이미지 파일 체크 */
+      for(MultipartFile multipartFile: uploadImg) {
+         
+         File checkfile = new File(multipartFile.getOriginalFilename());
+         String type = null;
+         
+         try {
+            type = Files.probeContentType(checkfile.toPath());
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+         
+         if(!type.startsWith("image")) {
+            List<FileDTO> list = null;
+            return new ResponseEntity<>(list, HttpStatus.BAD_REQUEST);
+         }
+         
+      }// for      
+      
+      String uploadFolder = "C:\\market";
+      
+      /* 날짜 폴더 경로 */
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+      Date date = new Date();
+      String str = sdf.format(date);
+      String datePath = str.replace("-", File.separator);
+      
+      /* 폴더 생성 */
+      File uploadPath = new File(uploadFolder, datePath);
+      if(uploadPath.exists() == false) {
+         uploadPath.mkdirs();
+      }
+      
+      /* 이미저 정보 담는 객체 */
+      List<FileDTO> list = new ArrayList();
+      
+      // 향상된 for
+      for(MultipartFile multipartFile : uploadImg) {
+         
+         /* 이미지 정보 객체 */
+         FileDTO dto = new FileDTO();
+         
+         /* 파일 이름 + 파일 저장하는 위치 */
+         String uploadImgName = multipartFile.getOriginalFilename();
+         dto.setOrgImg(uploadImgName);
+         dto.setUploadPath(datePath);
+         
+         /* uuid 적용 파일 이름 */
+         String uuid = UUID.randomUUID().toString();
+         
+         uploadImgName = uuid + "_" + uploadImgName;
+         dto.setUUID(uuid);
+         
+         /* 파일 위치, 파일 이름을 합친 File 객체 */
+         File saveFile = new File(uploadPath, uploadImgName);
+         
+         /* 파일 저장 */
+         try {
+            multipartFile.transferTo(saveFile);
+            
+            /* 썸네일 생성(ImageIO) */
+            File thumbnailFile = new File(uploadPath, "s_" + uploadImgName);   
+            
+            BufferedImage bo_image = ImageIO.read(saveFile);
+            //비율 
+            double ratio = 3;
+            //넓이 높이
+            int width = (int) (bo_image.getWidth() / ratio);
+            int height = (int) (bo_image.getHeight() / ratio);         
+            Thumbnails.of(saveFile).size(width, height).toFile(thumbnailFile);
+             
+         } catch (Exception e) {
+            e.printStackTrace();
+         } 
+         list.add(dto);
+         
+      } //for
 
-		ResponseEntity<List<FileDTO>> result = new ResponseEntity<List<FileDTO>>(list, HttpStatus.OK);
-		
-		return result;
-	}
-	
-	
-	/* 이미지 출력 */
-	@GetMapping("/display")
-	public ResponseEntity<byte[]> getImage(String fileName){
-		
-		File file = new File("c:\\market\\" + fileName);
-		
-		ResponseEntity<byte[]> result = null;
+      ResponseEntity<List<FileDTO>> result = new ResponseEntity<List<FileDTO>>(list, HttpStatus.OK);
+      
+      return result;
+   }
+   
+   
+   /* 이미지 출력 */
+   @GetMapping("/display")
+   public ResponseEntity<byte[]> getImage(String fileName){
+      
+      File file = new File("c:\\market\\" + fileName);
+      
+      ResponseEntity<byte[]> result = null;
 
-		try {
+      try {
 
-			HttpHeaders header = new HttpHeaders();
-			header.add("Content-type", Files.probeContentType(file.toPath()));
-			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+         HttpHeaders header = new HttpHeaders();
+         header.add("Content-type", Files.probeContentType(file.toPath()));
+         result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
+      }catch (IOException e) {
+         e.printStackTrace();
+      }
 
-		return result;
-	}
+      return result;
+   }
 }
-
 
 

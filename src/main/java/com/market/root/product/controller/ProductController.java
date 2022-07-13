@@ -62,9 +62,11 @@ public class ProductController {
 	//페이징 기능 추가
 	@GetMapping("prodStatus")
 	public String prodStatus(Model model, //defaultValue = "1" : 값이 들어오지 않았다면 1로 처리
-			@RequestParam(value="num", required = false, defaultValue = "1") int num) {
-			
-			ps.psAllView(model,num);
+			@RequestParam(value="num", required = false, defaultValue = "1") int num,
+			@RequestParam String mbrId) {
+			System.out.println(num + " : 페이지 번호");
+			System.out.println(mbrId);
+			ps.psAllView(model,num,mbrId);
 		
 		return "product/prodStatus";
 	}

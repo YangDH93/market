@@ -22,8 +22,15 @@
 	select B.* from(select rownum rn, A.* from
 	(select * from prod_info order by prod_id desc)A)B 
 	where rn between #{s} and #{e}
+	<if test="mbrId != 'admin'">
+		and (mbr_id = #{mbrId})
+	</if>
 </select>
 
+<!-- prod_info 개인 판매 행 호출 -->
+<select id="personalSell" resultType="Integer">
+	select count(*) from prod_info where mbr_id=#{mbrId}
+</select>
 <!-- prod_info 전체 행 호출 -->
 <select id="selectBoardCount" resultType="Integer">
 	select count(*) from prod_info

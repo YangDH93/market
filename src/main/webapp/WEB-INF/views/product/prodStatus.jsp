@@ -78,27 +78,34 @@
 		</thead>
 		<!-- 테이블 몸통(내용 리스트로 가져옴) -->
 		<tbody style="border-bottom: 1px solid black">
-		
 			<!-- DB에서 반복문으로 데이터 list로 가져올때 사용 -->
-			<c:forEach var="psdto" items="${psList }">
-				<tr>
-					<td></td> 
-					<td>${psdto.prodStat }</td>
-					
-					<td>
-						<a href="${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}">${psdto.prodTitle }</a>
-					</td>
-					
-					<td>${psdto.price}</td> 
-					<td></td> 
-					<td>${psdto.prodDate }</td>
-					<td>
-						<button>UP</button><br>
-						<button>수정</button>
-					</td>
-				</tr>
-				
-			</c:forEach>
+			<c:choose>
+				<c:when test="${psList.size() == 0}">
+					<tr>
+						<th colspan="7" align="center" style="padding: 30px 30px">
+							작성된 판매글이 존재하지 않습니다.
+						</th>
+					</tr>
+				</c:when>
+			<c:otherwise>
+				<c:forEach var="psdto" items="${psList }">
+					<tr>
+						<td></td> 
+						<td>${psdto.prodStat }</td>
+						<td>
+							<a href="${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}">${psdto.prodTitle }</a>
+						</td>
+						<td>${psdto.price}</td> 
+						<td></td> 
+						<td>${psdto.prodDate }</td>
+						<td>
+							<button>UP</button><br>
+							<button>수정</button>
+						</td>
+					</tr>
+				</c:forEach>
+			</c:otherwise>
+			</c:choose>
 		</tbody>
 	</table>
 </div>

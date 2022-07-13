@@ -8,7 +8,7 @@ import com.market.root.product.dto.ProductDTO;
 
 public interface ProductService {
 	//상품관리 게시판
-	public void psAllView(Model model, int num);
+	public void psAllView(Model model, int num, String mbrId);
 	//카테고리 대분류 불러오기
 	public void cateAllList(Model model);
 	//카테고리 하위분류 목록 불러오기
