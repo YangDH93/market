@@ -146,7 +146,7 @@ public class ProductServiceImpl implements ProductService{
 		int result = 0;
 		Map<Object, Object> map = new HashMap<Object, Object>();
 		map.put("orgImg", orgImg);
-		map.put("uploadPath",uploadPath);
+		map.put("uploadPath",uploadPath.replace("\\", "/"));
 		map.put("UUID",UUID);
 		try {
 			// 결과 1 또는 0 반환
@@ -157,6 +157,7 @@ public class ProductServiceImpl implements ProductService{
 		}		
 		return result;
 	}
+	
 }
 
 

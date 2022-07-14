@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.market.root.file.service.FileService;
 import com.market.root.product.dto.CategoriesDTO;
 import com.market.root.product.dto.ProductDTO;
 import com.market.root.product.service.ProductService;
@@ -21,6 +22,7 @@ import com.market.root.product.service.ProductService;
 public class ProductController {
 	
 	@Autowired ProductService ps;
+	@Autowired FileService fs;
 	
 	//회원등록(정보) // (무시) 지울놈임
 	@GetMapping("memberInfo")
@@ -104,6 +106,7 @@ public class ProductController {
 						Model model) {
 		System.out.println("상품 아이디 : " + map.get("prodId") + ", 조회수 : " + map.get("hit"));
 		
+		fs.prodImgList(model, map.get("prodId"));
 		ps.oneProduct(map,model);
 		
 		return "product/prodTrade";

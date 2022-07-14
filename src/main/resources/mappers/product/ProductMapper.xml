@@ -11,7 +11,6 @@
 	<result property="hit" column="hit"/>
 	<result property="trdLocation" column="trd_location"/>
 	<result property="prodContent" column="prod_content"/>
-	<result property="cateCode" column="catecode"/>
 	<result property="prodDate" column="prod_date"/>
 	<result property="prodStat" column="prod_stat"/>
 	<result property="cateCode" column="cate_code"/>
@@ -64,5 +63,9 @@
 <insert id="prodImgRegister">
 	insert into image (prod_id,org_img,upload_path,uuid) values(prod_id_seq.currval,#{orgImg},#{uploadPath},#{UUID})
 </insert>
+
+<select id="prodImgList" resultMap="product">
+	select * from prod_info where prod_id=#{prodId}
+</select>
 
 </mapper>

@@ -114,18 +114,18 @@ function showUploadImage(uploadResultArr){
 	/* 전달받은 데이터 검증 */
 	if(!uploadResultArr || uploadResultArr.length == 0){return}
 	
-	let uploadResult = $("#uploadResult");
+	let uploadResult1 = $("#uploadResult1");
+	let uploadResult2 = $("#uploadResult2");
 	for(let i=0;i<uploadResultArr.length;i++){
 		let obj = uploadResultArr[i];
 		let str = "";
 		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
-		str += "<div style='margin: 5px;'>"
-		str += "<img src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='150px' height='150px' >";
-		str += "</div>"; 
 		
-		uploadResult.append(str);
+		str += "<div style='margin: 5px;'>"
+		str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='60px' height='60px' onclick='imgPik()'>";
+		str += "</div>"; 
+		uploadResult2.append(str);
 	}
-    
 }
 
 function resetImg() {
@@ -133,15 +133,26 @@ function resetImg() {
 	uuidList = "";
 	orgImg = "";
 	/* 사진 출력 리셋부분 */
-	$("#uploadResult").empty();
+	$("#uploadResult1").empty();
+	$("#uploadResult2").empty();
 	/* UUID 리셋부분 */
 	$('#UUID').empty();
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
 }
 
+/* function imgPik() {
+	let uploadResult1 = $("#uploadResult1");
+	let str = "";
+	str += "<div><h2>대표사진</h2>"	
+	str += "<div style='margin: 5px;'>"
+	str += "<img src='$(#imgmen)' width='200px' height='200px' >";
+	str += "</div></div>";
+	uploadResult1.append(str);
+} */
+
 /* 파일 유효성 테스트 */
-let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG|JPEG|jpeg)$");
+/* let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG|JPEG|jpeg)$");
 let maxSize = 1048576; //1MB	
 
 function fileCheck(fileName, fileSize) {
@@ -158,7 +169,7 @@ function fileCheck(fileName, fileSize) {
 
 	return true;
 
-}
+} */
 
 /* 카테고리 관련코드 */
 /* 카테고리 하위 목록 ajax */
@@ -367,9 +378,8 @@ function buttonChk(){
                 	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple>
                 	<input type="button" value="사진 리셋" onclick="resetImg()">
                 </div>
-                <div id="uploadResult" class="flex" style="width: 600; flex-flow: wrap;">
-					<!-- <img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음"> -->
-				</div>
+                <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;"></div>
+                <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;"></div>
          	</div>	
          	<input id="orgImg" name='orgImg' style="display: none;">
          	<input id="uploadPath" name='uploadPath' style="display: none;">

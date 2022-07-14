@@ -57,7 +57,7 @@ public class FileController{
 			
 		}// for		
 		
-		String uploadFolder = "C:\\market";
+		String uploadFolder = "C:/market";
 		
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -126,7 +126,7 @@ public class FileController{
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
 		
-		File file = new File("c:\\market\\" + fileName);
+		File file = new File("c:/market/" + fileName);
 		
 		ResponseEntity<byte[]> result = null;
 
@@ -142,6 +142,8 @@ public class FileController{
 
 		return result;
 	}
+	
+	
 }
 
 

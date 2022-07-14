@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="prod" value="${prod }"/>
 <c:set var="time" value="${timer }"/>
+<c:set var="img" value="${img }"/>
+<c:set var="fileDTO" value="${fileDTO }"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
@@ -35,15 +37,17 @@ var sec = ${time.sec}
 function deleteChk(){
     if (!confirm("정말 삭제 하시겠습니까?")) {
     	alert("삭제를 취소하셨습니다.");
-        location.href="#";
     } else {
     	alert("삭제가 완료되었습니다. 상품목록 페이지로 돌아갑니다.");
     	location.href="prodDelete?prodId="+${prod.prodId};   	
     }
 }	
+
+
+	
 </script>
 </head>
-<body>
+<body onload="changeMen()">
 <section class="eeRGVw">
 	<div style="width: 1280px; margin: 0 auto;">
 		<div style="display: flex;
@@ -51,7 +55,17 @@ function deleteChk(){
 	    			border-bottom: 1px solid rgb(238, 238, 238);"><!-- 상단 -->
 			<div style="width: 40%;margin-right: 40px;"><!-- 상단왼쪽 -->
 				<div style="height: 70%;"><!-- 대표사진 -->
-					대표사진<img alt="" src="">
+					<div >
+						<div align="center">
+		 					<img id='imgmen' src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width='40%' >
+		 				</div>
+		 				<!-- 서브 사진 -->
+						<div style="display: flex;">
+		 					<c:forEach var="i" begin="1" end="${imgLength }">
+		 							<img style="margin: 5px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width='10%' >
+		 					</c:forEach> 
+						</div>
+					</div>
 				</div>
 				<br>
 				<div style="height: 30%">
@@ -82,10 +96,10 @@ function deleteChk(){
 	    					border-bottom: 1px solid rgb(238, 238, 238);">
 					<div style="font-size: 24px;margin-bottom: 25px;
 								font-weight: 600;line-height: 1.4;">
-					글제목${prod.prodTitle }
+					글제목  ${prod.prodTitle }
 					</div>
 					<div style="font-size: 40px; font-weight: 500;">
-					가격${prod.price }
+					가격 ${prod.price }
 						<span style="font-size: 28px;font-weight: 400;
 									margin-left: 5px;">
 						원</span>

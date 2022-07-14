@@ -22,4 +22,5 @@ public interface ProductService {
 	public int prodDelete(int prodId);
 	public int prodUpdate(int prodId);
 	public void prodStatus(int prodId, Model model);
+	
 }

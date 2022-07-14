@@ -1,5 +1,8 @@
 package com.market.root.file.service;
 
+import org.springframework.ui.Model;
+
 public interface FileService {
-	public String IMAGE_REPO="c/market/image_repo";
+	// 이미지 불러오기
+	public void prodImgList(Model model,Object prodId);
 }
