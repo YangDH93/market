@@ -12,15 +12,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.status-grey::after{
-    content: "";
-    width: 1px;
-    height: 12px;
-    border-right: 1px solid rgb(238, 238, 238);
-    margin-left: 10px;
-    margin-right: 10px;
+.trd_wrap{
+	width: 1024px; 
+	margin: 0 auto;
 }
 
+.status-grey::after {
+	content: "";
+	width: 1px;
+	height: 12px;
+	border-right: 1px solid rgb(238, 238, 238);
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+
+.trd_btn {
+	height: 50px;
+	width: 220px;
+}
 </style>
 <script type="text/javascript">
 //등록된 상품의 시간
@@ -43,54 +53,43 @@ function deleteChk(){
     }
 }	
 
+function big_chg(){
+	
+}
 
 	
 </script>
 </head>
-<body onload="changeMen()">
-<section class="eeRGVw">
-	<div style="width: 1280px; margin: 0 auto;">
-		<div style="display: flex;
-					padding-bottom: 30px;
-	    			border-bottom: 1px solid rgb(238, 238, 238);"><!-- 상단 -->
-			<div style="width: 40%;margin-right: 40px;"><!-- 상단왼쪽 -->
-				<div style="height: 70%;"><!-- 대표사진 -->
-					<div >
-						<div align="center">
-		 					<img id='imgmen' src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width='40%' >
-		 				</div>
-		 				<!-- 서브 사진 -->
-						<div style="display: flex;">
-		 					<c:forEach var="i" begin="1" end="${imgLength }">
-		 							<img style="margin: 5px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width='10%' >
-		 					</c:forEach> 
-						</div>
+<body>
+<%@include file="../default/header.jsp" %>
+	<section class="trd_wrap">
+		<div style="margin-top:30px; display: flex; justify-content: space-between;"><!-- 상단 -->
+			<div style="width: 450px;"><!-- 상단왼쪽 -->
+				<div id="big_img" align="center" style="height: 450px;"><!-- 대표사진 -->
+ 					<img id='imgmen' src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width="100%" height="100%">
+ 				</div>
+ 				<div>
+					<div style="margin:30px 0; text-align: center;"><!-- 서브 사진 -->
+	 					<c:forEach var="i" begin="0" end="${imgLength -1 }">
+							<div id="sub_img${i }" onmouseover="big_chg()" style="display: inline-block;">
+								<img src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width="39px;" height="39px;" >
+	 						</div>
+	 					</c:forEach> 
 					</div>
 				</div>
-				<br>
-				<div style="height: 30%">
-					<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
-						<div style="display: flex; height: 56px; width: 200px;
-									margin-right: 10px;
-									align-items: center;justify-content: center;">
-							<button style="width: 100%; height: 100%;
-											background: rgb(204, 204, 204); color: white;
-											border:1px solid;font-weight: 600;font-size: 18px;">
-								<img width="16" height="16" 
-								src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiNGRkYiIGZpbGwtcnVsZT0ibm9uemVybyIgZD0iTTcuMDA1IDEuMDQ1aC4yMzNjLjI4LjIyOC41MzcuNDkuNzYyLjc3Ny4yMjUtLjI4OC40ODEtLjU0OS43NjItLjc3N2guMjMzYTYuMTYgNi4xNiAwIDAgMC0uMDktLjExM0M5LjY4NC4zNDQgMTAuNjI4IDAgMTEuNiAwIDE0LjA2NCAwIDE2IDIuMTEgMTYgNC43OTZjMCAzLjI5Ni0yLjcyIDUuOTgxLTYuODQgMTAuMDYyTDggMTZsLTEuMTYtMS4xNTFDMi43MiAxMC43NzcgMCA4LjA5MiAwIDQuNzk2IDAgMi4xMSAxLjkzNiAwIDQuNCAwYy45NzIgMCAxLjkxNi4zNDQgMi42OTUuOTMyYTYuMTYgNi4xNiAwIDAgMC0uMDkuMTEzeiIvPgo8L3N2Zz4K">
-								<span>찜</span>
-								<span>0</span>
-							</button>
-						</div>
-						<button style="	width: 200px;
-										background: rgb(255, 164, 37); color: white;
-										border: 1px solid;font-weight: 600;font-size: 18px;">
-						연락하기</button>
-					</div>
+				<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
+					<button class="trd_btn">
+						<span>&#9829;</span>
+						<span>찜</span>
+						<span>0</span>
+					</button>
+					<button class="trd_btn">
+						연락하기
+					</button>
 				</div>
 			</div>
 			
-			<div style="width: 60%;"><!-- 상단오른쪽 --><!-- 상품정보 -->
+			<div style="width:520px;"><!-- 상단오른쪽 --><!-- 상품정보 -->
 				<!-- 제목/가격 -->
 				<div style="padding-bottom: 30px;
 	    					border-bottom: 1px solid rgb(238, 238, 238);">
@@ -170,7 +169,7 @@ function deleteChk(){
 				사진목록<br>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+<%@ include file="../default/footer.jsp" %>
 </body>
 </html>
