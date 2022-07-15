@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="prod" value="${prod }"/>
 <c:set var="time" value="${timer }"/>
-<c:set var="img" value="${img }"/>
 <c:set var="fileDTO" value="${fileDTO }"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
@@ -57,12 +56,12 @@ function deleteChk(){
     	location.href="prodDelete?prodId="+${prod.prodId};   	
     }
 }	
-
-function big_chg(){
 	
-}
-
-	
+function mouseClick(obj){
+		var img = document.getElementById("imgSelect"); 
+		document.getElementById("imgMen").src = obj.src;
+		
+}	
 </script>
 </head>
 <body>
@@ -71,14 +70,12 @@ function big_chg(){
 		<div style="display: flex; justify-content: space-between;"><!-- 상단 -->
 			<div style="width: 450px;"><!-- 상단왼쪽 -->
 				<div id="big_img" align="center" style="height: 450px;"><!-- 대표사진 -->
- 					<img id='imgmen' style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width="100%" height="100%">
+ 					<img id='imgMen' style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width="100%" height="100%">
  				</div>
  				<div>
 					<div style="margin:30px 0; text-align: center;"><!-- 서브 사진 -->
 	 					<c:forEach var="i" begin="0" end="${imgLength -1 }">
-							<div id="sub_img${i }" onmouseover="big_chg()" style="display: inline-block;">
-								<img style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width="39px;" height="39px;" >
-	 						</div>
+							<img id="imgSelect" onclick="mouseClick(this)" style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width="39px;" height="39px;" >
 	 					</c:forEach> 
 					</div>
 				</div>

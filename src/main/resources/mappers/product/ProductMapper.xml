@@ -39,6 +39,11 @@
 	values(#{mbrId}, prod_id_seq.nextval,#{prodTitle},#{cateCode},#{price},#{trdLocation},#{prodContent},#{prodDate}) 
 </insert>
 
+<!-- 사진 등록 -->
+<insert id="prodImgRegister">
+	insert into image (prod_id,org_img,upload_path,uuid) values(prod_id_seq.currval,#{orgImg},#{uploadPath},#{UUID})
+</insert>
+
 <!-- 한개의 상품 정보 불러오기 + 시간설정-->
 <select id="oneProduct" resultMap="product">
 	select * from prod_info where prod_id=#{prodId}
@@ -46,6 +51,11 @@
 
 <!-- 한개의 상품 정보만을 불러옴 / 시간처리 x-->
 <select id="prodStatus" resultMap="product">
+	select * from prod_info where prod_id=#{prodId}
+</select>
+
+<!-- 이미지 검색 -->
+<select id="prodImgList" resultMap="product">
 	select * from prod_info where prod_id=#{prodId}
 </select>
 
@@ -59,13 +69,15 @@
 	delete prod_info where prod_id=#{prodId}
 </delete>
 
-<!-- 사진 등록 -->
-<insert id="prodImgRegister">
-	insert into image (prod_id,org_img,upload_path,uuid) values(prod_id_seq.currval,#{orgImg},#{uploadPath},#{UUID})
-</insert>
+<!-- 물품 업데이트 -->
+<update id="prodUpdate">
+	update prod_info set mbr_id=#{mbrId},prod_title=#{prodTitle},cate_code=#{cateCode},price=#{price},
+	trd_location=#{trdLocation},prod_content=#{prodContent},prod_date=#{prodDate} where prod_id=#{prodId}
+</update>
 
-<select id="prodImgList" resultMap="product">
-	select * from prod_info where prod_id=#{prodId}
-</select>
+<!-- 이미지 업데이트 -->
+<update id="prodImgUpdate">
+	update image set org_img=#{orgImg},upload_path=#{uploadPath},uuid=#{UUID} where prod_id=#{prodId}
+</update>	
 
 </mapper>

@@ -16,6 +16,7 @@ public interface ProductMapper {
 	public ProductDTO oneProduct(Map<Object, Object> map);
 	public void upHit(Map<Object, Object> map);
 	public int prodDelete(int prodId);
-	public int prodUpdate(int prodId);
+	public int prodUpdate(ProductDTO dto);
 	public ProductDTO prodStatus(int prodId);
+	public int prodImgUpdate(Map<Object, Object> map);
 }

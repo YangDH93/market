@@ -15,12 +15,13 @@ public interface ProductService {
 	public ArrayList<CategoriesDTO> cateList(String sltCode);
 	//상품 추가
 	public int prodRegister(ProductDTO dto,String orgImg,String uploadPath,String UUID);
-	
 	//상품 검색
 	public void prodSearch(String keyword,Model model);
 	public void oneProduct(Map<Object, Object> map, Model model);
+	//상품삭제
 	public int prodDelete(int prodId);
-	public int prodUpdate(int prodId);
+	//상품 업데이트
+	public int prodUpdate(ProductDTO dto,String orgImg,String uploadPath,String UUID);
 	public void prodStatus(int prodId, Model model);
 	
 }
