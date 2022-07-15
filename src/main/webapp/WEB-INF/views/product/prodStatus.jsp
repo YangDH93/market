@@ -93,8 +93,7 @@
 					<td></td> 
 					<td>${psdto.prodDate }</td>
 					<td>
-						<button>UP</button><br>
-						<button>수정</button>
+						<button onclick="href.location='${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}'">수정</button>
 					</td>
 				</tr>
 				

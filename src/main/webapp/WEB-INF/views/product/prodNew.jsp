@@ -65,17 +65,19 @@ $(document).ready(function(){
 	    	success : function(result){
 	    		$('#uploadPath').val(result[0].uploadPath);
 	    		
-	    		if(count+result.length > 10){
+	    		if(count==0 && result.length > 1){
+	    			$("#mes").css({
+	    				"color" : "red",
+	    				"font-size" : "15px"
+	    			});
+	    			$("#mes").html('먼저 대표 사진 1장만 등록해주세요!');
+	    			return false;
+	    		}else if(count+result.length > 10){
 	    			alert("이미지는 최대 10개까지 등록 가능합니다.\n\n 현재 이미지 갯수 : " + count);
 	    			return false;
 	    		}
 	    		for(let i=0;i<result.length;i++){
 	    			console.log(count);
-	    			
-	    			if(count >= 10){
-	    				alert("이미지는 최대 10개까지 등록 가능합니다.");
-	    				break;
-	    			}else{
 	    			
 	    			uuidList += result[i].uuid;
 	    			orgImg += result[i].orgImg;
@@ -84,8 +86,11 @@ $(document).ready(function(){
 		    			orgImg += "/";
 	    			}
 		    		count++;
-	    			}
-	    			
+		    		$("#mes").css({
+	    				"color" : "black",
+	    				"font-size" : "15px"
+	    			});
+		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
 	    			    		
 	    		/* 이미지 출력 부분 */
@@ -113,18 +118,26 @@ function showUploadImage(uploadResultArr){
 	
 	/* 전달받은 데이터 검증 */
 	if(!uploadResultArr || uploadResultArr.length == 0){return}
-	
-	let uploadResult1 = $("#uploadResult1");
-	let uploadResult2 = $("#uploadResult2");
+	let uploadResult1 = $('#uploadResult1');
+	let uploadResult2 = $('#uploadResult2');
 	for(let i=0;i<uploadResultArr.length;i++){
 		let obj = uploadResultArr[i];
 		let str = "";
 		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
 		
-		str += "<div style='margin: 5px;'>"
-		str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='60px' height='60px' onclick='imgPik()'>";
-		str += "</div>"; 
-		uploadResult2.append(str);
+		if(count == 1){
+			str += "<div><h2> < 대표사진  > </h2>"
+			str += "<div style='margin: 5px;'>"
+			str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='200px' height='200px'>";
+			str += "</div></div>"; 
+			uploadResult1.append(str);
+			
+		}else{
+			str += "<div style='margin: 5px;'>"
+			str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='50px' height='50px'>";
+			str += "</div>"; 
+			uploadResult2.append(str);
+		}
 	}
 }
 
@@ -139,37 +152,13 @@ function resetImg() {
 	$('#UUID').empty();
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
+	$("#mes").css({
+		"color":"blue",
+		"font-size" : "12px"
+	});
+	$("#mes").html("첫번째 등록된 사진이 대표 사진입니다.");
 }
 
-/* function imgPik() {
-	let uploadResult1 = $("#uploadResult1");
-	let str = "";
-	str += "<div><h2>대표사진</h2>"	
-	str += "<div style='margin: 5px;'>"
-	str += "<img src='$(#imgmen)' width='200px' height='200px' >";
-	str += "</div></div>";
-	uploadResult1.append(str);
-} */
-
-/* 파일 유효성 테스트 */
-/* let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG|JPEG|jpeg)$");
-let maxSize = 1048576; //1MB	
-
-function fileCheck(fileName, fileSize) {
-
-	if (fileSize >= maxSize) {
-		alert("파일 사이즈 초과");
-		return false;
-	}
-
-	if (!regex.test(fileName)) {
-		alert("해당 종류의 파일은 업로드할 수 없습니다.");
-		return false;
-	}
-
-	return true;
-
-} */
 
 /* 카테고리 관련코드 */
 /* 카테고리 하위 목록 ajax */
@@ -269,8 +258,8 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
 
 /* 필수항목 체크 */
 function buttonChk(){
-	if($('#fileItem').val() == ''){
-		$("#fileItem").focus();
+	if($('#orgImg').val() == ''){
+		$("#orgImg").focus();
 		alert('이미지는 필수항목 입니다.');
 	}else if($('#prodTitle').val() == ''){
 		$("#prodTitle").focus();
@@ -375,8 +364,8 @@ function buttonChk(){
             </div>
             <div>
             	<div>
-                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple>
-                	<input type="button" value="사진 리셋" onclick="resetImg()">
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple >
+                	<input type="button" value="사진 리셋" onclick="resetImg()"> <span id="mes" style="color:blue; font-size: 12px;">첫번째 등록된 사진이 대표 사진입니다.</span>
                 </div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;"></div>
                 <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;"></div>

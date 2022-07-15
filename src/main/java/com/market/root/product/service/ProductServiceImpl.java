@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService{
 			model.addAttribute("repeat",repeat);
 			//게시글 모든 정보 가져옴
 			model.addAttribute("psList", mapper.psAllView(start,end) );	
-
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -100,16 +100,6 @@ public class ProductServiceImpl implements ProductService{
 		}
 		return result;
 	}
-	//상품 정보 업데이트
-	public int prodUpdate(int prodId) {
-		int result = 0;
-		try {
-			result = mapper.prodUpdate(prodId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 	//한개 상품 정보만을 가져옴 - 시간처리 x	
 	public void prodStatus(int prodId, Model model) {
 		try {
@@ -152,6 +142,24 @@ public class ProductServiceImpl implements ProductService{
 			// 결과 1 또는 0 반환
 			result = mapper.prodRegister(dto);
 			result = mapper.prodImgRegister(map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return result;
+	}
+	
+	//상품 정보 업데이트
+	public int prodUpdate(ProductDTO dto,String orgImg,String uploadPath,String UUID) {
+		int result = 0;
+		Map<Object, Object> map = new HashMap<Object, Object>();
+		map.put("orgImg", orgImg);
+		map.put("uploadPath",uploadPath.replace("\\", "/"));
+		map.put("UUID",UUID);
+		map.put("prodId",dto.getProdId());
+		try {
+			// 결과 1 또는 0 반환
+			result = mapper.prodUpdate(dto);
+			result = mapper.prodImgUpdate(map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
