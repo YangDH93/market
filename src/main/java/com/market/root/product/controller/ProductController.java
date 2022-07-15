@@ -3,6 +3,9 @@ package com.market.root.product.controller;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,16 +62,33 @@ public class ProductController {
 		return "product/prodTrade";
 	}
 	//구매,판매목록, 찜목록, 등 상품관리 기능
-	//페이징 기능 추가
+	//페이징 기능 추가 , 상품 판매중 메소드 , 시간 설정 후 넘김
 	@GetMapping("prodStatus")
 	public String prodStatus(Model model, //defaultValue = "1" : 값이 들어오지 않았다면 1로 처리
 			@RequestParam(value="num", required = false, defaultValue = "1") int num,
-			@RequestParam String mbrId) {
-			System.out.println(num + " : 페이지 번호");
-			System.out.println(mbrId);
-			ps.psAllView(model,num,mbrId);
+			HttpSession session) {
+			System.out.println(session.getAttribute("loginUser"));
+			ps.psAllView(model,num,session);
 		
 		return "product/prodStatus";
+	}
+	//상품 판매완료 메소드 - update
+	@GetMapping("sellsComple")
+	public String sellsComple(ProductDTO dto,
+								HttpSession session,
+								Model model) {
+		System.out.println("상품 고유번호 : " + dto.getProdId() + " 상품 판매상태 : " + dto.getProdStat());
+		dto.setMbrId((String) session.getAttribute("loginUser"));
+		dto.setProdStat(1);
+		System.out.println("업데이트 후 아이디 : " + dto.getMbrId() + " 상품 상태 : " + dto.getProdStat());
+		int result;
+		result = ps.sellsComple(dto,model);
+		if(result == 1) {
+			return "redirect:prodStatus";
+		}else {
+			return "redirect:prodStatus";
+		}
+		
 	}
 	
 	//상품 검색기능
@@ -142,6 +162,17 @@ public class ProductController {
 		return null;
 	}
 	
+	//상품 판매완료.jsp
+	@GetMapping("sellsComplete")
+	public String sellsComplete(Model model, //defaultValue = "1" : 값이 들어오지 않았다면 1로 처리
+			@RequestParam(value="num", required = false, defaultValue = "1") int num,
+			HttpSession session) {
+		
+		ps.sellsAllView(model,num,session);
+		
+		return "product/sellsComplete";
+	}
+
 }
 
 

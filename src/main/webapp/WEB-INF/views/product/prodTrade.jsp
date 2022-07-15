@@ -121,7 +121,7 @@ function deleteChk(){
 									${time.min % 60 }분 전
 								</c:when>
 								<c:otherwise>
-									${time.hour }시간 ${time.min % 60}분 전
+									${time.days }일 ${time.hour % 24 }시간 ${time.min % 60}분 전
 								</c:otherwise>
 							</c:choose>
 						</div>
@@ -130,12 +130,12 @@ function deleteChk(){
 				<!-- 거래지역 -->
 				<div style="display: flex">
 					<div style="width: 90px; color: rgb(153, 153, 153);">
-					거래지역${prod.trdLocation }
+					거래지역
 					</div>
 					<div style="display: flex; align-items: center;">
 						<img style="padding-right: 10px;" width="12" height="15"
 							src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAeCAYAAAA2Lt7lAAAAAXNSR0IArs4c6QAAA0VJREFUSA2tVktoE0EYnmwejUlDCYUcJD3YGooJGA1RYgJtKh6KtJ6q+EAvvQn25EnEHjx56qGgCJ5EPCqIBxE1j/YmiFJSYkvQBiExqRRJNNGkid+/uMvsdjZJtQOT+Z/fN/+/M7sxsQ4jkUgcNJlMV9rtdhTrEEK9mD8x85ifYX/qcrmehMNhsgmHSWRNpVKHkHwXMy7y8zYQVyjW6/XO+3y+X7yP5B0EyWRyDvY7SLLrgzvpIFrBvDQ+Pr7Cx2kI0JKbcN7mA3Yjg2ALG4tOTExklTyVADu/DOdDxfGvK0g+2e32E5FI5CthSPSzvLy8H8t9kv93YJMH6vX6ooIjEzQajVtw7FOMe7DOpNPpEOFIODFDKGt2D0BVCGzW1Gq15mUCKJOYFtW7C6Gvr48NDw8zbFCUdSqTydgI+KTI281GoH6/nw0MDMgEuVxOk4JNO0ql0nEJwlGNp0dlZGREBscDZRsbG8IsbOKwhB+ryEs7xHETuZjH42G4uQx9ZmgDazabwjgY21SBWe9Vyg+FQszpdGrcDoeDjY6Oyrb19XVWqVQ0fl4BzjYd0y+8kZdtNhsLBoMqidlsZoFAgNFaLBZZoVDgw3fIIMhRi1J6D6piq6urrFwuM56Edk4VVatVtra2pk/T6MCtDg4OLlGLEhrPX0VPQu2i3lO/qe/U/y7jFar9LcXj8TcI/CgK5kmoLTSy2Syr1WqicI1NkqRHZKAWtaDc0Hg5hSfJ5/Nsc3OT8xqKH3AYnpFXvYJ4mz4G2AWjFGyEEVm3gbgtq9V6LBaLyTdPftlREh7mLJxvjQB6BG+iG2cVcMJSCaLRaA0gZ0CSNyLpwT43Njb2mo9TCciIL1ERBFOYxreHz+Zk5CziwNzjTLKoPgPegU/nJPTnmDtuOR+nyAB/iW/xaazbik1ZNRUoRlTyAsHXFL3Tirhsf3//ORE45QkJyEHlImmB5A7jG07MFP4XfTeKMSSgBJR9HSTyedYDwN6AbYY/MfoY0jsSAKTldrsvYn2nT8aJu4pWJvV2vd6RgILxNv1hsVimQaK+dSEvAPyBHkykC0+RKBAn6wiAl+BLo3VE2PVtRzhdK1DIsOP3aMs0qjnfKzjl/gFgkydRSXu9AAAAAABJRU5ErkJggg==">
-						지역
+						${prod.trdLocation }
 					</div>
 				</div>
 				<!-- 상세정보 글 -->
@@ -148,10 +148,23 @@ function deleteChk(){
 		<div><!-- 하단 -->
 			<div style="padding-top: 30px">
 				<div align="right">
-					<input type="button" value="수정"
-					onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">
-					<input type="button" value="삭제"
-					onclick="deleteChk()">
+					<c:choose>
+						<c:when test="${param.prodStat != 1 || loginUser == 'admin'}">
+							<input type="button" value="수정"
+							onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">
+							<input type="button" value="삭제"
+							onclick="deleteChk()">
+							<input type="button" value="이전으로" 
+							onClick="history.go(-1)"> 
+						</c:when>
+						<c:otherwise>
+							<font size="4" style="color: blue;">
+								판매 완료된 상품입니다.
+							</font><br>
+							<input type="button" value="목록으로"
+							onclick="location.href='prodStatus'">
+						</c:otherwise>
+					</c:choose>
 				</div>
 				사진목록<br>
 			</div>

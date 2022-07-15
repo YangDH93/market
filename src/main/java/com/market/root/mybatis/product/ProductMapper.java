@@ -10,7 +10,7 @@ public interface ProductMapper {
 			@Param("s")int start,
 			@Param("e")int end,
 			@Param("mbrId") String mbrId);
-	public int selectBoardCount(String mbrId);
+	public int selectBoardCount();
 	public int prodRegister(ProductDTO dto);
 	public int prodImgRegister(Map<Object,Object> map);
 	public List<ProductDTO> prodSearch(String keyword);
@@ -19,5 +19,16 @@ public interface ProductMapper {
 	public int prodDelete(int prodId);
 	public int prodUpdate(int prodId);
 	public ProductDTO prodStatus(int prodId);
-	public int personalSell(String mbrId);
+	
+	public int personalSell(@Param("mbrId") String mbrId,
+							@Param("prodStat") int prodStat);
+	public int personalCompleSell(@Param("mbrId") String mbrId,
+								  @Param("prodStat") int prodStat);
+	public int selectCompleBoardCount();
+	public int sellsComple(ProductDTO dto);
+	public List<ProductDTO> sellsAllView(
+			@Param("s")int start,
+			@Param("e")int end,
+			@Param("mbrId") String mbrId);
+	
 }
