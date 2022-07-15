@@ -19,8 +19,8 @@
 }
 
 .imglist {
-	width: 183px;
-	height: 183px;
+	width: 192px;
+	height: 192px;
 	cursor: pointer;
 	border-radius: 3px;
 }
@@ -29,6 +29,10 @@
 	border: 1px solid black;
 	margin: 5px;
 	cursor: pointer;
+	width: 192px;
+}
+.input_st{
+	width: 189px;
 }
 </style>
 </head>
@@ -38,71 +42,71 @@
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist" src="${contextPath}/resources/image/nothing.png"></img>
-			<br> <input type="text" style="width: 180px;"><br>
-			<input type="text" style="width: 180px;">
+			<br> <input type="text" class="input_st"><br>
+			<input type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 		<div class="div_st"
 			onclick="location.href='#';">
 			<img class="imglist"
 						src="${contextPath}/resources/image/nothing.png"></img> <br>
-			<input type="text" style="width: 180px;"><br> <input
-				type="text" style="width: 180px;">
+			<input type="text" class="input_st"><br> <input
+				type="text" class="input_st">
 		</div>
 	</div>
 <%@include file="default/footer.jsp"%>
