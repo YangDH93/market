@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.root.mybatis.file.FileMapper">
+<resultMap type="com.market.root.file.dto.FileDTO" id="file">
+	<id property="prodId" column="prod_id"/>
+	<result property="orgImg" column="org_img"/>
+	<result property="uploadPath" column="upload_path"/>
+	<result property="UUID" column="uuid"/>
+</resultMap>
+
+<select id="prodImgList" resultMap="file">
+	select * from image where prod_id=#{prodId}
+</select>
+
+</mapper>

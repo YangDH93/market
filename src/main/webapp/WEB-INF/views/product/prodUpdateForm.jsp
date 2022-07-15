@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <c:set var="prod" value="${prod }"/>
+<c:set var="fileDTO" value="${fileDTO}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +36,9 @@ $(document).ready(function() {
 	});
 });
 
-let uuidList = "";
-let orgImg = "";
-var count = 0; 
+let uuidList = "${fileDTO.UUID }";
+let orgImg = "${fileDTO.orgImg }";
+var count = ${imgLength}; 
 /* 파일 추가  */
 $(document).ready(function(){
 	 $("#fileItem").change(function(e){
@@ -66,17 +67,19 @@ $(document).ready(function(){
 	    	success : function(result){
 	    		$('#uploadPath').val(result[0].uploadPath);
 	    		
-	    		if(count+result.length > 10){
+	    		if(count==0 && result.length > 1){
+	    			$("#mes").css({
+	    				"color" : "red",
+	    				"font-size" : "15px"
+	    			});
+	    			$("#mes").html('먼저 대표 사진 1장만 등록해주세요!');
+	    			return false;
+	    		}else if(count+result.length > 10){
 	    			alert("이미지는 최대 10개까지 등록 가능합니다.\n\n 현재 이미지 갯수 : " + count);
 	    			return false;
 	    		}
 	    		for(let i=0;i<result.length;i++){
 	    			console.log(count);
-	    			
-	    			if(count >= 10){
-	    				alert("이미지는 최대 10개까지 등록 가능합니다.");
-	    				break;
-	    			}else{
 	    			
 	    			uuidList += result[i].uuid;
 	    			orgImg += result[i].orgImg;
@@ -85,8 +88,11 @@ $(document).ready(function(){
 		    			orgImg += "/";
 	    			}
 		    		count++;
-	    			}
-	    			
+		    		$("#mes").css({
+	    				"color" : "black",
+	    				"font-size" : "15px"
+	    			});
+		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
 	    			    		
 	    		/* 이미지 출력 부분 */
@@ -114,19 +120,27 @@ function showUploadImage(uploadResultArr){
 	
 	/* 전달받은 데이터 검증 */
 	if(!uploadResultArr || uploadResultArr.length == 0){return}
-	
-	let uploadResult = $("#uploadResult");
+	let uploadResult1 = $('#uploadResult1');
+	let uploadResult2 = $('#uploadResult2');
 	for(let i=0;i<uploadResultArr.length;i++){
 		let obj = uploadResultArr[i];
 		let str = "";
 		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
-		str += "<div style='margin: 5px;'>"
-		str += "<img src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='150px' height='150px' >";
-		str += "</div>"; 
 		
-		uploadResult.append(str);
+		if(count == 1){
+			str += "<div><h2> < 대표사진  > </h2>"
+			str += "<div style='margin: 5px;'>"
+			str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='200px' height='200px'>";
+			str += "</div></div>"; 
+			uploadResult1.append(str);
+			
+		}else{
+			str += "<div style='margin: 5px;'>"
+			str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='50px' height='50px'>";
+			str += "</div>"; 
+			uploadResult2.append(str);
+		}
 	}
-    
 }
 
 function resetImg() {
@@ -134,32 +148,19 @@ function resetImg() {
 	uuidList = "";
 	orgImg = "";
 	/* 사진 출력 리셋부분 */
-	$("#uploadResult").empty();
+	$("#uploadResult1").empty();
+	$("#uploadResult2").empty();
 	/* UUID 리셋부분 */
 	$('#UUID').empty();
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
+	$("#mes").css({
+		"color":"blue",
+		"font-size" : "12px"
+	});
+	$("#mes").html("첫번째 등록된 사진이 대표 사진입니다.");
 }
 
-/* 파일 유효성 테스트 */
-let regex = new RegExp("(.*?)\.(jpg|png|PNG|JPG|JPEG|jpeg)$");
-let maxSize = 1048576; //1MB	
-
-function fileCheck(fileName, fileSize) {
-
-	if (fileSize >= maxSize) {
-		alert("파일 사이즈 초과");
-		return false;
-	}
-
-	if (!regex.test(fileName)) {
-		alert("해당 종류의 파일은 업로드할 수 없습니다.");
-		return false;
-	}
-
-	return true;
-
-}
 
 /* 카테고리 관련코드 */
 /* 카테고리 하위 목록 ajax */
@@ -264,8 +265,8 @@ function myLocation(){
 
 /* 필수항목 체크 */
 function buttonChk(){
-	if($('#fileItem').val() == ''){
-		$("#fileItem").focus();
+	if($('#orgImg').val() == ''){
+		$("#orgImg").focus();
 		alert('이미지는 필수항목 입니다.');
 	}else if($('#prodTitle').val() == ''){
 		$("#prodTitle").focus();
@@ -358,7 +359,8 @@ function buttonChk(){
                value="${prod.trdLocation }">
    <form id="frm" action="${contextPath }/product/prodUpdate" method="post">
       <section class="eeRGVw">
-   	  	 <input name="mbrId" value="${loginUser}" style="display: none;">
+   	  	 <input name="mbrId" value="${prod.mbrId }" style="display: none;">
+   	  	 <input name="prodId" value="${prod.prodId }" style="display: none;">
          <div>
                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">기본 정보
                <span class="redmen">*은 필수항목 입니다.</span></h2>
@@ -372,16 +374,28 @@ function buttonChk(){
             </div>
             <div>
             	<div>
-                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple>
-                	<input type="button" value="사진 리셋" onclick="resetImg()">
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple >
+                	<input type="button" value="사진 수정" onclick="resetImg()"> <span id="mes" style="color:blue; font-size: 12px;">현재 등록된 사진 갯수 : ${imgLength}/10</span>
                 </div>
-                <div id="uploadResult" class="flex" style="width: 600; flex-flow: wrap;">
-					<!-- <img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음"> -->
+                <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;">
+               		<!-- 대표사진 -->
+					<div align="center">
+	 					<img id='imgmen' src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width='200px' height="200px" >
+	 				</div>
+		 		</div>		
+                <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;">
+	 				<!-- 서브 사진 -->
+					<div style="display: flex;">
+	 					<c:forEach var="i" begin="1" end="${imgLength-1}">
+	 						<img style="margin: 5px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width='50px' height="50px" >
+	 					</c:forEach> 
+					</div>
 				</div>
          	</div>	
-         	<input id="orgImg" name='orgImg' style="display: none;">
-         	<input id="uploadPath" name='uploadPath' style="display: none;">
-         	<input id="UUID" name='UUID' style="display: none;">
+         	<input id="orgImg" name='orgImg' style="display: none;" value="${fileDTO.orgImg }">
+         	<input id="uploadPath" name='uploadPath' style="display: none;" value="${fileDTO.uploadPath }">
+         	<input id="UUID" name='UUID' style="display: none;" value="${fileDTO.UUID }">
+         	<input id="prodDate" name='prodDate' style="display: none;" value="${prod.prodDate }">
          </div>
          <hr>
          <div class="flex">
@@ -397,8 +411,7 @@ function buttonChk(){
          <div class="flex">
             <div class="size_150">
                	카테고리<span class="redmen">*</span>
-	         	<input type="text" id="cateCode" name="cateCode" 
-	         	value="${prod.cateCode }" style="display: none;">
+	         	<input type="text" id="cateCode" name="cateCode" style="display: none;" value="${prod.cateCode }">
             </div>
             
 			<div class="catewrap">

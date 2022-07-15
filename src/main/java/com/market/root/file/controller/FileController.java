@@ -1,6 +1,5 @@
 package com.market.root.file.controller;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +21,6 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.market.root.file.dto.FileDTO;
@@ -57,7 +55,7 @@ public class FileController{
 			
 		}// for		
 		
-		String uploadFolder = "C:\\market";
+		String uploadFolder = "C:/market";
 		
 		/* 날짜 폴더 경로 */
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -126,23 +124,24 @@ public class FileController{
 	@GetMapping("/display")
 	public ResponseEntity<byte[]> getImage(String fileName){
 		
-		File file = new File("c:\\market\\" + fileName);
+		File file = new File("c:/market/" + fileName);
 		
 		ResponseEntity<byte[]> result = null;
 
-		try {
+      try {
 
-			HttpHeaders header = new HttpHeaders();
-			header.add("Content-type", Files.probeContentType(file.toPath()));
-			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+         HttpHeaders header = new HttpHeaders();
+         header.add("Content-type", Files.probeContentType(file.toPath()));
+         result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 
-		}catch (IOException e) {
-			e.printStackTrace();
-		}
+      }catch (IOException e) {
+         e.printStackTrace();
+      }
 
 		return result;
 	}
+	
+	
 }
-
 
 

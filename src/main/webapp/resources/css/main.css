@@ -77,7 +77,7 @@
     height: 40px;
 }
 .hDmINX {
-    margin-right: 100px;
+    margin-left: 0 25px 0 25px;
     width: 136px;
     display: flex;
     -webkit-box-align: center;
@@ -88,6 +88,7 @@
     width: 460px;
     height: 40px;
     box-sizing: border-box;
+    margin-left: 70px;
 }
 .voMyM {
     width: 100%;

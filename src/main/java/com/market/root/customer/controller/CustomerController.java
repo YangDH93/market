@@ -1,7 +1,5 @@
 package com.market.root.customer.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +44,8 @@ public class CustomerController {
 	public String csView(Model model, //defaultValue = "1" : 값이 들어오지 않았다면 1로 처리
 			@RequestParam(value="num", required = false, defaultValue = "1") int num,
 			HttpSession session) {
-		
+		System.out.println(num + " : 페이지 번호");
+		System.out.println(session.getAttribute("loginUser"));
 		cs.csAllView(model,num,session);
 		
 		return "customer/csList";

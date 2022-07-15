@@ -19,10 +19,13 @@
     ul.myMenu > li ul.submenu > li { display:inline-block; width:80px; padding:5px 10px; background:#eee; border:1px solid #eee; text-align:center; }
     ul.myMenu > li ul.submenu > li:hover { background:#fff; }
 
-a {
+.hDmINX {
 		text-decoration: none;
 }
-a:hover {
+.elwjyI{
+		text-decoration: none;
+}
+.elwjyI:hover {
    color: orange;
    padding-bottom: 3px; /* a태그 밑줄과 글씨 간격*/
    border-bottom: 1px solid orange;

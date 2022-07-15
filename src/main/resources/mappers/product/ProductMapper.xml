@@ -11,22 +11,52 @@
 	<result property="hit" column="hit"/>
 	<result property="trdLocation" column="trd_location"/>
 	<result property="prodContent" column="prod_content"/>
-	<result property="cateCode" column="catecode"/>
 	<result property="prodDate" column="prod_date"/>
 	<result property="prodStat" column="prod_stat"/>
 	<result property="cateCode" column="cate_code"/>
 </resultMap>
 <!-- prod_info 페이징 기능/목록 보기 -->
-<!-- 게시글 개수 불러오기 -->
+<!-- 판매중인 게시글 불러오기 -->
 <select id="psAllView" resultMap="product">
 	select B.* from(select rownum rn, A.* from
-	(select * from prod_info order by prod_id desc)A)B 
-	where rn between #{s} and #{e}
+	(select * from prod_info where prod_stat = 0 
+	<if test="mbrId != 'admin'">
+		and (mbr_id = #{mbrId})
+	</if>
+	order by prod_id desc)A)B 
+	where (rn between #{s} and #{e})
+</select>
+<!-- 판매완료된 게시글 불러오기 -->
+<select id="sellsAllView" resultMap="product">
+	select B.* from(select rownum rn, A.* from
+	(select * from prod_info where prod_stat = 1
+	<if test="mbrId != 'admin'">
+		and (mbr_id = #{mbrId})
+	</if>	
+	order by prod_id desc)A)B 
+	where (rn between #{s} and #{e})
 </select>
 
+<!-- prod_info 개인 판매중인 행 호출 -->
+<select id="personalSell" resultType="Integer">
+	select count(*) from prod_info where prod_stat=#{prodStat} 
+	<if test="mbrId != 'admin'">
+		and (mbr_id = #{mbrId})
+	</if>
+</select>
+<!-- prod_info 개인 판매완료된 행 호출 -->
+<select id="personalCompleSell" resultType="Integer">
+	select count(*) from prod_info where prod_stat=#{prodStat}
+	<if test="mbrId != 'admin'">
+		and (mbr_id = #{mbrId})
+	</if>
+</select>
 <!-- prod_info 전체 행 호출 -->
 <select id="selectBoardCount" resultType="Integer">
-	select count(*) from prod_info
+	select count(*) from prod_info where prod_stat = 0 
+</select>
+<select id="selectCompleBoardCount" resultType="Integer">
+	select count(*) from prod_info where prod_stat = 1
 </select>
 
 <!-- 상품 제목 검색 -->
@@ -40,6 +70,11 @@
 	values(#{mbrId}, prod_id_seq.nextval,#{prodTitle},#{cateCode},#{price},#{trdLocation},#{prodContent},#{prodDate}) 
 </insert>
 
+<!-- 사진 등록 -->
+<insert id="prodImgRegister">
+	insert into image (prod_id,org_img,upload_path,uuid) values(prod_id_seq.currval,#{orgImg},#{uploadPath},#{UUID})
+</insert>
+
 <!-- 한개의 상품 정보 불러오기 + 시간설정-->
 <select id="oneProduct" resultMap="product">
 	select * from prod_info where prod_id=#{prodId}
@@ -47,6 +82,11 @@
 
 <!-- 한개의 상품 정보만을 불러옴 / 시간처리 x-->
 <select id="prodStatus" resultMap="product">
+	select * from prod_info where prod_id=#{prodId}
+</select>
+
+<!-- 이미지 검색 -->
+<select id="prodImgList" resultMap="product">
 	select * from prod_info where prod_id=#{prodId}
 </select>
 
@@ -60,9 +100,20 @@
 	delete prod_info where prod_id=#{prodId}
 </delete>
 
-<!-- 사진 등록 -->
-<insert id="prodImgRegister">
-	insert into image (prod_id,org_img,upload_path,uuid) values(prod_id_seq.currval,#{orgImg},#{uploadPath},#{UUID})
-</insert>
+<!-- 물품 업데이트 -->
+<update id="prodUpdate">
+	update prod_info set mbr_id=#{mbrId},prod_title=#{prodTitle},cate_code=#{cateCode},price=#{price},
+	trd_location=#{trdLocation},prod_content=#{prodContent},prod_date=#{prodDate} where prod_id=#{prodId}
+</update>
+
+<!-- 이미지 업데이트 -->
+<update id="prodImgUpdate">
+	update image set org_img=#{orgImg},upload_path=#{uploadPath},uuid=#{UUID} where prod_id=#{prodId}
+</update>	
+
+<!-- 판매완료 업데이트 -->
+<update id="sellsComple">
+	update prod_info set prod_stat=#{prodStat} where mbr_id=#{mbrId} and prod_id=#{prodId}
+</update>
 
 </mapper>

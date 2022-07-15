@@ -26,7 +26,7 @@
 	text-decoration: none;
 }
 td{
-	text-align: center
+	text-align: center;
 }
 </style>
 </head>
@@ -49,10 +49,7 @@ td{
 		<thead style="border-bottom: 2px solid black; ">
 			<tr>
 				<th>사진</th> <th>판매상태</th> <th>상품명</th>
-				<th>가격</th> <th>찜/댓글</th>
-				<c:if test="${loginUser != 'admin' }">
-					<th>기능</th>
-				</c:if>
+				<th>가격</th> <th>찜/댓글</th> 
 			</tr>
 		</thead>
 		<!-- 테이블 몸통(내용 리스트로 가져옴) -->
@@ -61,18 +58,9 @@ td{
 			<c:choose>
 				<c:when test="${psList.size() == 0}">
 					<tr>
-						<c:choose>
-							<c:when test="${loginUser != 'admin' }">
-								<th colspan="6" align="center" style="padding: 30px 30px">
-									판매중인 상품이 존재하지 않습니다.
-								</th>
-							</c:when>
-							<c:otherwise>
-								<th colspan="5" align="center" style="padding: 30px 30px">
-									판매중인 상품이 존재하지 않습니다.
-								</th>
-							</c:otherwise>
-						</c:choose>
+						<th colspan="5" align="center" style="padding: 30px 30px">
+							 판매완료된 상품이 존재하지 않습니다.
+						</th>
 					</tr>
 				</c:when>
 			<c:otherwise>
@@ -96,15 +84,8 @@ td{
 						</td>
 						<td>${psdto.price}</td> 
 						<td>찜 / 댓글</td> 
-						<td>
-							<c:if test="${loginUser != 'admin' }">
-								<button onclick="location.href='${contextPath}/product/sellsComple?prodStat=${psdto.prodStat}&prodId=${psdto.prodId}'">
-									판매완료
-								</button>
-							</c:if>
-						</td>
 					</tr>
-				</c:forEach> 
+				</c:forEach>
 			</c:otherwise>
 			</c:choose>
 		</tbody>
@@ -115,7 +96,7 @@ td{
 <div class="" style="text-align: center; padding: 20px 0; ">
 	<a href="#">&laquo;</a>
 			<c:forEach var="num" begin="1" end="${repeat }">
-				<a href="prodStatus?num=${num }">[${num }]</a>
+				<a href="sellsComplete?num=${num }">[${num }]</a>
 			</c:forEach>
 	<a href="#">&raquo;</a>
 </div>

@@ -33,7 +33,7 @@
 </style>
 </head>
 <body>
-	<%@include file="default/header.jsp"%>
+<%@include file="default/header.jsp"%>
 	<div class="mainlist">
 		<div class="div_st"
 			onclick="location.href='#';">
@@ -105,6 +105,6 @@
 				type="text" style="width: 180px;">
 		</div>
 	</div>
-	<%@include file="default/footer.jsp"%>
+<%@include file="default/footer.jsp"%>
 </body>
 </html>
