@@ -23,7 +23,6 @@
 	width: 1px;
 	height: 12px;
 	border-right: 1px solid #C0C0C0;
-	margin-left: 10px;
 	margin-right: 10px;
 }
 

@@ -13,6 +13,7 @@
 	<result property="date" column="cs_date"/>
 	<result property="replyStat" column="reply_stat"/>
 </resultMap>
+<resultMap type="com.market.root.customer.dto.CustomerRepDTO" id="reply"></resultMap>
 
 <!-- 고객센터 문의글 보기 / 페이징 처리-->
 <select id="csAllView" resultMap="customer">
@@ -21,6 +22,11 @@
 	<if test="mbrId != 'admin'">
 		and (mbr_id = #{mbrId})
 	</if> 
+</select>
+
+<!-- 개인 문의글 개수 호출 -->
+<select id="personalSell" resultType="Integer">
+	select count(*) from customer_service where mbr_id=#{mbrId}
 </select>
 
 <!-- 문의글의 총 개수(행 개수)를 받아옴 -->
@@ -47,6 +53,18 @@
 <delete id="csContentDel">
 	delete customer_service where cs_num=#{csNum}
 </delete>
+
+<!-- 답글 기능 -->
+	<insert id="addReply">
+		insert into reply(id,title,content,write_group)
+		values(#{id},#{title},#{content},#{write_group})
+	</insert>
+
+	<select id="getRepList" resultMap="reply">
+		select * from reply where
+		write_group=#{write_group}
+		order by write_date desc
+	</select>
 
 
 

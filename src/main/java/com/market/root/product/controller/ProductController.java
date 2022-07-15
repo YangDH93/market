@@ -3,6 +3,9 @@ package com.market.root.product.controller;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,17 +27,13 @@ public class ProductController {
 	@Autowired ProductService ps;
 	@Autowired FileService fs;
 	
-	//회원등록(정보) // (무시) 지울놈임
-	@GetMapping("memberInfo")
-	public String memberInfo() {
-		return "product/memberInfo";
-	}
 	//상품등록
 	@GetMapping("prodNew")
 	public String prodNew(Model model) {
 		ps.cateAllList(model);
 		return "product/prodNew";
 	}
+	
 	//상품 정보 prodUpdateForm으로 넘겨줌
 	@GetMapping("prodUpdateForm")
 	public String prodUpdateForm(@RequestParam (required = false) int prodId,
@@ -48,6 +47,7 @@ public class ProductController {
 		}
 		return "product/prodUpdateForm";
 	}
+	
 	//검색상품 보여줄 페이지
 	@GetMapping("products")
 	public String products() {
@@ -61,21 +61,42 @@ public class ProductController {
 		ArrayList<CategoriesDTO> arr = ps.cateList(sltCode);
 		return arr;
 	}
+	
 	//개인 물품 거래 페이지
 	@GetMapping("prodTrade")
 	public String prodTrade() {
 		return "product/prodTrade";
 	}
+	
 	//구매,판매목록, 찜목록, 등 상품관리 기능
-	//페이징 기능 추가
+	//페이징 기능 추가 , 상품 판매중 메소드 , 시간 설정 후 넘김
 	@GetMapping("prodStatus")
 	public String prodStatus(Model model, //defaultValue = "1" : 값이 들어오지 않았다면 1로 처리
-			@RequestParam(value="num", required = false, defaultValue = "1") int num) {
-		
-		
-		ps.psAllView(model,num);
+			@RequestParam(value="num", required = false, defaultValue = "1") int num,
+			HttpSession session) {
+			System.out.println(session.getAttribute("loginUser"));
+			ps.psAllView(model,num,session);
 		
 		return "product/prodStatus";
+	}
+	
+	//상품 판매완료 메소드 - update
+	@GetMapping("sellsComple")
+	public String sellsComple(ProductDTO dto,
+								HttpSession session,
+								Model model) {
+		System.out.println("상품 고유번호 : " + dto.getProdId() + " 상품 판매상태 : " + dto.getProdStat());
+		dto.setMbrId((String) session.getAttribute("loginUser"));
+		dto.setProdStat(1);
+		System.out.println("업데이트 후 아이디 : " + dto.getMbrId() + " 상품 상태 : " + dto.getProdStat());
+		int result;
+		result = ps.sellsComple(dto,model);
+		if(result == 1) {
+			return "redirect:prodStatus";
+		}else {
+			return "redirect:prodStatus";
+		}
+		
 	}
 	
 	//상품 검색기능
@@ -146,6 +167,7 @@ public class ProductController {
 		}
 	}
 	
+	//상품수정
 	@PostMapping("prodUpdate")
 	public String prodUpdate(@RequestParam(value="orgImg", required = false) String orgImg,
 								@RequestParam(value="uploadPath", required = false) String uploadPath,
@@ -167,6 +189,18 @@ public class ProductController {
 		System.out.println("업데이트 실패");
 		return "redirect:prodStatus";
 	}
+	
+	//상품 판매완료.jsp
+	@GetMapping("sellsComplete")
+	public String sellsComplete(Model model, //defaultValue = "1" : 값이 들어오지 않았다면 1로 처리
+			@RequestParam(value="num", required = false, defaultValue = "1") int num,
+			HttpSession session) {
+		
+		ps.sellsAllView(model,num,session);
+		
+		return "product/sellsComplete";
+	}
+
 }
 
 

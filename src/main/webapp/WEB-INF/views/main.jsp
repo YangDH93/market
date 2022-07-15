@@ -26,17 +26,6 @@
 					<div class="eIZYPa">
 						<div class="dSYEIN">
 							<div class="cXyXMN">
-								ㅇㅇ
-								<img src="${contextPath}/product/display?fileName=test1.PNG">
-								ㅇㅇㅇ
-								<img src="${contextPath}/product/display?fileName=test1.PNG">
-								ㅇㅇㅇ
-								<img src="${contextPath}/product/display?fileName=test1.PNG">
-								ㅇㅇㅇ
-								<img src="${contextPath}/product/display?fileName=test1.PNG">
-								ㅇㅇㅇ
-								<img src="${contextPath}/product/display?fileName=test1.PNG">
-								ㅇㅇ
 							</div>
 						</div>
 					</div>

@@ -24,14 +24,14 @@ function daumPost(){
 }
 
 $(document).ready(function() {
-	$("#prodContent").on('keyup', function() {
-		$("#textcount").html("(" + $(this).val().length + " / 500)");
-		if ($(this).val().length > 500) {
-			$(this).val($(this).val().substring(0, 500));
-			alert("글자수는 500자까지 입력 가능합니다.")
-			$("#textcount").html("(500 / 500)");
-		}
-	});
+   $("#prodContent").on('keyup', function() {
+      $("#textcount").html("(" + $(this).val().length + " / 500)");
+      if ($(this).val().length > 500) {
+         $(this).val($(this).val().substring(0, 500));
+         alert("글자수는 500자까지 입력 가능합니다.")
+         $("#textcount").html("(500 / 500)");
+      }
+   });
 });
 
 let uuidList = "";
@@ -39,13 +39,14 @@ let orgImg = "";
 var count = 0; 
 /* 파일 추가  */
 $(document).ready(function(){
-	 $("#fileItem").change(function(e){
-		
-		let formData = new FormData(); 
-		let fileInput = $('input[name="uploadImg"]');
-		let fileList = fileInput[0].files;
-		let fileObj = fileList[0];
+    $("#fileItem").change(function(e){
+      
+      let formData = new FormData(); 
+      let fileInput = $('input[name="uploadImg"]');
+      let fileList = fileInput[0].files;
+      let fileObj = fileList[0];
 
+<<<<<<< HEAD
 		
 		for(let i = 0; i < fileList.length; i++){
 			formData.append("uploadImg", fileList[i]);
@@ -159,100 +160,99 @@ function resetImg() {
 	$("#mes").html("첫번째 등록된 사진이 대표 사진입니다.");
 }
 
-
 /* 카테고리 관련코드 */
 /* 카테고리 하위 목록 ajax */
 function getList(sltCode,num){
-	$.ajax({
-		url : 'getList', type : 'post', dataType : 'json',
-		data : { sltCode : sltCode },
-		success : function(list){
-			
-			let str = "";
-			let lab = "";
-			
-			if(num == 1){
-				for(let i=0; i<list.length; i++){
-					str += '<div class="cate2List" onclick="openCate2(event,'+list[i].cateCode+", '"+list[i].cateName+"'"+')">'+list[i].cateName+'</div>';
-				}
-				$(".cateBox2").append(str);
-				
-			}else if(num == 2){
-				for(let i=0; i<list.length; i++){
-					str += '<div class="cate3List" onclick="openCate3(event,'+list[i].cateCode+", '"+list[i].cateName+"'"+')">'+list[i].cateName+'</div>';
-				}
-				$(".cateBox3").append(str);
-			}
-		}
-	});
+   $.ajax({
+      url : 'getList', type : 'post', dataType : 'json',
+      data : { sltCode : sltCode },
+      success : function(list){
+         
+         let str = "";
+         let lab = "";
+         
+         if(num == 1){
+            for(let i=0; i<list.length; i++){
+               str += '<div class="cate2List" onclick="openCate2(event,'+list[i].cateCode+", '"+list[i].cateName+"'"+')">'+list[i].cateName+'</div>';
+            }
+            $(".cateBox2").append(str);
+            
+         }else if(num == 2){
+            for(let i=0; i<list.length; i++){
+               str += '<div class="cate3List" onclick="openCate3(event,'+list[i].cateCode+", '"+list[i].cateName+"'"+')">'+list[i].cateName+'</div>';
+            }
+            $(".cateBox3").append(str);
+         }
+      }
+   });
 }
 
 /* 카테고리 중분류 목록 이벤트 */ 
 function openCate(evt, sltCode, name) { //대분류 코드, 이름
-	
-	$('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
-	
-	var cate1List = $(".cate1List");
-	
-	/* ==========기존삭제========== */
-	
-	for (var i = 0; i < cate1List.length; i++) {
-		cate1List[i].className = cate1List[i].className.replace(" active", "");
-	}
+   
+   $('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
+   
+   var cate1List = $(".cate1List");
+   
+   /* ==========기존삭제========== */
+   
+   for (var i = 0; i < cate1List.length; i++) {
+      cate1List[i].className = cate1List[i].className.replace(" active", "");
+   }
 
-	$(".cateBox2").empty(); //기존 중분류 목록 지움
-	$(".cateBox3").empty(); //기존 소분류 목록 지움
-	
-	$("#userSel2").text("") //기존 중분류 이름 지움
-	$("#userSel3").text("") //기존 소분류 이름 지움
-	
-	/* ==========새로생성========== */
-	
-	$("#userSel1").text(name) //선택한 대분류 이름 들어옴
-	evt.currentTarget.className += " active"; //색상변경
+   $(".cateBox2").empty(); //기존 중분류 목록 지움
+   $(".cateBox3").empty(); //기존 소분류 목록 지움
+   
+   $("#userSel2").text("") //기존 중분류 이름 지움
+   $("#userSel3").text("") //기존 소분류 이름 지움
+   
+   /* ==========새로생성========== */
+   
+   $("#userSel1").text(name) //선택한 대분류 이름 들어옴
+   evt.currentTarget.className += " active"; //색상변경
 
-	getList(sltCode,"1") //ajax 리스트 불러옴
-	
+   getList(sltCode,"1") //ajax 리스트 불러옴
+   
 }
 /* 카테고리 소분류 목록 이벤트 */
 function openCate2(evt, sltCode, name) { //소분류 나타남
-	
-	$('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
-	
-	var cate2List = $(".cate2List");
-	
-	/* ==========기존삭제========== */
+   
+   $('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
+   
+   var cate2List = $(".cate2List");
+   
+   /* ==========기존삭제========== */
 
-	for (var i = 0; i < cate2List.length; i++) {
-		cate2List[i].className = cate2List[i].className.replace(" active", "");
-	}
-	$(".cateBox3").empty(); //기존 소분류 목록 지움
-	$("#userSel3").text("") //기존 소분류 이름 지움
-	
-	/* ==========새로생성========== */
-	
-	$("#userSel2").text(" > "+name) //선택한 중분류 이름 들어옴
-	evt.currentTarget.className += " active"; //색상변경
-	
-	getList(sltCode,"2") //ajax 리스트 불러옴
+   for (var i = 0; i < cate2List.length; i++) {
+      cate2List[i].className = cate2List[i].className.replace(" active", "");
+   }
+   $(".cateBox3").empty(); //기존 소분류 목록 지움
+   $("#userSel3").text("") //기존 소분류 이름 지움
+   
+   /* ==========새로생성========== */
+   
+   $("#userSel2").text(" > "+name) //선택한 중분류 이름 들어옴
+   evt.currentTarget.className += " active"; //색상변경
+   
+   getList(sltCode,"2") //ajax 리스트 불러옴
 }
 /* 카테고리 소분류  */
 function openCate3(evt, sltCode, name) { //소분류 나타남
-	
-	$('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
-	
-	var cate3List = $(".cate3List");
-	
-	/* ==========기존삭제========== */
-	
-	for (var i = 0; i < cate3List.length; i++) {
-		cate3List[i].className = cate3List[i].className.replace(" active", "");
-	}
-	
-	/* ==========새로생성========== */
-	
-	$("#userSel3").text(" > "+name) //선택한 소분류 이름 들어옴
-	evt.currentTarget.className += " active"; //색상변경
+   
+   $('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
+   
+   var cate3List = $(".cate3List");
+   
+   /* ==========기존삭제========== */
+   
+   for (var i = 0; i < cate3List.length; i++) {
+      cate3List[i].className = cate3List[i].className.replace(" active", "");
+   }
+   
+   /* ==========새로생성========== */
+   
+   $("#userSel3").text(" > "+name) //선택한 소분류 이름 들어옴
+   evt.currentTarget.className += " active"; //색상변경
 }
 
 
@@ -298,43 +298,43 @@ function buttonChk(){
    width: 100px;
 }
 .size_30{
-	height: 30px;
-	width: 150px;
+   height: 30px;
+   width: 150px;
 }
 .redmen{
-	color: red;
-	font-size: medium;
+   color: red;
+   font-size: medium;
 }
 
 /* 카테고리 wrap */
 .catewrap{
-	width: 1000px;
+   width: 1000px;
     display: flex;
 }
 /* 카테고리 box */
 .cateBox1,
 .cateBox2,
 .cateBox3{
-	float: left;
-	border: 1px solid #ccc;
-	width: 30%;
-	height: 300px;
-	overflow: auto;
+   float: left;
+   border: 1px solid #ccc;
+   width: 30%;
+   height: 300px;
+   overflow: auto;
 }
 /* 카테고리 리스트 */
 .cate1List,
 .cate2List,
 .cate3List{
-	padding: 10px;
-	text-align: left;
-	cursor: pointer;
-	transition: 0.3s;
+   padding: 10px;
+   text-align: left;
+   cursor: pointer;
+   transition: 0.3s;
 }
 /* 카테고리 리스트 hover */
 .cate1List:hover, 
 .cate2List:hover, 
 .cate3List:hover{
-	background-color: #FFEFB9;
+   background-color: #FFEFB9;
 }
 
 .cate1List.active,
@@ -350,7 +350,7 @@ function buttonChk(){
 <%@include file="../default/header.jsp" %>
    <form id="frm" action="${contextPath }/product/prodRegister" method="post">
       <section class="eeRGVw">
-   	  	 <input name="mbrId" value="${loginUser}" style="display: none;">
+            <input name="mbrId" value="${loginUser}" style="display: none;">
          <div>
                <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">기본 정보
                <span class="redmen">*은 필수항목 입니다.</span></h2>
@@ -360,7 +360,7 @@ function buttonChk(){
          <hr>
          <div class="flex">
             <div class="size_150">
-               	상품 이미지<span class="redmen">*</span>
+                  상품 이미지<span class="redmen">*</span>
             </div>
             <div>
             	<div>
@@ -377,7 +377,7 @@ function buttonChk(){
          <hr>
          <div class="flex">
             <div class="size_30">
-              	 제목<span class="redmen">*</span>
+                  제목<span class="redmen">*</span>
             </div>
             <div>
                <input type="text" id="prodTitle" name="prodTitle" placeholder="상품 제목을 입력해주세요." size="100px">
@@ -386,39 +386,39 @@ function buttonChk(){
          <hr>
          <div class="flex">
             <div class="size_150">
-               	카테고리<span class="redmen">*</span>
-	         	<input type="text" id="cateCode" name="cateCode" style="display: none;">
+                  카테고리<span class="redmen">*</span>
+               <input type="text" id="cateCode" name="cateCode" style="display: none;">
             </div>
             
-			<div class="catewrap">
-			
-				<div class="cateBox1">
-					<c:forEach var="dto" items="${cateList }">
-						<div class="cate1List" onclick="openCate(event,'${dto.cateCode}','${dto.cateName }')">${dto.cateName }</div>
-					</c:forEach>
-				</div>
+         <div class="catewrap">
+         
+            <div class="cateBox1">
+               <c:forEach var="dto" items="${cateList }">
+                  <div class="cate1List" onclick="openCate(event,'${dto.cateCode}','${dto.cateName }')">${dto.cateName }</div>
+               </c:forEach>
+            </div>
 
-				<div class="cateBox2">
-				</div>
+            <div class="cateBox2">
+            </div>
 
-				<div class="cateBox3">
-				</div>
+            <div class="cateBox3">
+            </div>
 
-			</div>
-			<br>
-		</div>
-		
-		<div>
-			<label>선택한 카테고리 : </label>
-			<span id="userSel1"></span>
-			<span id="userSel2"></span>
-			<span id="userSel3"></span>
-		</div>
+         </div>
+         <br>
+      </div>
+      
+      <div>
+         <label>선택한 카테고리 : </label>
+         <span id="userSel1"></span>
+         <span id="userSel2"></span>
+         <span id="userSel3"></span>
+      </div>
         
         <hr>
         <div class="flex">
-        	<div class="size_150">
-              	 거래지역<span class="redmen">*</span>
+           <div class="size_150">
+                  거래지역<span class="redmen">*</span>
             </div>
             <div class="size2">
             <div>
@@ -433,7 +433,7 @@ function buttonChk(){
          <hr>
          <div class="flex">
             <div class="size_30">
-               	가격<span class="redmen">*</span>
+                  가격<span class="redmen">*</span>
             </div>
             <div>
                <input type="text" id="price" name="price" placeholder="숫자만 입력해주세요."
@@ -443,7 +443,7 @@ function buttonChk(){
          <hr>
          <div class="flex">
             <div class="size_150">
-               	설명<span class="redmen">*</span>
+                  설명<span class="redmen">*</span>
             </div>
             <div>
             <textarea id="prodContent" name="prodContent" maxlength="500" style="resize: none;"
@@ -452,11 +452,11 @@ function buttonChk(){
             </div>
          </div>
          <hr>
-	      <div>
-	         <input type ="button" onclick="buttonChk()" value="등록하기">
-	      </div>
+         <div>
+            <input type ="button" onclick="buttonChk()" value="등록하기">
+         </div>
       </section>
-   </form>	
+   </form>   
 <%@ include file="../default/footer.jsp" %>
 
 </body>

@@ -32,7 +32,7 @@
 					<c:choose>
 					<c:when test="${csList.size() == 0}">
 						<tr>
-							<td colspan="4" align="center">
+							<td colspan="4" align="center" style="padding: 30px 30px">
 								<b>작성된 글이 존재하지 않습니다.</b>
 							</td>
 						</tr>
