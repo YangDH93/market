@@ -1,25 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-<c:set var="dto" value="${mbrInfo }"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="dto" value="${mbrInfo }" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.correct{
-	color : green;
-	font-size: 14px
+.correct {
+	color: green;
+	font-size: 16px;
 }
-.incorrect{
-	color : red;
-	font-size: 14px
+
+.incorrect {
+	color: red;
+	font-size: 16px;
+}
+
+.modify {
+	display: flex;
+	justify-content: center;
+	margin-top: 58px;
+	font-size: 18px;
+}
+
+.fb {
+	width: 90px;
+	height: 25px;
+	border-radius: 5px;
+	border: 1px solid #FFA200;
+	color: #414141;
+	background-color: #FFFFFF;
+	margin-left: 395px;
+	font-size: 16px;
+	padding-bottom: 3px;
+	cursor: pointer;
+}
+
+.input_st {
+	outline-style: none;
+	border-color: #FFA200;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	width: 355px;
+	font-size: 16px;
 }
 </style>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript">
 /* 변수 지정시 JSTL문구 HTML보다 먼저 읽기 때문에 변수 사용 불가능. */
 var dName = "${dto.mbrName}"
@@ -72,7 +104,6 @@ function daumPost(){
          }else{
             addr = data.jibunAddress
          }
-         document.getElementById("addr1").value=data.zonecode
            $("#addr2").val( addr )
         }
     }).open();
@@ -140,8 +171,8 @@ function safetyPasswordPattern(str){
 	if(pass.length){
 		//입력 글자수 제한
 		if(pass.length < 8 || pass.length > 16){ //문자열 길이가 8 ~ 16 아닌 경우
-			message = ":: 최소 8자 이상, 최대 16자 이하 ::";
-			color = "#A23E48"
+			message = "최소 8자 이상, 최대 16자 이하";
+			color = "#FF0000"
 		}else{
 			//비밀번호 문자열에 숫자 존재 여부 검사
 			var pattern1 = /[0-9]/; //숫자
@@ -165,22 +196,22 @@ function safetyPasswordPattern(str){
 			}
 			
 			if(checkPoint >= 3) {
-                message = ":: 보안성이 취약한 비밀번호 ::";
-                color = "#A23E48";
+                message = "보안성이 취약한 비밀번호";
+                color = "#F0000";
             } else if(checkPoint == 2) {
-                message = ":: 보안성이 낮은 비밀번호 ::";
-                color = "#FF8C42";
+                message = "보안성이 낮은 비밀번호";
+                color = "#FF0000";
             } else if(checkPoint == 1) {
-                message = ":: 보안성이 보통인 비밀번호 ::";
-                color = "#FF8C42";
+                message = "보안성이 보통인 비밀번호";
+                color = "#FF0000";
             } else {
-                message = ":: 보안성이 강력한 비밀번호 ::";
-                color = "#0000CD";
+                message = "보안성이 강력한 비밀번호";
+                color = "#006600";
             }
 			bool2 = true;
 		}
 	}else{
-		message = ":: 비밀번호를 입력해 주세요 ::";
+		message = "비밀번호를 입력해 주세요";
 		color="#000000";
 	}
 	document.getElementById("makyText").innerHTML = message;
@@ -191,12 +222,12 @@ function safetyPasswordPattern(str){
 function pwCheck(){
     if(document.getElementById('mbrPw').value !='' && document.getElementById("mbrPw2").value!=''){
         if(document.getElementById('mbrPw').value==document.getElementById("mbrPw2").value){
-            document.getElementById('pwCheck').innerHTML=':: 2차 비밀번호가 일치합니다. ::'
-            document.getElementById('pwCheck').style.color='blue';
+            document.getElementById('pwCheck').innerHTML='2차 비밀번호가 일치합니다.'
+            document.getElementById('pwCheck').style.color='green';
             bool3 = true;
         }
         else{
-            document.getElementById('pwCheck').innerHTML=':: 비밀번호가 일치하지 않습니다. ::';
+            document.getElementById('pwCheck').innerHTML='비밀번호가 일치하지 않습니다.';
             document.getElementById('pwCheck').style.color='red';
             bool3 = false;
         }
@@ -221,7 +252,7 @@ function subChk(){
 	//bool true인지 체크 후 제출
 	//닉네임 중복 확인
 	if(bool1 != true){
-		alert("닉네임 다시 입력")
+		alert("닉네임을 다시 입력해주세요")
 		mbrName.focus();
 		return;
 	}
@@ -237,11 +268,10 @@ function subChk(){
 		mbrPw2.focus();
 		return;
 	}
-	   var addr1 = $("#addr1").val()
 	   var addr2 = $("#addr2").val()
 	  $("#addr1").val( addr1+"/"+addr2 )
 	
-	alert("회원정보 수정이 완료되셨습니다.")
+	alert("회원정보 수정이 완료되었습니다.")
   	fo.submit()
 	
 }
@@ -259,75 +289,111 @@ function deleteChk(){
 
 </head>
 <body>
-	<h1>MEMBER UPDATE</h1>
-	<form id="fo" action="memberUpdate" method="post">
-		<!-- 기존 닉네임. 업데이트 전송을 위해 숨김 -->
-		<input type="text" value="${dto.mbrName }" name="dName" style="display:none;">
-	<table border="1">
-		<tr>
-			<th>닉네임</th>
-			<td><input type="text" name="mbrName" id="mbrName" value="${dto.mbrName }" 
-			onkeyup="nameChk()" placeholder="닉네임 입력">
-			<label id="chkMsg1"></label>
-			</td>
-		</tr>
-		<tr>
-			<th>아이디</th>
-			<td><input type="text" value="${dto.mbrId }" readonly placeholder="아이디 입력"
-			name="mbrId"></td>
-		</tr>
-			<tr>
-			<th>이메일</th>
-			<td><input type="text" value="${dto.mbrEmail }" readonly placeholder="이메일 입력"
-			name="mbrEmail"></td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td>
-			<input type="text" placeholder="새 비밀번호 입력" name="mbrPw" id="mbrPw"
-			onkeyup="safetyPasswordPattern(this);" style="ime-mode:disabled;"/>
-			<span id="makyText">:: 비밀번호를 입력해 주세요 ::</span>
-			</td>
-		</tr>
-		<tr>
-			<th>비밀번호 확인</th>
-			<td>
-				<input type="text" onchange="pwCheck()" placeholder="비밀번호 확인" id="mbrPw2">
-				<span id="pwCheck">:: 2차 비밀번호 확인 ::</span>
-			</td>
-		</tr>
-		<tr>
-			<th>전화번호</th>
-			<td>
-				<input type="text" value="${dto.mbrTel }" placeholder="010-0000-0000" 
-				oninput="phoneFormat(this)" id="mbrTel" name="mbrTel">
-			</td>
-		</tr>
-		<tr>
-			<th>주소</th>
-			<td>
-                <input type="text" readonly id="addr1" name="mbrAddr" placeholder="우편번호"><br>
-                <input type="text" readonly id="addr2" placeholder="도로명주소, 지번주소">
-                <input type="button" onclick="daumPost()" value="주소 검색">
-			</td>
-		</tr>
-		<tr>
-			<td align="right" colspan="2">
-				<input type="button" onclick="subChk()" value="수정">
-			</td>
-		</tr>
-		
-		
-	</table>
-	</form>
-	<hr>
-		<form id="delfo" action="userDelete">
-			<h6 align="right">탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.
-				<input type="text" value="${dto.mbrId }" name="mbrId" style="display: none;">
-				<input type="button" onclick="deleteChk()" value="회원탈퇴">
-			</h6>
-		</form>
-	
+	<div class="modify">
+		<form id="fo" action="memberUpdate" method="post">
+			<!-- 기존 닉네임. 업데이트 전송을 위해 숨김 -->
+			<input type="text" value="${dto.mbrName }" name="dName"
+				style="display: none;">
 
+			<table>
+				<tr>
+					<td colspan="2" align="center"><img
+						style="width: 300px; height: 300px;"
+						src="${contextPath}/resources/image/duck.png"
+						onclick="location.hrer='http://localhost:8085/root/'" /></td>
+				</tr>
+				<tr>
+					<td>닉네임</td>
+					<td><input class="input_st" type="text" name="mbrName"
+						id="mbrName" value="${dto.mbrName }" onkeyup="nameChk()">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><label id="chkMsg1"></label></td>
+				</tr>
+
+				<tr>
+					<td>아이디</td>
+					<td><input class="input_st" type="text" value="${dto.mbrId }"
+						readonly name="mbrId"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>비밀번호</td>
+					<td><input class="input_st" type="text" name="mbrPw"
+						id="mbrPw" onkeyup="safetyPasswordPattern(this);"
+						style="ime-mode: disabled;"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><span id="makyText"
+						style="color: red; font-size: 16px; margin-left: 4px;">비밀번호를
+							입력해 주세요</span></td>
+				</tr>
+
+				<tr>
+					<td>비밀번호 확인</td>
+					<td><input class="input_st" type="text" onchange="pwCheck()"
+						id="mbrPw2"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><span id="pwCheck"
+						style="color: red; font-size: 16px; margin-left: 4px;">2차
+							비밀번호를 확인해주세요</span></td>
+				</tr>
+				<tr>
+					<td>이메일</td>
+					<td><input class="input_st" type="text"
+						value="${dto.mbrEmail }" readonly name="mbrEmail"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>전화번호</td>
+					<td><input class="input_st" type="text" value="${dto.mbrTel }"
+						oninput="phoneFormat(this)" id="mbrTel" name="mbrTel"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+
+				<tr>
+					<td>주소</td>
+					<td><input class="input_st" type="text" readonly id="addr2"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="padding-top: 3px; padding-bottom: 35px;">
+						<input type="button" onclick="daumPost()" value="주소찾기" class="fb">
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="2" align="center"><input type="button"
+						value="수정완료" onclick="subChk()"
+						style="cursor: pointer; font-weight: 500; color: #FFFFFF; background-color: #FFA200; border: 0px; border-radius: 10px; font-size: 18px; width: 100%; height: 50px;">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div style="font-size: 13px; display: flex; justify-content: center;">
+		&nbsp;&nbsp; <input type="text" value="${dto.mbrId }" name="mbrId"
+			style="display: none;"> <a onclick="deleteChk()"
+			style="cursor: pointer; color: #FFA200; font-weight: bold;">회원
+			탈퇴를 원하시면 여기를 눌러주세요</a>
+	</div>
 </body>
 </html>

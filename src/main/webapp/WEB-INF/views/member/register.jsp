@@ -1,22 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath }" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.correct{
-   color : green;
-   font-size: 14px
+.correct {
+	color: green;
+	font-size: 16px;
 }
-.incorrect{
-   color : red;
-   font-size: 14px
+
+.incorrect {
+	color: red;
+	font-size: 16px;
+}
+
+#rg {
+	display: flex;
+	justify-content: center;
+	margin-top: 58px;
+}
+
+.ebtn {
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	border: 1px solid #FFA200;
+	color: #414141;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+#rf {
+	display: flex;
+	justify-content: center;
+	padding-top: 20px;
+}
+
+.input_st {
+	outline-style: none;
+	border-color: #FFA200;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	width: 377px;
+	font-size: 18px;
+}
+
+.input_Est {
+	background: white;
+	outline-style: none;
+	border-color: #FFA200;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	width: 122px;
+	font-size: 18px;
+}
+
+.firsttd {
+	font-size: 18px;
+}
+
+.mesp {
+	height: 25px;
+	padding: 3px;
 }
 </style>
 
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
 
 var bool1 = false; // 닉네임
@@ -122,8 +177,8 @@ function safetyPasswordPattern(str){
    if(pass.length){
       //입력 글자수 제한
       if(pass.length < 8 || pass.length > 16){ //문자열 길이가 8 ~ 16 아닌 경우
-         message = ":: 최소 8자 이상, 최대 16자 이하 ::";
-         color = "#A23E48"
+         message = "최소 8자 이상, 최대 16자 이하";
+         color = "#FF0000"
       }else{
          //비밀번호 문자열에 숫자 존재 여부 검사
          var pattern1 = /[0-9]/; //숫자
@@ -147,22 +202,22 @@ function safetyPasswordPattern(str){
          }
          
          if(checkPoint >= 3) {
-                message = ":: 보안성이 취약한 비밀번호 ::";
-                color = "#A23E48";
+                message = "보안성이 취약한 비밀번호";
+                color = "#FF0000";
             } else if(checkPoint == 2) {
-                message = ":: 보안성이 낮은 비밀번호 ::";
-                color = "#FF8C42";
+                message = "보안성이 낮은 비밀번호";
+                color = "#FF0000";
             } else if(checkPoint == 1) {
-                message = ":: 보안성이 보통인 비밀번호 ::";
-                color = "#FF8C42";
+                message = "보안성이 보통인 비밀번호";
+                color = "#FF0000";
             } else {
-                message = ":: 보안성이 강력한 비밀번호 ::";
-                color = "#0000CD";
+                message = "보안성이 강력한 비밀번호";
+                color = "#006600";
             }
          bool3 = true;
       }
    }else{
-      message = ":: 비밀번호를 입력해 주세요 ::";
+      message = "비밀번호를 입력해 주세요";
       color="#000000";
    }
    document.getElementById("makyText").innerHTML = message;
@@ -173,12 +228,12 @@ function safetyPasswordPattern(str){
 function pwCheck(){
     if(document.getElementById('mbrPw').value !='' && document.getElementById("mbrPw2").value!=''){
         if(document.getElementById('mbrPw').value==document.getElementById("mbrPw2").value){
-            document.getElementById('pwCheck').innerHTML=':: 2차 비밀번호가 일치합니다. ::'
-            document.getElementById('pwCheck').style.color='blue';
+            document.getElementById('pwCheck').innerHTML='2차 비밀번호가 일치합니다.'
+            document.getElementById('pwCheck').style.color='#006600';
             bool4 = true;
         }
         else{
-            document.getElementById('pwCheck').innerHTML=':: 비밀번호가 일치하지 않습니다. ::';
+            document.getElementById('pwCheck').innerHTML='비밀번호가 일치하지 않습니다.';
             document.getElementById('pwCheck').style.color='red';
         }
     }
@@ -318,13 +373,13 @@ function regChk(){
    
     //닉네임 중복 확인
    if(bool1 != true){
-      alert("닉네임 확인")
+      alert("닉네임을 확인해주세요.")
       name.focus();
       return;
    }
    //아이디 중복 확인
    if(bool2 != true){
-      alert("아이디 확인")
+      alert("아이디를 확인해주세요.")
       id.focus();
       return;
    }
@@ -348,13 +403,13 @@ function regChk(){
    }
    //이메일 도메인 확인
    if(bool6 != true){
-      alert("이메일 주소 확인")
+      alert("이메일 주소를 확인해주세요.")
       mbrEemail2.focus();
       return;
    }
    //이메일 인증번호 확인
    if(bool7 != true){
-      alert("이메일 인증번호 확인")
+      alert("이메일 인증번호를 확인해주세요.")
       $("#inputCode").focus();
       return;
    }
@@ -364,66 +419,128 @@ function regChk(){
 
 </head>
 <body>
-<h1>REGISTER</h1>
-<form id="fo" action="reg" method="post">
-   <div>
-      <!-- 닉네임 -->
-      <!-- 1~10자의 영문 대소문자와 한글, 숫자만 입력가능 -->
-      <input id="mbrName" name="mbrName" maxlength="14" 
-      onkeyup="nameChk()"
-      type="text" placeholder="닉네임" >
-      <span id="chkMsg1"></span><!-- 메시지 띄움 -->
-      <br>
-   </div>
-   
-   <div>
-      <!-- id -->
-      <!-- 4~12자의 영문 대소문자와 숫자만 입력가능 -->
-      <input id="mbrId" name="mbrId" maxlength="14" 
-      onkeyup="idChk()"
-      type="text" placeholder="아이디">
-      <span id="chkMsg2"></span><!-- 메시지 띄움 -->
-      <br>
-   </div>
-   
-   <div>
-      <!-- 비밀번호 -->
-      <input type="text" placeholder="비밀번호" name="mbrPw" id="mbrPw"
-      onkeyup="safetyPasswordPattern(this);" style="ime-mode:disabled;"/>
-      <span id="makyText">:: 비밀번호를 입력해 주세요 ::</span><br>
-      <input type="text" onchange="pwCheck()" placeholder="비밀번호 확인" id="mbrPw2">
-      <span id="pwCheck">:: 2차 비밀번호 확인 ::</span>
-      <br>
-   </div>
-    
-   <div>
-      <div class="email">
-         <!-- 안보이게 mbrEmail값만 저장(js로 전체값 저장처리) -->
-         <input id="mbrEmail" name="mbrEmail" maxlength="14" type="hidden">
-         
-         <!-- 사용자 입력부분 -->
-         <input id="mbrEmail1" name="mbrEmail1" maxlength="14" type="text" placeholder="이메일"> @ 
-         <input disabled id="mbrEmail2" name="mbrEmail2" maxlength="20" type="text">
-         <!-- 도메인 선택부분 -->
-         <select id="mbrEmail3" onchange="selectOpt()">
-            <option value="" selected>선택하기</option>
-            <option value="naver.com">naver.com</option>
-            <option value="gmail.com">gmail.com</option>
-            <option value="hanmail.net">hanmail.net</option>
-            <option value="1">직접입력</option>
-         </select>
-         <button id="sendCode" type="button" onclick="mailChk()">인증번호 전송</button><br>
-      </div>
-      
-      <div class="emailAuth">   
-         <input disabled id="inputCode" maxlength="14" type="text">
-         <button disabled id="codeCkBtn" type="button" onclick="mailCodeChk()">인증번호 확인</button><br>
-         <span id="checkMsg3"></span>
-      </div>
-   </div>
-    
-   <hr>
-   <input type="button" onclick="regChk()" value="가입하기">
-</form>
+	<form id="fo" action="reg" method="post" autocomplete="off">
+		<div id="rg">
+			<table>
+				<tr>
+					<td colspan="2" align="center"><img style="width: 400px;"
+						src="${contextPath}/resources/image/duck.png"
+						onclick="location.href='http://localhost:8085/root/'"></img></td>
+				</tr>
+
+				<tr>
+					<!-- 닉네임 : 1~10자의 영문 대소문자와 한글, 숫자만 입력가능 -->
+					<td class="firsttd">닉네임</td>
+					<td colspan="2">
+						<div>
+							<input class="input_st" id="mbrName" name="mbrName"
+								maxlength="14" onkeyup="nameChk()" type="text">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<!-- 메시지 띄움 -->
+					<td></td>
+					<td class="mesp"><span id="chkMsg1"></span></td>
+				</tr>
+
+				<tr>
+					<!-- id : 4~12자의 영문 대소문자와 숫자만 입력가능 -->
+					<td class="firsttd">아이디</td>
+					<td colspan="2">
+						<div>
+							<input class="input_st" id="mbrId" name="mbrId" maxlength="14"
+								onkeyup="idChk()" type="text">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<!-- 메시지 띄움 -->
+					<td></td>
+					<td class="mesp"><span id="chkMsg2"></span></td>
+				</tr>
+
+				<tr>
+					<!--  비밀번호 -->
+					<td class="firsttd">비밀번호</td>
+					<td colspan="2">
+						<div>
+							<input class="input_st" type="text" name="mbrPw" id="mbrPw"
+								onkeyup="safetyPasswordPattern(this);"
+								style="ime-mode: disabled;" />
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="mesp"><span id="makyText"></span></td>
+				</tr>
+
+				<tr>
+					<!-- 비밀번호 확인 -->
+					<td class="firsttd">비밀번호 확인</td>
+					<td colspan="2"><input class="input_st" type="text"
+						onchange="pwCheck()" id="mbrPw2"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="mesp"><span id="pwCheck"></span></td>
+				</tr>
+
+				<tr>
+					<!-- 이메일 -->
+					<td class="firsttd">이메일</td>
+					<td>
+						<div class="email">
+							<!-- 안보이게 mbrEmail값만 저장(js로 전체값 저장처리) -->
+							<input id="mbrEmail" name="mbrEmail" maxlength="14" type="hidden">
+
+							<!-- 사용자 입력부분 -->
+							<input class="input_Est" id="mbrEmail1" name="mbrEmail1"
+								maxlength="14" type="text">@<input disabled
+								class="input_Est" id="mbrEmail2" name="mbrEmail2" maxlength="20"
+								type="text" style="">
+							<!-- 도메인 선택부분 -->
+							<select id="mbrEmail3" onchange="selectOpt()"
+								style="color: #414141; border: 1px solid #FFA200;  outline: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+								<option value="" selected>선택하기</option>
+								<option value="naver.com">naver.com</option>
+								<option value="gmail.com">gmail.com</option>
+								<option value="hanmail.net">hanmail.net</option>
+								<option value="1">직접입력</option>
+							</select>
+						</div>
+					</td>
+				<tr>
+					<td colspan="3">
+						<button style="margin-left: 453px;" class="ebtn" type="button"
+							id="sendCode" onclick="mailChk()">인증</button>
+					</td>
+				</tr>
+
+				<tr>
+					<!-- 이메일 확인 -->
+					<td class="firsttd">이메일 확인</td>
+					<td>
+						<div class="emailAuth">
+							<input disabled id="inputCode" maxlength="14" type="text"
+								style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 260px; background: white;">
+							<button class="ebtn" disabled id="codeCkBtn" type="button"
+								onclick="mailCodeChk()">인증번호 확인</button>
+							<br>
+						</div>
+					</td>
+				<tr>
+					<td></td>
+					<td class="mesp"><span id="checkMsg3" style="font-size: 16px;"></span></td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<div id="rf">
+			<input type="button" value="가입완료" onclick="regChk()"
+				style="color: #FFFFFF; background-color: #FFA200; border: 0px; border-radius: 10px; font-size: 18px; width: 482px; height: 60px; cursor: pointer; font-weight: 500;">
+		</div>
+	</form>
 </body>
 </html>
