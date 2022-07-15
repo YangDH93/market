@@ -46,8 +46,6 @@ $(document).ready(function(){
       let fileList = fileInput[0].files;
       let fileObj = fileList[0];
 
-<<<<<<< HEAD
-		
 		for(let i = 0; i < fileList.length; i++){
 			formData.append("uploadImg", fileList[i]);
 			let fileObj = fileList[i];
