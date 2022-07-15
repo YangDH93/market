@@ -7,10 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>오!리!마!켓!</title>
-<script
-   src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script
-   src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <head>
 <meta charset="UTF-8">
 <!-- 우편번호 및 주소 -->
@@ -24,7 +22,6 @@
          }
       }).open();
    }
-
 $(document).ready(function() {
    $("#prodContent").on('keyup', function() {
       $("#textcount").html("(" + $(this).val().length + " / 500)");
@@ -300,12 +297,11 @@ function buttonChk(){
    width: 500px;
 }
 
-.size_30 {
+.size_30{
    height: 30px;
    width: 150px;
 }
-
-.redmen {
+.redmen{
    color: red;
    font-size: medium;
 }
@@ -367,27 +363,25 @@ function buttonChk(){
          </div>
          <div class="flex">
             <div class="size_150">
-               상품 이미지<span class="redmen">*</span>
+                 	 상품 이미지<span class="redmen">*</span>
             </div>
             <div>
-               <div>
-                  <label for="fileItem"
-                     style="padding: 3px; margin-left: 25px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지
-                     첨부</label> <input type='file' style="display: none;"
-                     accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg'
-                     multiple> <label for="pr"
-                     style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">처음으로</label>
-                  <input type="button" id="pr" value="처음으로" onclick="resetImg()"
-                     style="display: none;">
-               </div>
-               <div id="uploadResult" class="flex"
-                  style="width: 600; flex-flow: wrap;">
-                  <!-- <img id="preview" src="#" width="100" height="100" alt="선택 이미지 없음"> -->
-               </div>
-            </div>
-            <input id="orgImg" name='orgImg' style="display: none;"> <input
-               id="uploadPath" name='uploadPath' style="display: none;"> <input
-               id="UUID" name='UUID' style="display: none;">
+            	<div>
+            		<label for="fileItem"
+	                    style="padding: 3px; margin-left: 25px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">
+	                                 이미지 첨부</label>
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple style="display: none;">
+                	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
+                	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
+                	<span id="mes" style="color:blue; font-size: 12px;">첫번째 등록된 사진이 대표 사진입니다.</span>
+                </div>
+                <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;"></div>
+                <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;"></div>
+         	</div>	
+         	<input id="orgImg" name='orgImg' style="display: none;">
+         	<input id="uploadPath" name='uploadPath' style="display: none;">
+         	<input id="UUID" name='UUID' style="display: none;">
+
          </div>
          <div class="flex">
             <div class="size_30">
@@ -431,7 +425,6 @@ function buttonChk(){
          <span id="userSel3"></span>
       </div>
         
-        <hr>
         <div class="flex">
            <div class="size_150">
                   거래지역<span class="redmen">*</span>
