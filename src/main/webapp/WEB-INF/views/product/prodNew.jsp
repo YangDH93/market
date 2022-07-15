@@ -308,7 +308,7 @@ function buttonChk(){
 
 /* 카테고리 wrap */
 .catewrap {
-   width: 1000px;
+   width: 874px;
    display: flex;
 }
 /* 카테고리 box */
@@ -366,10 +366,9 @@ function buttonChk(){
                  	 상품 이미지<span class="redmen">*</span>
             </div>
             <div>
-            	<div>
+            	<div style="padding-bottom: 10px;">
             		<label for="fileItem"
-	                    style="padding: 3px; margin-left: 25px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">
-	                                 이미지 첨부</label>
+	                    style="padding: 3px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 첨부</label>
                 	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple style="display: none;">
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
@@ -383,7 +382,7 @@ function buttonChk(){
          	<input id="UUID" name='UUID' style="display: none;">
 
          </div>
-         <div class="flex">
+         <div class="flex" style="padding-top: 10px;">
             <div class="size_30">
                   제목<span class="redmen">*</span>
             </div>
@@ -395,56 +394,56 @@ function buttonChk(){
          </div>
          <br>
          <div class="flex">
-            <div class="size_150">
-                  카테고리<span class="redmen">*</span>
-               <input type="text" id="cateCode" name="cateCode" style="display: none;">
-            </div>
-            
-         <div class="catewrap">
+	            <div class="size_150">
+	                 	 카테고리<span class="redmen">*</span>
+	               <input type="text" id="cateCode" name="cateCode" style="display: none;">
+	            </div>
+			<div>  
+				<div class="catewrap">
+				  <div class="cateBox1">
+				     <c:forEach var="dto" items="${cateList }">
+				        <div class="cate1List" onclick="openCate(event,'${dto.cateCode}','${dto.cateName }')">${dto.cateName }</div>
+				     </c:forEach>
+				   </div>
+				
+				   <div class="cateBox2">
+				   </div>
+				
+				   <div class="cateBox3">
+				   </div>
+				
+				</div>
+				
+				<div class="flex">
+			      <div style="padding: 10px 0">
+			         <label>선택한 카테고리 : </label>
+			         <span id="userSel1"></span>
+			         <span id="userSel2"></span>
+			         <span id="userSel3"></span>
+			      </div>
+      			</div>
+			
+			</div>
          
-            <div class="cateBox1">
-               <c:forEach var="dto" items="${cateList }">
-                  <div class="cate1List" onclick="openCate(event,'${dto.cateCode}','${dto.cateName }')">${dto.cateName }</div>
-               </c:forEach>
-            </div>
-
-            <div class="cateBox2">
-            </div>
-
-            <div class="cateBox3">
-            </div>
-
-         </div>
-         <br>
       </div>
-      
-      <div>
-         <label>선택한 카테고리 : </label>
-         <span id="userSel1"></span>
-         <span id="userSel2"></span>
-         <span id="userSel3"></span>
-      </div>
+
         
         <div class="flex">
            <div class="size_150">
                   거래지역<span class="redmen">*</span>
             </div>
             <div class="size2">
-               <div style="display: flex;">
-
-                  <div style="display: flex;">
-                     <div style="display: flex;">
-                        <input type="button" value="내 위치"
-                           style="margin-left: 30px; cursor: pointer; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
-                        &nbsp;&nbsp;
-                        <input type="button" onclick="daumPost()" value="주소 검색"
-                           style="width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;"><br>
-                        <input type="text" readonly id="trdLocation" name="trdLocation"
-                           placeholder="도로명주소, 지번주소"
-                           style="margin-left: 65px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 530px;"><br>
-                     </div>
-                  </div>
-               </div>
+                <div style="display: flex;">
+                   <input type="button" value="내 위치"
+                      style="cursor: pointer; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">                           
+                   <input type="button" onclick="daumPost()" value="주소 검색"
+                      style="margin-left: 15px; width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
+                </div>
+               	<div>
+                   <input type="text" readonly id="trdLocation" name="trdLocation"
+                      placeholder="도로명주소, 지번주소"
+                      style="margin-left: 65px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 530px;">
+                </div>     
             </div>
          </div>
          <div class="flex" style="margin-top: -60px;">
