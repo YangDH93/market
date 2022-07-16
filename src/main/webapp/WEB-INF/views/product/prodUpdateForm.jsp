@@ -72,11 +72,11 @@ $(document).ready(function(){
 	    		$('#uploadPath').val(result[0].uploadPath);
 	    		
 	    		if(count==0 && result.length > 1){
-	    			$("#mes").css({
+	    			$("#mes1").css({
 	    				"color" : "red",
-	    				"font-size" : "15px"
+	    				"font-size" : "13px"
 	    			});
-	    			$("#mes").html('먼저 대표 사진 1장만 등록해주세요!');
+	    			$("#mes1").html('먼저 대표 사진 1장만 등록해주세요!');
 	    			return false;
 	    		}else if(count+result.length > 10){
 	    			alert("이미지는 최대 10개까지 등록 가능합니다.\n\n 현재 이미지 갯수 : " + count);
@@ -92,10 +92,6 @@ $(document).ready(function(){
 		    			orgImg += "/";
 	    			}
 		    		count++;
-		    		$("#mes").css({
-	    				"color" : "black",
-	    				"font-size" : "12px"
-	    			});
 		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
 	    			    		
@@ -132,20 +128,31 @@ function showUploadImage(uploadResultArr){
 		let fileCallPath = obj.uploadPath.replace(/\\/g, '/') + "/s_" + obj.uuid + "_" + obj.orgImg;
 		
 		if(count == 1){
-			str += "<div><h2> < 대표사진  > </h2>"
+			str += "<div>"
 			str += "<div style='margin: 5px;'>"
-			str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='200px' height='200px'>";
+			str += "<img id='imgMen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='200px' height='200px'>";
 			str += "</div></div>"; 
 			uploadResult1.append(str);
 			
-		}else{
-			str += "<div style='margin: 5px;'>"
-			str += "<img id='imgmen' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='50px' height='50px'>";
-			str += "</div>"; 
-			uploadResult2.append(str);
 		}
+		str = "";
+		str += "<div style='margin: 5px;'>"
+		str += "<img id='imgSelect' onclick='mouseClick(this)' src='${contextPath}/product/display?fileName=" + fileCallPath +"' width='50px' height='50px'>";
+		str += "</div>"; 
+		uploadResult2.append(str);
+		
 	}
+	$("#mes1").css({
+		"color":"blue",
+		"font-size" : "12px"
+	});
+	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");	
 }
+
+function mouseClick(obj){
+	var img = document.getElementById("imgSelect"); 
+	document.getElementById("imgMen").src = obj.src;
+}	
 
 function resetImg() {
 	count = 0;
@@ -158,11 +165,12 @@ function resetImg() {
 	$('#UUID').empty();
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
-	$("#mes").css({
+	$("#mes1").css({
 		"color":"blue",
 		"font-size" : "12px"
 	});
-	$("#mes").html("첫번째 등록된 사진이 대표 사진입니다.");
+	$("#mes").html(" 현재 등록된 사진 갯수: 0/10");
+	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
 }
 
 
@@ -394,24 +402,24 @@ function buttonChk(){
             </div>
             <div>
             	<div style="padding-bottom: 10px;">
-            		<label for="fileItem"
-	                    style="padding: 3px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 첨부</label>
+            		<label for="fileItem" style="padding: 3px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 첨부</label>
                 	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple style="display: none;">
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
-                	<span id="mes" style="color:blue; font-size: 12px;">첫번째 등록된 사진이 대표 사진입니다.</span>
+                	<span id="mes" style="font-size: 12px;">현재 등록된 사진 갯수: ${imgLength}/10</span>
                 </div>
+                <div><h2>[ 대표사진 ]<span id ="mes1" style="color:blue; font-size: 12px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></h2></div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;">
                		<!-- 대표사진 -->
-					<div align="center">
-	 					<img id='imgmen' src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width='200px' height="200px" >
+					<div style='margin: 5px;'>
+	 					<img id='imgMen' src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[0]}_${orgImg[0]}' width='200px' height="200px" >
 	 				</div>
 		 		</div>		
                 <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;">
 	 				<!-- 서브 사진 -->
 					<div style="display: flex;">
-	 					<c:forEach var="i" begin="1" end="${imgLength-1}">
-	 						<img style="margin: 5px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width='50px' height="50px" >
+	 					<c:forEach var="i" begin="0" end="${imgLength-1}">
+	 						<img id="imgSelect" onclick="mouseClick(this)" style="margin: 5px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width='50px' height="50px" >
 	 					</c:forEach> 
 					</div>
 				</div>
