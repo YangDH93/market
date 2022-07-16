@@ -78,7 +78,9 @@ td{
 			<c:otherwise>
 				<c:forEach var="psdto" items="${psList }">
 					<tr>
-						<td>사진</td> 
+						<td>
+						
+						</td> 
 						<td>
 							<c:choose>
 								<c:when test="${psdto.prodStat != 1 }">

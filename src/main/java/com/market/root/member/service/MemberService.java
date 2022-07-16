@@ -21,4 +21,6 @@ public interface MemberService {
 	public int pwChk(String mbrId,String mbrPw,Model model);
 	public int mbrUpdate(Map<Object, Object> map);
 	public int userDelete(String mbrId);
+	//사용자 저장된 주소 확인
+	public void mbrAddr(HttpSession session,Model model);
 }

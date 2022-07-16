@@ -381,8 +381,8 @@ function deleteChk(){
 				</tr>
 
 				<tr>
-					<td colspan="2" align="center"><input type="button"
-						value="수정완료" onclick="subChk()"
+					<td colspan="2" align="center">
+					<input type="button" value="수정완료" onclick="subChk()"
 						style="cursor: pointer; font-weight: 500; color: #FFFFFF; background-color: #FFA200; border: 0px; border-radius: 10px; font-size: 18px; width: 100%; height: 50px;">
 					</td>
 				</tr>

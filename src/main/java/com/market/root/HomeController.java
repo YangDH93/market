@@ -1,5 +1,6 @@
 package com.market.root;
 
+import java.io.File;
 import java.util.Locale;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,12 @@ public class HomeController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+		
+		File marketFile = new File("C:/market");
+		if(marketFile.exists() == false) {
+			marketFile.mkdirs();
+		}
+		
 		return "main";
 	}
 }

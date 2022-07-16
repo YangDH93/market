@@ -61,7 +61,7 @@
 
 <!-- 상품 제목 검색 -->
 <select id="prodSearch" resultMap="product">
-     select * from prod_info where prod_title like '%'||#{keyword}||'%'
+    select * from prod_info where prod_title like '%'||#{keyword}||'%'
 </select>
 
 <!-- 물품 등록 -->

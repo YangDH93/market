@@ -13,15 +13,20 @@
 <meta charset="UTF-8">
 <!-- 우편번호 및 주소 -->
 <script>
-   function daumPost() {
-      new daum.Postcode({
-         oncomplete : function(data) {
-            var trdLocation = data.jibunAddress
-            document.getElementById("trdLocation").value = data.zonecode;
-            $("#trdLocation").val(trdLocation)
-         }
-      }).open();
-   }
+function daumPost(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+         var trdLocation=data.jibunAddress
+         document.getElementById("trdLocation").value=data.zonecode;
+	         $("#mes2").css({
+					"color" : "red",
+					"font-size" : "12px"
+		   	 });
+		   	 $("#mes2").html('주소가 입력되었습니다.');
+	         $("#trdLocation").val(trdLocation);
+         } 
+    }).open();
+}
 $(document).ready(function() {
    $("#prodContent").on('keyup', function() {
       $("#textcount").html("(" + $(this).val().length + " / 500)");
@@ -86,7 +91,7 @@ $(document).ready(function(){
 		    		count++;
 		    		$("#mes").css({
 	    				"color" : "black",
-	    				"font-size" : "15px"
+	    				"font-size" : "12px"
 	    			});
 		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
@@ -252,6 +257,15 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
    evt.currentTarget.className += " active"; //색상변경
 }
 
+function myLocation(){
+	   let place = document.getElementById("place").value;
+	   console.log(place);
+	   if(place == ""){
+		   $("#mes2").html("회원정보 수정란에서 내 위치(주소)를 추가할 수 있습니다.");
+	   }
+	   $("#trdLocation").val(place);
+}
+
 /* 필수항목 체크 */
 function buttonChk(){
 	if($('#orgImg').val() == ''){
@@ -337,8 +351,8 @@ function buttonChk(){
 }
 
 #psub {
-   margin-left:800px;
-   width: 130px;
+   margin-left:830px;
+   width: 100px;
    height: 40px;
    background-color: #FFA200;
    border: 0px;
@@ -347,6 +361,7 @@ function buttonChk(){
    font-weight: 500;
    cursor: pointer;
 }
+
 </style>
 </head>
 <body>
@@ -380,7 +395,6 @@ function buttonChk(){
          	<input id="orgImg" name='orgImg' style="display: none;">
          	<input id="uploadPath" name='uploadPath' style="display: none;">
          	<input id="UUID" name='UUID' style="display: none;">
-
          </div>
          <div class="flex" style="padding-top: 10px;">
             <div class="size_30">
@@ -430,25 +444,26 @@ function buttonChk(){
         
         <div class="flex">
            <div class="size_150">
-                  거래지역<span class="redmen">*</span>
+                 	 거래지역<span class="redmen">*</span>
             </div>
             <div class="size2">
-                <div style="display: flex;">
-                   <input type="button" value="내 위치"
-                      style="cursor: pointer; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">                           
+                <div>
+                   <input type="text" readonly style="display: none;" id="place" value="${mbrAddr.mbrAddr}">
+                   <input type="button" value="내 위치" onclick="myLocation()"
+                      style="cursor: pointer; padding: 3px; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">                           
                    <input type="button" onclick="daumPost()" value="주소 검색"
-                      style="margin-left: 15px; width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
+                      style="padding: 3px; margin-left: 15px; width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
+                   <span id="mes2" style="color:blue; font-size: 12px;"></span>
                 </div>
                	<div>
-                   <input type="text" readonly id="trdLocation" name="trdLocation"
-                      placeholder="도로명주소, 지번주소"
-                      style="margin-left: 65px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 530px;">
+                   <input type="text" readonly id="trdLocation" name="trdLocation" placeholder="도로명주소, 지번주소"
+                      style="padding-top:10px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 530px;">
                 </div>     
             </div>
          </div>
          <div class="flex" style="margin-top: -60px;">
             <div class="size_30">
-                  가격<span class="redmen">*</span>
+                               가격<span class="redmen">*</span>
             </div>
             <div>
                <input type="text" id="price" name="price"
@@ -460,16 +475,16 @@ function buttonChk(){
          </div>
          <div class="flex">
             <div class="size_150">
-                  설명<span class="redmen">*</span>
+                                설명<span class="redmen">*</span>
             </div>
             <div>
                <textarea id="prodContent" name="prodContent" maxlength="500"
-                  style="resize: none; outline-style: none; border-color: #C0C0C0; border-radius: 3px; width: 500px;"
-                  rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)"></textarea>
+                  style="resize: none; outline-style: none; border-color: #C0C0C0; border-radius: 3px; width: 793px;"
+                  rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요."></textarea>
                <div id="textcount">(0 / 500)</div>
             </div>
          </div>
-         <div>
+         <div class="flex">
             <input type="button" id="psub" onclick="buttonChk()" value="등록하기">
          </div>
       </section>

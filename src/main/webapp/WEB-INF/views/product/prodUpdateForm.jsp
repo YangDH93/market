@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <c:set var="prod" value="${prod }"/>
-<c:set var="fileDTO" value="${fileDTO}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +18,13 @@ function daumPost(){
     new daum.Postcode({
         oncomplete: function(data) {
          var trdLocation=data.jibunAddress
-         document.getElementById("trdLocation").value=data.zonecode
-           $("#trdLocation").val( trdLocation )
+         document.getElementById("trdLocation").value=data.zonecode;
+	         $("#mes2").css({
+					"color" : "red",
+					"font-size" : "12px"
+		   	 });
+		   	 $("#mes2").html('주소가 수정되었습니다.');
+	         $("#trdLocation").val(trdLocation);
          } 
     }).open();
 }
@@ -90,7 +94,7 @@ $(document).ready(function(){
 		    		count++;
 		    		$("#mes").css({
 	    				"color" : "black",
-	    				"font-size" : "15px"
+	    				"font-size" : "12px"
 	    			});
 		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
@@ -258,8 +262,18 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
 }
 
 function myLocation(){
-	   var place = document.getElementById("place").value;
+	   let place = document.getElementById("place").value;
+	   let place2 = document.getElementById("trdLocation").value;
 	   console.log(place);
+	   if(place == place2){
+	   		$("#mes2").css({
+				"color" : "red",
+				"font-size" : "12px"
+	   		});
+			$("#mes2").html('같은 주소입니다.');
+			return false;   
+	   }
+	   $("#mes2").html('내 위치(주소)로 수정되었습니다.');
 	   $("#trdLocation").val(place);
 }
 
@@ -293,61 +307,70 @@ function buttonChk(){
 .flex {
    display: flex;
 }
-.flex-direction{
-   flex-direction:column;
+
+.flex-direction {
+   flex-direction: column;
 }
-.size_150{
+
+.size_150 {
    height: 150px;
    width: 150px;
 }
-.size2{
+
+.size2 {
    height: 100px;
-   width: 100px;
+   width: 500px;
 }
+
 .size_30{
-	height: 30px;
-	width: 150px;
+   height: 30px;
+   width: 150px;
 }
 .redmen{
-	color: red;
-	font-size: medium;
+   color: red;
+   font-size: medium;
 }
 
 /* 카테고리 wrap */
-.catewrap{
-	width: 1000px;
-    display: flex;
+.catewrap {
+   width: 874px;
+   display: flex;
 }
 /* 카테고리 box */
-.cateBox1,
-.cateBox2,
-.cateBox3{
-	float: left;
-	border: 1px solid #ccc;
-	width: 30%;
-	height: 300px;
-	overflow: auto;
+.cateBox1, .cateBox2, .cateBox3 {
+   float: left;
+   border: 1px solid #ccc;
+   width: 30%;
+   height: 300px;
+   overflow: auto;
+   border-radius: 3px;
 }
 /* 카테고리 리스트 */
-.cate1List,
-.cate2List,
-.cate3List{
-	padding: 10px;
-	text-align: left;
-	cursor: pointer;
-	transition: 0.3s;
+.cate1List, .cate2List, .cate3List {
+   padding: 10px;
+   text-align: left;
+   cursor: pointer;
+   transition: 0.3s;
 }
 /* 카테고리 리스트 hover */
-.cate1List:hover, 
-.cate2List:hover, 
-.cate3List:hover{
-	background-color: #FFEFB9;
+.cate1List:hover, .cate2List:hover, .cate3List:hover {
+   background-color: #FFD823;
 }
 
-.cate1List.active,
-.cate2List.active,
-.cate3List.active {
-  background-color: gold;
+.cate1List.active, .cate2List.active, .cate3List.active {
+   background-color: #FFD823;
+}
+
+#psub {
+   margin-left:800px;
+   width: 130px;
+   height: 40px;
+   background-color: #FFA200;
+   border: 0px;
+   border-radius: 5px;
+   color: #FFFFFF;
+   font-weight: 500;
+   cursor: pointer;
 }
 
 
@@ -355,8 +378,6 @@ function buttonChk(){
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
-<input type="text" readonly style="display: none;" id="place" 
-               value="${prod.trdLocation }">
    <form id="frm" action="${contextPath }/product/prodUpdate" method="post">
       <section class="eeRGVw">
    	  	 <input name="mbrId" value="${prod.mbrId }" style="display: none;">
@@ -367,15 +388,18 @@ function buttonChk(){
             <div class="flex">
             </div>
          </div>
-         <hr>
          <div class="flex">
             <div class="size_150">
                	상품 이미지<span class="redmen">*</span>
             </div>
             <div>
-            	<div>
-                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple >
-                	<input type="button" value="사진 수정" onclick="resetImg()"> <span id="mes" style="color:blue; font-size: 12px;">현재 등록된 사진 갯수 : ${imgLength}/10</span>
+            	<div style="padding-bottom: 10px;">
+            		<label for="fileItem"
+	                    style="padding: 3px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 첨부</label>
+                	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple style="display: none;">
+                	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
+                	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
+                	<span id="mes" style="color:blue; font-size: 12px;">첫번째 등록된 사진이 대표 사진입니다.</span>
                 </div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;">
                		<!-- 대표사진 -->
@@ -397,49 +421,51 @@ function buttonChk(){
          	<input id="UUID" name='UUID' style="display: none;" value="${fileDTO.UUID }">
          	<input id="prodDate" name='prodDate' style="display: none;" value="${prod.prodDate }">
          </div>
-         <hr>
-         <div class="flex">
+         <div class="flex" style="padding-top: 10px;">
             <div class="size_30">
               	 제목<span class="redmen">*</span>
             </div>
             <div>
                <input type="text" id="prodTitle" name="prodTitle" 
-               value="${prod.prodTitle }" placeholder="상품 제목을 입력해주세요." size="100px">
+               value="${prod.prodTitle }" placeholder="상품 제목을 입력해주세요." size="100px"
+               style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 778px;">
             </div>
          </div>
-         <hr>
+         <br>
          <div class="flex">
             <div class="size_150">
                	카테고리<span class="redmen">*</span>
 	         	<input type="text" id="cateCode" name="cateCode" style="display: none;" value="${prod.cateCode }">
             </div>
-            
+          <div>    
 			<div class="catewrap">
-			
 				<div class="cateBox1">
 					<c:forEach var="dto" items="${cateList }">
 						<div class="cate1List" onclick="openCate(event,'${dto.cateCode}','${dto.cateName }')">${dto.cateName }</div>
 					</c:forEach>
 				</div>
-
-				<div class="cateBox2">
+				
+				   <div class="cateBox2">
+				   </div>
+				
+				   <div class="cateBox3">
+				   </div>
+				
 				</div>
-
-				<div class="cateBox3">
-				</div>
-
+				
+				<div class="flex">
+			      <div style="padding: 10px 0">
+			         <label>선택한 카테고리 : </label>
+			         <span id="userSel1"></span>
+			         <span id="userSel2"></span>
+			         <span id="userSel3"></span>
+			      </div>
+      			</div>
+			
 			</div>
-			<br>
-		</div>
-		
-		<div>
-			<label>선택한 카테고리 : </label>
-			<span id="userSel1"></span>
-			<span id="userSel2"></span>
-			<span id="userSel3"></span>
-		</div>
+         
+     	 </div>
         
-        <hr>
         <div class="flex">
         	<div class="size_150">
               	 거래지역<span class="redmen">*</span>
@@ -447,38 +473,42 @@ function buttonChk(){
             <div class="size2">
             <div>
                   <div>
-                  <input type="button" onclick="myLocation()" value="내 위치"><br>
-                  <input type="button" onclick="daumPost()" value="주소 검색"><br>
+                  	  <input type="text" readonly style="display: none;" id="place" value="${prod.trdLocation }">
+	                  <input type="button" value="내 위치" onclick="myLocation()"
+	                     style="cursor: pointer; padding: 3px; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">                           
+	                  <input type="button" onclick="daumPost()" value="주소 검색"
+	                     style="padding: 3px; margin-left: 15px; width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
+	                     <span id="mes2" style="color:blue; font-size: 12px;"></span>
                   </div>
                   <input type="text" readonly id="trdLocation" name="trdLocation" placeholder="도로명주소, 지번주소"
-                  value="${prod.trdLocation}"><br>
+	                  style="padding-top:10px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 530px;"
+	                  value="${prod.trdLocation}">
                   </div>
             </div>
          </div>
-         <hr>
-         <div class="flex">
+         <div class="flex" style="margin-top: -60px;">
             <div class="size_30">
                	가격<span class="redmen">*</span>
             </div>
             <div>
                <input type="text" id="price" name="price" placeholder="숫자만 입력해주세요." value="${prod.price }"
+               style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 220px;"
                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">원<br><br>
             </div>
          </div>
-         <hr>
          <div class="flex">
             <div class="size_150">
                	설명<span class="redmen">*</span>
             </div>
             <div>
             <textarea id="prodContent" name="prodContent" maxlength="500" style="resize: none;"
-               rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)">${prod.prodContent}</textarea>
+            	style="resize: none; outline-style: none; border-color: #C0C0C0; border-radius: 3px; width: 793px;"
+            	rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)">${prod.prodContent}</textarea>
             <div id="textcount">(0 / 500)</div>
             </div>
          </div>
-         <hr>
 	      <div>
-	         <input type ="button" onclick="buttonChk()" value="수정/업데이트">
+	         <input type ="button" id="psub" onclick="buttonChk()" value="수정/업데이트">
 	      </div>
       </section>
    </form>	
