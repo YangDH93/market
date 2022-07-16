@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import com.market.root.product.dto.ProductDTO;
 
 public interface ProductMapper {
+	public List<ProductDTO> mainAllView();
 	public List<ProductDTO> psAllView(
 			@Param("s")int start,
 			@Param("e")int end,

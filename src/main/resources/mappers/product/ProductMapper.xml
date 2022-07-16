@@ -16,6 +16,12 @@
 	<result property="cateCode" column="cate_code"/>
 </resultMap>
 <!-- prod_info 페이징 기능/목록 보기 -->
+
+<!-- main 전체 목록 불러오기 -->
+<select id="mainAllView" resultMap="product">
+	select * from prod_info
+</select>
+
 <!-- 판매중인 게시글 불러오기 -->
 <select id="psAllView" resultMap="product">
 	select B.* from(select rownum rn, A.* from
