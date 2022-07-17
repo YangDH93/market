@@ -269,7 +269,6 @@ function subChk(){
 		return;
 	}
 	   var addr2 = $("#addr2").val()
-	  $("#addr1").val( addr1+"/"+addr2 )
 	
 	alert("회원정보 수정이 완료되었습니다.")
   	fo.submit()

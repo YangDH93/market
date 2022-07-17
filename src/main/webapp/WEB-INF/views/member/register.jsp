@@ -116,8 +116,6 @@ function dupChk(userInput, chkCode){
             }else if(chkCode == "2"){
                bool2 = false;
             }else if(chkCode == "3"){
-               bool5 = false;
-               bool6 = false;
                bool7 = false;
                alert("중복 이메일")
             }

@@ -61,6 +61,9 @@ public class ProductServiceImpl implements ProductService{
 			//게시글 모든 정보 가져옴
 			model.addAttribute("psList", mapper.psAllView(start,end,mbrId) );
 
+			addImgModel(model, mapper.psAllView(start,end,mbrId));
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
