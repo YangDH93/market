@@ -32,4 +32,9 @@ public interface ProductMapper {
 			@Param("s")int start,
 			@Param("e")int end,
 			@Param("mbrId") String mbrId);
+	public List<ProductDTO> picksAllView(
+			@Param("s")int start,
+			@Param("e")int end,
+			@Param("mbrId") String mbrId);
+	public int selectPickBoardCount(@Param("mbrId") String mbrId);
 }

@@ -19,14 +19,14 @@ td{
 	<!-- 페이지 메뉴바 상품관리/구매판매내역 -->
 	<jsp:include page="../default/prodNav.jsp"/>
 <!-- 목록 : 테이블형식 -->
-<div class="">
+<div class="" style="text-align: center;">
 	<table style="border-top: 2px solid black;
 					border-collapse: collapse; width: 100%">
 		<!-- 테이블 머리 -->
 		<thead style="border-bottom: 2px solid black; ">
 			<tr>
 				<th>사진</th> <th>판매상태</th> <th>상품명</th>
-				<th>가격</th> <th>찜</th>
+				<th>가격</th>
 				<c:if test="${loginUser != 'admin' }">
 					<th>기능</th>
 				</c:if>
@@ -36,24 +36,24 @@ td{
 		<tbody style="border-bottom: 1px solid black">
 			<!-- DB에서 반복문으로 데이터 list로 가져올때 사용 -->
 			<c:choose>
-				<c:when test="${psList.size() == 0}">
+				<c:when test="${pickList.size() == 0}">
 					<tr>
 						<c:choose>
 							<c:when test="${loginUser != 'admin' }">
 								<th colspan="6" align="center" style="padding: 30px 30px">
-									판매중인 상품이 존재하지 않습니다.
+									찜 목록이 존재하지 않습니다.
 								</th>
 							</c:when>
 							<c:otherwise>
 								<th colspan="5" align="center" style="padding: 30px 30px">
-									판매중인 상품이 존재하지 않습니다.
+									찜 목록이 존재하지 않습니다.
 								</th>
 							</c:otherwise>
 						</c:choose>
 					</tr>
 				</c:when>
 			<c:otherwise>
-				<c:forEach var="psdto" items="${psList }" varStatus="status">
+				<c:forEach var="psdto" items="${pickList }" varStatus="status">
 					<tr>
 						<td>
 							<img width="100px" height="100px" src="${contextPath}/product/display?fileName=${filePath[status.index]}"/>
@@ -74,13 +74,10 @@ td{
 							</a>
 						</td>
 						<td>${psdto.price}</td> 
-						<td>${pickTotal[status.index] }</td> 
 						<td>
-							<c:if test="${loginUser != 'admin' }">
-								<button onclick="location.href='${contextPath}/product/sellsComple?prodStat=${psdto.prodStat}&prodId=${psdto.prodId}'">
-									판매완료
-								</button>
-							</c:if>
+							<button onclick="location.href='${contextPath}/product/pickDelete?prodId=${psdto.prodId}&mbrId=${psdto.mbrId}'">
+								삭제
+							</button>
 						</td>
 					</tr>
 				</c:forEach> 
