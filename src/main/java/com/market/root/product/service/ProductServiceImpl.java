@@ -146,7 +146,6 @@ public class ProductServiceImpl implements ProductService{
 				mapper.upHit(map);
 				model.addAttribute("timer",timer);
 				model.addAttribute("prod",mapper.oneProduct(map));
-				oneCateAll(model, mapper.oneProduct(map));//카테고리model
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -166,6 +165,8 @@ public class ProductServiceImpl implements ProductService{
 	public void prodStatus(int prodId, Model model) {
 		try {
 			model.addAttribute("prod", mapper.prodStatus(prodId));
+			//카테고리명만 가져오는 model - cateNameAll
+			oneCateAll(model, mapper.prodStatus(prodId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
