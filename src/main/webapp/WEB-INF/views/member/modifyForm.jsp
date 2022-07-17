@@ -268,6 +268,7 @@ function subChk(){
 		mbrPw2.focus();
 		return;
 	}
+	var addr2 = $("#addr2").val()
 	
 	alert("회원정보 수정이 완료되었습니다.")
   	fo.submit()
@@ -295,10 +296,11 @@ function deleteChk(){
 
 			<table>
 				<tr>
-					<td colspan="2" align="center"><img
-						style="width: 300px; height: 300px;"
-						src="${contextPath}/resources/image/duck.png"
-						onclick="location.href='http://localhost:8085/root/'" /></td>
+				<td colspan="2" align="center"><img
+					style="width: 300px; height: 300px;"
+					src="${contextPath}/resources/image/duck.png"
+					onclick="location.href='http://${contextPath}/root/'" />
+				</td>
 				</tr>
 				<tr>
 					<td>닉네임</td>

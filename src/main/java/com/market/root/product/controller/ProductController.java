@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.root.file.service.FileService;
+import com.market.root.member.service.MemberService;
 import com.market.root.product.dto.CategoriesDTO;
 import com.market.root.product.dto.ProductDTO;
 import com.market.root.product.service.ProductService;
@@ -26,11 +27,13 @@ public class ProductController {
 	
 	@Autowired ProductService ps;
 	@Autowired FileService fs;
+	@Autowired MemberService ms;
 	
 	//상품등록
 	@GetMapping("prodNew")
-	public String prodNew(Model model) {
+	public String prodNew(Model model,HttpSession session) {
 		ps.cateAllList(model);
+		ms.mbrAddr(session,model);
 		return "product/prodNew";
 	}
 	
@@ -39,12 +42,9 @@ public class ProductController {
 	public String prodUpdateForm(@RequestParam (required = false) int prodId,
 								Model model) {
 		
-		try {
-			ps.prodStatus(prodId, model);
-			fs.prodImgList(model,prodId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ps.cateAllList(model);
+		ps.prodStatus(prodId, model);
+		fs.prodImgList(model,prodId);
 		return "product/prodUpdateForm";
 	}
 	
@@ -62,20 +62,14 @@ public class ProductController {
 		return arr;
 	}
 	
-	//개인 물품 거래 페이지
-	@GetMapping("prodTrade")
-	public String prodTrade() {
-		return "product/prodTrade";
-	}
-	
 	//구매,판매목록, 찜목록, 등 상품관리 기능
 	//페이징 기능 추가 , 상품 판매중 메소드 , 시간 설정 후 넘김
 	@GetMapping("prodStatus")
 	public String prodStatus(Model model, //defaultValue = "1" : 값이 들어오지 않았다면 1로 처리
 			@RequestParam(value="num", required = false, defaultValue = "1") int num,
 			HttpSession session) {
-			System.out.println(session.getAttribute("loginUser"));
-			ps.psAllView(model,num,session);
+		System.out.println(session.getAttribute("loginUser"));
+		ps.psAllView(model,num,session);
 		
 		return "product/prodStatus";
 	}
@@ -104,9 +98,7 @@ public class ProductController {
 	public String prodSearch(@RequestParam(value="keyword", required = false) String keyword,
 							Model model) {
 		System.out.println(keyword);
-		
 		ps.prodSearch(keyword,model);
-		
 		return "product/products";
 	}
 	
@@ -117,14 +109,9 @@ public class ProductController {
 								@RequestParam(value="UUID", required = false) String UUID,
 								ProductDTO dto){
 		int result = 0;
-		
-		try {
-			long time = System.currentTimeMillis();
-			dto.setProdDate(time);
-			result = ps.prodRegister(dto,orgImg,uploadPath,UUID);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		long time = System.currentTimeMillis();
+		dto.setProdDate(time);
+		result = ps.prodRegister(dto,orgImg,uploadPath,UUID);
 		//임시로 전체 상품 보여주는 곳으로 넘김
 		if(result == 1) {
 			return "redirect:prodStatus";
@@ -133,19 +120,15 @@ public class ProductController {
 		System.out.println("등록 실패");
 		return "redirect:prodNew";
 	}
-	
+
 	//한개의 상품 정보 가져옴
-	@GetMapping("trade")
-	public String trade(@RequestParam (required = false)Map<Object, Object> map,
+	@GetMapping("prodTrade")
+	public String prodTrade(@RequestParam (required = false)Map<Object, Object> map,
 						Model model) {
 		System.out.println("상품 아이디 : " + map.get("prodId") + ", 조회수 : " + map.get("hit"));
 		
-		try {
-			fs.prodImgList(model, map.get("prodId"));
-			ps.oneProduct(map,model);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		fs.prodImgList(model, map.get("prodId"));
+		ps.oneProduct(map,model);
 		return "product/prodTrade";
 	}
 	
@@ -153,11 +136,7 @@ public class ProductController {
 	@GetMapping("prodDelete")
 	public String prodDelete(@RequestParam (required = false) int prodId) {
 		int result = 0;
-		try {
-			result = ps.prodDelete(prodId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		result = ps.prodDelete(prodId);
 		if(result == 1) {
 			System.out.println("상품 삭제 성공!");
 			return "redirect:prodStatus";
@@ -175,12 +154,8 @@ public class ProductController {
 								@RequestParam(value="prodDate", required = false) long prodDate,
 								ProductDTO dto){
 		int result = 0;
-		try {
-			dto.setProdDate(prodDate);
-			result = ps.prodUpdate(dto,orgImg,uploadPath,UUID);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		dto.setProdDate(prodDate);
+		result = ps.prodUpdate(dto,orgImg,uploadPath,UUID);
 		// 수정되면 물품 확인
 		if(result == 1) {
 			return "redirect:prodStatus";

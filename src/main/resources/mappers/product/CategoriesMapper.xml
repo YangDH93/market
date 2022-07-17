@@ -20,5 +20,13 @@
 	select * from categories where cate_parent = #{sltCode}
 </select>
 
+<!-- 해당상품 카테고리 가져오기 -->
+<select id="oneCateAll" resultMap="categories">
+	select tier,cate_name from categories where cate_code=#{cateCode}
+                            or cate_code = (select cate_parent from categories where cate_code=#{cateCode})
+                            or cate_code = (select cate_parent from categories where cate_code = (select cate_parent from categories where cate_code=#{cateCode}))
+                            order by tier asc
+</select>
+
 
 </mapper>
