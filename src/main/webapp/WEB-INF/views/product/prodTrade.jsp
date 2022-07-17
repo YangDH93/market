@@ -35,6 +35,7 @@
 	color: black;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 //등록된 상품의 시간
 var days = ${time.days}
@@ -60,7 +61,13 @@ function mouseClick(obj){
 		var img = document.getElementById("imgSelect"); 
 		document.getElementById("imgMen").src = obj.src;
 		
-}	
+}
+
+//찜버튼
+var pick_heart = $("#pick_heart");
+function pick_toggle(){
+	console.log( $("#pick_heart").html() )
+}
 
 </script>
 </head>
@@ -81,30 +88,49 @@ function mouseClick(obj){
 				</div>
 				<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
 					<c:choose>
-					
-						<c:when test="${prod.mbrId == loginUser && loginUser != null}">
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
-									onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
-							</button>
-							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
-															border: 2px solid #FFA000; border-radius: 5px;"
-									onclick="deleteChk()">삭제
-							</button>
+						<c:when test="${prod.prodStat == 1 }"><!-- 판매완료 -->
+							<div style="background-color:#FFA000; height: 40px; width:100%;  
+										text-align:center; line-height: 40px;
+										border-radius: 5px; color: white;">
+								<span style="font-size:12pt;">이미 판매 완료된 상품입니다.&nbsp;&nbsp;</span>
+							    <a style="font-weight:bold; color: white; text-decoration: none;  font-size:14pt;"
+							    	href="${contextPath}/product/prodStatus"><b>[ 상품목록 바로가기 ]</b></a>
+							</div>
 						</c:when>
 						
-						<c:otherwise>
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;">
-								<span id="pick_heart_no">&#9825;</span>
-								<span>&#9829;</span>
-								<span>찜</span>
-							</button>
-							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
-									border: 2px solid #FFA000; border-radius: 5px;">
-								연락하기
-							</button>
+						<c:otherwise><!-- 판매중 -->
+							
+							<c:choose>
+								<c:when test="${(prod.mbrId == loginUser || 'admin' == loginUser) && loginUser != null }">
+									<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+											onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+																	border: 2px solid #FFA000; border-radius: 5px;"
+											onclick="deleteChk()">삭제
+									</button>
+								</c:when>
+								
+								<c:otherwise>
+									<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+											onclick="pick_toggle()">
+										
+										<span id="pick_heart">&#9825;</span>
+										<span id="pick_heart_ck" style="display: none;">&#9829;</span>
+										<span>찜</span>
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+											border: 2px solid #FFA000; border-radius: 5px;"
+											onclick="chat()">
+										연락하기
+									</button>
+								</c:otherwise>
+							</c:choose>
+							
 						</c:otherwise>
-						
 					</c:choose>
+				
+				
 				</div>
 			</div>
 			

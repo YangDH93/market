@@ -266,7 +266,6 @@ public class ProductServiceImpl implements ProductService{
 		try {
 			model.addAttribute("mainAllView", mapper.mainAllView()); //모델값 저장
 			addImgModel(model,mapper.mainAllView()); //이미지경로 모델값 저장 메소드
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -301,8 +300,6 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	// 찜 테이블 model 메소드
-	
-
 
 }
 
