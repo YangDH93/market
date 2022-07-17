@@ -299,7 +299,7 @@ function deleteChk(){
 					<td colspan="2" align="center"><img
 						style="width: 300px; height: 300px;"
 						src="${contextPath}/resources/image/duck.png"
-						onclick="location.href='http://localhost:8085/root/'" /></td>
+						onclick="location.href='${contextPath}'" /></td>
 				</tr>
 				<tr>
 					<td>닉네임</td>
