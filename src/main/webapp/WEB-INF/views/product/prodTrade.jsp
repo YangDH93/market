@@ -35,6 +35,7 @@
 	color: black;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 //등록된 상품의 시간
 var days = ${time.days}
@@ -60,7 +61,13 @@ function mouseClick(obj){
 		var img = document.getElementById("imgSelect"); 
 		document.getElementById("imgMen").src = obj.src;
 		
-}	
+}
+
+//찜버튼
+var pick_heart = $("#pick_heart");
+function pick_toggle(){
+	console.log( $("#pick_heart").html() )
+}
 
 </script>
 </head>
@@ -81,6 +88,15 @@ function mouseClick(obj){
 				</div>
 				<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
 					<c:choose>
+						<c:when test="${prod.prodStat == 1 }"><!-- 판매완료 -->
+							<div style="background-color:#FFA000; height: 40px; width:100%;  
+										text-align:center; line-height: 40px;
+										border-radius: 5px; color: white;">
+								<span style="font-size:12pt;">이미 판매 완료된 상품입니다.&nbsp;&nbsp;</span>
+							    <a style="font-weight:bold; color: white; text-decoration: none;  font-size:14pt;"
+							    	href="${contextPath}/product/prodStatus"><b>[ 상품목록 바로가기 ]</b></a>
+							</div>
+						</c:when>
 					
 						<c:when test="${prod.mbrId == loginUser && loginUser != null}">
 							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;
@@ -93,19 +109,39 @@ function mouseClick(obj){
 							</button>
 						</c:when>
 						
-						<c:otherwise>
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;">
-								<span>&#9829;</span>
-								<span>찜</span>
-								<span>0</span>
-							</button>
-							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
-									border: 2px solid #FFA000; border-radius: 5px;">
-								연락하기
-							</button>
+						<c:otherwise><!-- 판매중 -->
+							
+							<c:choose>
+								<c:when test="${(prod.mbrId == loginUser || 'admin' == loginUser) && loginUser != null }">
+									<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+											onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+																	border: 2px solid #FFA000; border-radius: 5px;"
+											onclick="deleteChk()">삭제
+									</button>
+								</c:when>
+								
+								<c:otherwise>
+									<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+											onclick="pick_toggle()">
+										
+										<span id="pick_heart">&#9825;</span>
+										<span id="pick_heart_ck" style="display: none;">&#9829;</span>
+										<span>찜</span>
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+											border: 2px solid #FFA000; border-radius: 5px;"
+											onclick="chat()">
+										연락하기
+									</button>
+								</c:otherwise>
+							</c:choose>
+							
 						</c:otherwise>
-						
 					</c:choose>
+				
+				
 				</div>
 			</div>
 			
@@ -130,11 +166,14 @@ function mouseClick(obj){
 								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAuRJREFUWAnFV01rE1EUzUwSMWATENpFRNyIi0YI+eiui4LoogWFgkvBH6Dgpip+dONKgivdC3XlpkWELkTQRVw1H4QwWQmhLrKwq1IwxHyM54zvDck4mc6bTO3AY97MO/eeM/e9d+c+LeLzqlQq8Wg0ujIajW6ZprkIs7SmaRfQN9HvsOG5pev6h+Fw+LVYLPb9uNaOAzUajYXBYPAcPHeATR2HF+OHEPMuFou9yGazP71spgowDONMt9t9BOMNtDkvJx5jRxgrJRKJl5lM5rcbzlVArVabR6i3YbDsZhTgXRlTs57P5w+ctv8IAPkiwr2LdskJnuUZU7KPtgoRrXE/EwL45SDeC5tcEgoRS+OR0OUg55xhPyly8tA3OcgleW0BYsEpzTnm9THaknTm874suCy4JYBbDU9c7UoXvugzwllRMvoL3hCcEUsA9zneB91qAfgjc4IzojPD4UuYZP7rRU5y60yvYPab4cIUmSK3ztweplcVX+TWEYqMilGYWHJzEabDdKroK60jO52aAHLbiUhReShwTIHJNcBiYqYLX/IxoIMOIxBYANLweRIXCoWb2FJrEPJdUUiHa8BQNLLh2EY7+IM+a7fbZ3O53G4ymbwKf08B+GWDPDrAtrR6vX4dNdwnD5yfoR9w9hCReE9ws9m82Ov1XqF728sYUbuhMR0CxEoljGz4DdPyQP6gqtXqXayxt1NEHOL9vFWQAPgawHtTgEqvEQm4Mrcg5An6VxDdL24OMPYGEbtvCeCvsd/vcwGF+UdkZRyFmHMuAo7i8fhlVsxWHhClc8kFOMur1BRy+izJct1ORCydMVCehdGnbVlwWXBbAOt2zNs6wrbv05EyjL7JMX5GsAXQG6tVgFZPQgR90vd4RUzOCQFCRAtAFpphTkeZPkE+cSZwFSBEHGCerqG/icbjVdCLtpv05fxy6dDahvLB7X5qh1OnGMfxnFUUj+dWLYHtJo/nBhaZ0vH8D6NELRJSWvu9AAAAAElFTkSuQmCC">
 							<div style="margin-right: 10px;">
 								<c:choose>
-									<c:when test="${time.hour == 0 && time.min == 0}">
+									<c:when test="${time.days == 0 && time.hour == 0 && time.min == 0}">
 										${time.sec % 60 }초 전
 									</c:when>
-									<c:when test="${time.hour == 0 }">
+									<c:when test="${time.days == 0 && time.hour == 0 }">
 										${time.min % 60 }분 전
+									</c:when>
+									<c:when test="${time.days == 0 }">
+										${time.hour % 60 }시간 전
 									</c:when>
 									<c:otherwise>
 										${time.days }일 전

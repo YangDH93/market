@@ -146,11 +146,10 @@ public class ProductServiceImpl implements ProductService{
 				mapper.upHit(map);
 				model.addAttribute("timer",timer);
 				model.addAttribute("prod",mapper.oneProduct(map));
-				oneCateAll(model, mapper.oneProduct(map));//카테고리model
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+	}
 	
 	//자신의 상품 삭제
 	public int prodDelete(int prodId) {
@@ -166,6 +165,8 @@ public class ProductServiceImpl implements ProductService{
 	public void prodStatus(int prodId, Model model) {
 		try {
 			model.addAttribute("prod", mapper.prodStatus(prodId));
+			//카테고리명만 가져오는 model - cateNameAll
+			oneCateAll(model, mapper.prodStatus(prodId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -265,7 +266,6 @@ public class ProductServiceImpl implements ProductService{
 		try {
 			model.addAttribute("mainAllView", mapper.mainAllView()); //모델값 저장
 			addImgModel(model,mapper.mainAllView()); //이미지경로 모델값 저장 메소드
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -278,7 +278,7 @@ public class ProductServiceImpl implements ProductService{
 		
 		for(int i=0; i<arr.size(); i++) {
 			ProductDTO dto = arr.get(i); //prod 값 저장
-			
+			//System.out.println("상품번호 : "+dto.getProdId());
 			//이미지 관련 메소드 호출
 			fs.prodImgList(model, dto.getProdId());
 			
@@ -298,7 +298,8 @@ public class ProductServiceImpl implements ProductService{
 		}
 		model.addAttribute("filePath", fArr);
 	}
-
+	
+	// 찜 테이블 model 메소드
 
 }
 

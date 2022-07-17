@@ -78,7 +78,7 @@ td{
 							</c:choose>
 						</td>
 						<td>
-							<a href="${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}">
+							<a href="${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}">
 								${psdto.prodTitle }
 							</a>
 						</td>
