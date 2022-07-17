@@ -58,5 +58,4 @@
 		delete from mbr_info where mbr_id=#{mbrId}
 	</delete>
 	
-	
   </mapper>

@@ -268,7 +268,7 @@ function subChk(){
 		mbrPw2.focus();
 		return;
 	}
-	   var addr2 = $("#addr2").val()
+	var addr2 = $("#addr2").val()
 	
 	alert("회원정보 수정이 완료되었습니다.")
   	fo.submit()
@@ -299,7 +299,7 @@ function deleteChk(){
 					<td colspan="2" align="center"><img
 						style="width: 300px; height: 300px;"
 						src="${contextPath}/resources/image/duck.png"
-						onclick="location.hrer='http://localhost:8085/root/'" /></td>
+						onclick="location.href='http://localhost:8085/root/'" /></td>
 				</tr>
 				<tr>
 					<td>닉네임</td>
@@ -367,7 +367,7 @@ function deleteChk(){
 
 				<tr>
 					<td>주소</td>
-					<td><input class="input_st" type="text" readonly id="addr2"></td>
+					<td><input class="input_st" type="text" readonly id="addr2" name="mbrAddr"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -380,8 +380,8 @@ function deleteChk(){
 				</tr>
 
 				<tr>
-					<td colspan="2" align="center"><input type="button"
-						value="수정완료" onclick="subChk()"
+					<td colspan="2" align="center">
+					<input type="button" value="수정완료" onclick="subChk()"
 						style="cursor: pointer; font-weight: 500; color: #FFFFFF; background-color: #FFA200; border: 0px; border-radius: 10px; font-size: 18px; width: 100%; height: 50px;">
 					</td>
 				</tr>

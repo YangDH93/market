@@ -61,6 +61,7 @@ function mouseClick(obj){
 		document.getElementById("imgMen").src = obj.src;
 		
 }	
+
 </script>
 </head>
 <body>

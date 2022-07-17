@@ -1,5 +1,6 @@
 package com.market.root;
 
+import java.io.File;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		
 		ps.mainAllView(model);
+		File marketFile = new File("C:/market");
+		if(marketFile.exists() == false) {
+			marketFile.mkdirs();
+		}
+		
 		return "main";
 	}
 }
