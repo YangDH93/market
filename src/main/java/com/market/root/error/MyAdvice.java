@@ -26,5 +26,5 @@ public class MyAdvice {
 	  model.addAttribute("msg","<script>alert('그런 페이지는 없어요.')</script>"); return
 			  "error/error"; 
 	  }
-	 
+	  
 }
