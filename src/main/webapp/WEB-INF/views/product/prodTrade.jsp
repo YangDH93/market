@@ -66,7 +66,6 @@ function mouseClick(obj){
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
-	${cateNameAll }
 	<section class="trd_wrap">
 		<div style="display: flex; justify-content: space-between;"><!-- 상단 -->
 			<div style="width: 450px;"><!-- 상단왼쪽 -->
