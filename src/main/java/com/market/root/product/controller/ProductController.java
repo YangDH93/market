@@ -62,12 +62,6 @@ public class ProductController {
 		return arr;
 	}
 	
-	//개인 물품 거래 페이지
-	@GetMapping("prodTrade")
-	public String prodTrade() {
-		return "product/prodTrade";
-	}
-	
 	//구매,판매목록, 찜목록, 등 상품관리 기능
 	//페이징 기능 추가 , 상품 판매중 메소드 , 시간 설정 후 넘김
 	@GetMapping("prodStatus")
@@ -126,10 +120,10 @@ public class ProductController {
 		System.out.println("등록 실패");
 		return "redirect:prodNew";
 	}
-	
+
 	//한개의 상품 정보 가져옴
-	@GetMapping("trade")
-	public String trade(@RequestParam (required = false)Map<Object, Object> map,
+	@GetMapping("prodTrade")
+	public String prodTrade(@RequestParam (required = false)Map<Object, Object> map,
 						Model model) {
 		System.out.println("상품 아이디 : " + map.get("prodId") + ", 조회수 : " + map.get("hit"));
 		
