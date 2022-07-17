@@ -149,7 +149,7 @@ public class ProductServiceImpl implements ProductService{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+	}
 	
 	//자신의 상품 삭제
 	public int prodDelete(int prodId) {
@@ -279,7 +279,7 @@ public class ProductServiceImpl implements ProductService{
 		
 		for(int i=0; i<arr.size(); i++) {
 			ProductDTO dto = arr.get(i); //prod 값 저장
-			
+			//System.out.println("상품번호 : "+dto.getProdId());
 			//이미지 관련 메소드 호출
 			fs.prodImgList(model, dto.getProdId());
 			
@@ -299,6 +299,9 @@ public class ProductServiceImpl implements ProductService{
 		}
 		model.addAttribute("filePath", fArr);
 	}
+	
+	// 찜 테이블 model 메소드
+	
 
 
 }

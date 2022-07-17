@@ -94,9 +94,9 @@ function mouseClick(obj){
 						
 						<c:otherwise>
 							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;">
+								<span id="pick_heart_no">&#9825;</span>
 								<span>&#9829;</span>
 								<span>찜</span>
-								<span>0</span>
 							</button>
 							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
 									border: 2px solid #FFA000; border-radius: 5px;">
@@ -129,11 +129,14 @@ function mouseClick(obj){
 								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAuRJREFUWAnFV01rE1EUzUwSMWATENpFRNyIi0YI+eiui4LoogWFgkvBH6Dgpip+dONKgivdC3XlpkWELkTQRVw1H4QwWQmhLrKwq1IwxHyM54zvDck4mc6bTO3AY97MO/eeM/e9d+c+LeLzqlQq8Wg0ujIajW6ZprkIs7SmaRfQN9HvsOG5pev6h+Fw+LVYLPb9uNaOAzUajYXBYPAcPHeATR2HF+OHEPMuFou9yGazP71spgowDONMt9t9BOMNtDkvJx5jRxgrJRKJl5lM5rcbzlVArVabR6i3YbDsZhTgXRlTs57P5w+ctv8IAPkiwr2LdskJnuUZU7KPtgoRrXE/EwL45SDeC5tcEgoRS+OR0OUg55xhPyly8tA3OcgleW0BYsEpzTnm9THaknTm874suCy4JYBbDU9c7UoXvugzwllRMvoL3hCcEUsA9zneB91qAfgjc4IzojPD4UuYZP7rRU5y60yvYPab4cIUmSK3ztweplcVX+TWEYqMilGYWHJzEabDdKroK60jO52aAHLbiUhReShwTIHJNcBiYqYLX/IxoIMOIxBYANLweRIXCoWb2FJrEPJdUUiHa8BQNLLh2EY7+IM+a7fbZ3O53G4ymbwKf08B+GWDPDrAtrR6vX4dNdwnD5yfoR9w9hCReE9ws9m82Ov1XqF728sYUbuhMR0CxEoljGz4DdPyQP6gqtXqXayxt1NEHOL9vFWQAPgawHtTgEqvEQm4Mrcg5An6VxDdL24OMPYGEbtvCeCvsd/vcwGF+UdkZRyFmHMuAo7i8fhlVsxWHhClc8kFOMur1BRy+izJct1ORCydMVCehdGnbVlwWXBbAOt2zNs6wrbv05EyjL7JMX5GsAXQG6tVgFZPQgR90vd4RUzOCQFCRAtAFpphTkeZPkE+cSZwFSBEHGCerqG/icbjVdCLtpv05fxy6dDahvLB7X5qh1OnGMfxnFUUj+dWLYHtJo/nBhaZ0vH8D6NELRJSWvu9AAAAAElFTkSuQmCC">
 							<div style="margin-right: 10px;">
 								<c:choose>
-									<c:when test="${time.hour == 0 && time.min == 0}">
+									<c:when test="${time.days == 0 && time.hour == 0 && time.min == 0}">
 										${time.sec % 60 }초 전
 									</c:when>
-									<c:when test="${time.hour == 0 }">
+									<c:when test="${time.days == 0 && time.hour == 0 }">
 										${time.min % 60 }분 전
+									</c:when>
+									<c:when test="${time.days == 0 }">
+										${time.hour % 60 }시간 전
 									</c:when>
 									<c:otherwise>
 										${time.days }일 전
