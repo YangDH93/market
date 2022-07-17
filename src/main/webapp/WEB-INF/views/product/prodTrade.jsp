@@ -76,7 +76,7 @@ function mouseClick(obj){
 					<div style="margin:30px 0; text-align: center;"><!-- 서브 사진 -->
 	 					<c:forEach var="i" begin="0" end="${imgLength-1}">
 							<img id="imgSelect" onclick="mouseClick(this)" style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width="39px;" height="39px;" >
-	 					</c:forEach> 
+	 					</c:forEach>
 					</div>
 				</div>
 				<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
