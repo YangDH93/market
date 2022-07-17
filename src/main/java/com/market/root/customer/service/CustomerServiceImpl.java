@@ -32,14 +32,18 @@ public class CustomerServiceImpl implements CustomerService{
 				//페이지 수 = 전체 게시글 수 / 보여줄 게시글 수
 				System.out.println("전체페이지 수 : " + allCount);
 				repeat = allCount / pageLetter;
+				if(allCount % pageLetter != 0 || repeat == 0) {
+					repeat += 1;
+				}
 			}else {
 				System.out.println("개인페이지 수 : " + persCount);
 				repeat = persCount / pageLetter;
+				//전체 페이지(마지막 보여질 페이지) % 보여줄 게시글 수가 0이 아니면 페이지+1 증가
+				if(persCount % pageLetter != 0 || repeat == 0) {
+					repeat += 1;
+				}
 			}
-			//전체 페이지(마지막 보여질 페이지) % 보여줄 게시글 수가 0이 아니면 페이지+1 증가
-			if(allCount % pageLetter != 0) {
-				repeat += 1;
-			}
+
 			//끝 페이지 번호
 			int end = num * pageLetter;
 			//시작 페이지 번호
