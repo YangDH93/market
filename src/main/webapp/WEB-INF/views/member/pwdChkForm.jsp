@@ -47,7 +47,7 @@
 		<c:set var="dto" value="${mbrInfo }" />
 		<form id="fo" action="pwdChk" method="post">
 			<input type="text" class="inip" readonly value="${dto.mbrId }" name="mbrId"><br>
-			<input type="text" class="inip" name="mbrPw" id="mbrPw" placeholder="현재 비밀번호 입력"><br>
+			<input type="password" class="inip" name="mbrPw" id="mbrPw" placeholder="현재 비밀번호 입력"><br>
 			<input type="button" onclick="inputChk()" value="제출"
 				style="cursor:pointer; font-size: 18px; width: 388px; height: 60px;
 				background-color: #FFA200; border-radius: 10px; border: 0px;

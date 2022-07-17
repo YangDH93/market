@@ -92,6 +92,9 @@ $(document).ready(function(){
 		    			orgImg += "/";
 	    			}
 		    		count++;
+		    		$("#mes2").css({
+						"font-size" : "15px"
+			   		});
 		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
 	    			    		
@@ -169,7 +172,10 @@ function resetImg() {
 		"color":"blue",
 		"font-size" : "12px"
 	});
-	$("#mes").html(" 현재 등록된 사진 갯수: 0/10");
+	$("#mes").css({
+		"font-size" : "12px"
+	});
+	$("#mes").html(" 등록된 사진이 없습니다.");
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
 }
 
@@ -406,7 +412,6 @@ function buttonChk(){
                 	<input type='file' accept='.jpg, .jpeg, .png' id="fileItem" name='uploadImg' multiple style="display: none;">
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
-                	<span id="mes" style="font-size: 12px;">현재 등록된 사진 갯수: ${imgLength}/10</span>
                 </div>
                 <div><h2>[ 대표사진 ]<span id ="mes1" style="color:blue; font-size: 12px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></h2></div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;">
@@ -423,6 +428,7 @@ function buttonChk(){
 	 					</c:forEach> 
 					</div>
 				</div>
+				<span id="mes" style="font-size: 15px;">현재 등록된 사진 갯수: ${imgLength}/10</span>
          	</div>	
          	<input id="orgImg" name='orgImg' style="display: none;" value="${fileDTO.orgImg }">
          	<input id="uploadPath" name='uploadPath' style="display: none;" value="${fileDTO.uploadPath }">
