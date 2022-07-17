@@ -12,6 +12,7 @@
 	width: 1024px;
 	margin: 0 auto;
 	padding-top: 30px;
+	padding-bottom: 16.5px;
 	overflow: hidden;
 }
 
