@@ -81,9 +81,9 @@ function pick_toggle(){
  				</div>
  				<div>
 					<div style="margin:30px 0; text-align: center;"><!-- 서브 사진 -->
-	 					<c:forEach var="i" begin="0" end="${imgLength -1 }">
+	 					<c:forEach var="i" begin="0" end="${imgLength-1}">
 							<img id="imgSelect" onclick="mouseClick(this)" style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width="39px;" height="39px;" >
-	 					</c:forEach> 
+	 					</c:forEach>
 					</div>
 				</div>
 				<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
@@ -96,6 +96,17 @@ function pick_toggle(){
 							    <a style="font-weight:bold; color: white; text-decoration: none;  font-size:14pt;"
 							    	href="${contextPath}/product/prodStatus"><b>[ 상품목록 바로가기 ]</b></a>
 							</div>
+						</c:when>
+					
+						<c:when test="${prod.mbrId == loginUser && loginUser != null}">
+							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;
+									cursor: pointer;"
+									onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
+							</button>
+							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+													cursor: pointer; border: 2px solid #FFA000; border-radius: 5px;"
+									onclick="deleteChk()">삭제
+							</button>
 						</c:when>
 						
 						<c:otherwise><!-- 판매중 -->

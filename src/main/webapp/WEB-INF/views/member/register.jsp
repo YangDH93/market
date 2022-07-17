@@ -421,9 +421,10 @@ function regChk(){
 		<div id="rg">
 			<table>
 				<tr>
-					<td colspan="2" align="center"><img style="width: 400px;"
+					<td colspan="2" align="center"><img style="width: 400px;
+					 	cursor: pointer;"
 						src="${contextPath}/resources/image/duck.png"
-						onclick="location.href='http://localhost:8085/root/'"></img></td>
+						onclick="location.href='${contextPath}'"></img></td>
 				</tr>
 
 				<tr>
