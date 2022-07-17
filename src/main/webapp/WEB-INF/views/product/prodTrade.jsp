@@ -119,7 +119,7 @@ function mouseClick(obj){
 										${time.min % 60 }분 전
 									</c:when>
 									<c:otherwise>
-										${time.hour }시간 ${time.min % 60}분 전
+										${time.days}일 전
 									</c:otherwise>
 								</c:choose>
 							</div>
