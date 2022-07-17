@@ -76,9 +76,11 @@ td{
 					</tr>
 				</c:when>
 			<c:otherwise>
-				<c:forEach var="psdto" items="${psList }">
+				<c:forEach var="psdto" items="${psList }" varStatus="status">
 					<tr>
-						<td>사진</td> 
+						<td>
+							<img width="100px" height="100px" src="${contextPath}/product/display?fileName=${filePath[status.index]}"/>
+						</td> 
 						<td>
 							<c:choose>
 								<c:when test="${psdto.prodStat != 1 }">
@@ -90,7 +92,7 @@ td{
 							</c:choose>
 						</td>
 						<td>
-							<a href="${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}">
+							<a href="${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}">
 								${psdto.prodTitle }
 							</a>
 						</td>

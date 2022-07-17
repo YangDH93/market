@@ -35,6 +35,7 @@
 	color: black;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 //등록된 상품의 시간
 var days = ${time.days}
@@ -60,7 +61,14 @@ function mouseClick(obj){
 		var img = document.getElementById("imgSelect"); 
 		document.getElementById("imgMen").src = obj.src;
 		
-}	
+}
+
+//찜버튼
+var pick_heart = $("#pick_heart");
+function pick_toggle(){
+	console.log( $("#pick_heart").html() )
+}
+
 </script>
 </head>
 <body>
@@ -73,21 +81,67 @@ function mouseClick(obj){
  				</div>
  				<div>
 					<div style="margin:30px 0; text-align: center;"><!-- 서브 사진 -->
-	 					<c:forEach var="i" begin="0" end="${imgLength -1 }">
+	 					<c:forEach var="i" begin="0" end="${imgLength-1}">
 							<img id="imgSelect" onclick="mouseClick(this)" style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width="39px;" height="39px;" >
-	 					</c:forEach> 
+	 					</c:forEach>
 					</div>
 				</div>
 				<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
-					<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;">
-						<span>&#9829;</span>
-						<span>찜</span>
-						<span>0</span>
-					</button>
-					<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
-							border: 2px solid #FFA000; border-radius: 5px;">
-						연락하기
-					</button>
+					<c:choose>
+						<c:when test="${prod.prodStat == 1 }"><!-- 판매완료 -->
+							<div style="background-color:#FFA000; height: 40px; width:100%;  
+										text-align:center; line-height: 40px;
+										border-radius: 5px; color: white;">
+								<span style="font-size:12pt;">이미 판매 완료된 상품입니다.&nbsp;&nbsp;</span>
+							    <a style="font-weight:bold; color: white; text-decoration: none;  font-size:14pt;"
+							    	href="${contextPath}/product/prodStatus"><b>[ 상품목록 바로가기 ]</b></a>
+							</div>
+						</c:when>
+					
+						<c:when test="${prod.mbrId == loginUser && loginUser != null}">
+							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;
+									cursor: pointer;"
+									onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
+							</button>
+							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+													cursor: pointer; border: 2px solid #FFA000; border-radius: 5px;"
+									onclick="deleteChk()">삭제
+							</button>
+						</c:when>
+						
+						<c:otherwise><!-- 판매중 -->
+							
+							<c:choose>
+								<c:when test="${(prod.mbrId == loginUser || 'admin' == loginUser) && loginUser != null }">
+									<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+											onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+																	border: 2px solid #FFA000; border-radius: 5px;"
+											onclick="deleteChk()">삭제
+									</button>
+								</c:when>
+								
+								<c:otherwise>
+									<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+											onclick="pick_toggle()">
+										
+										<span id="pick_heart">&#9825;</span>
+										<span id="pick_heart_ck" style="display: none;">&#9829;</span>
+										<span>찜</span>
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+											border: 2px solid #FFA000; border-radius: 5px;"
+											onclick="chat()">
+										연락하기
+									</button>
+								</c:otherwise>
+							</c:choose>
+							
+						</c:otherwise>
+					</c:choose>
+				
+				
 				</div>
 			</div>
 			
@@ -102,7 +156,7 @@ function mouseClick(obj){
 						<div class="status-grey" style="display: flex; align-items: center;">
 							<img style="margin-right: 5px;" width="21" height="13" 
 								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAaCAYAAADMp76xAAAAAXNSR0IArs4c6QAABAdJREFUWAm9mFtIFFEYx9tZ11UW1tLoaoGEPShqq3ahgogyIgnqQXqIgih6qKgEH4JIqCgIIoowIrSn6i0irOxCQdAN7wb2IiSlSUZuGJGyumu/b9lZZo8zs7ObdeBwvvNd/uc/53zznWFcs9Js7e3tczVNWzs1NbUKiErGfJfLNYcxVyCRg8g/GAeZdiC3eTyeN2VlZd/Enm5zpRLY09Pjm5yc3EnMbghUMbpTiYd8BP8X9Dt+v/9uYWHhz1TixdcR4YGBgezh4eFD+J+gz5XAGWijYFzKycm5nArxpIQ5+hqAr9AXzgBJM4ggqXWyvLz8uplR1VkShmgOR3iVo9+jBv2LOWs9pu+H+JAdvilhyC4j6AldxqSNhT7g1Oh2u59mZWV9loDx8fGl4XB4C+IBHrpIdA7ad7C2V1RUvLPynUa4u7s7wIvVQsB8qyCDfgK5jgUaWChs0MdFyLo7OjoOo7hI98QN1sJvsHaB+cDMJYFwV1fXCnblJY5+M2dFN8GOVgcCgWeK3nQKdhXYDzE6IR2GdA2k76lgmq7o7OxcBGAzcydkJazOKVlxjvnWieyguTmZ25y21PiEFt3h/v7+rJGRkddYyhOsFhOe/gMvR6lVGliEzZL0YGPep5DTw16vd2VJScmAjhnd4WAweBaFI7KxwEaVLCQyIHOafB2ULrLo9IVkjMU0GnVJ5PmhUOim0UejIqwGuNaoTCZLNVB9yNFTkUikHqzF0kUWnepnFqv6GOdgbWYDDuo6jaduYOLWFU5Gvgk+qX4A73ei08ue6ms3B/ui3LbiozExLUd2AOxSQnWx850h2+f8/PyQYGksfoRxMhVguRRUf06qyYnOLFaNM87BjdAP0KMbq1Fu2phcMDolk2M3WIIbOGf5JjgD1hfpIosuwYmJWazqo8yvGG++6NH29vZmjo2NPcdxveJsOoXQ/yprXcKpsrLyt04kWtaKi4tDPp9vB0T6dIPdSN4Xxa5bO7dpNomR2GkGEwVchjIyMrYbyYpbwstDGSqkHL0CdJ4Jhqr6l1ezfNhvhGynumj8ahYDOSc7vI7+UeZJmke+DajjR3lAy7IoNvERX/CcfEd8pRBsMCMrfBJ2WCdITi8gpx8xD+g6u1FyGvtff15KSlLjt5aWllpumClhIdfX1+cdHR09D0gtu2TpZ/cgKdqasrOzj/M+/bKLS0qEb4JN5PU1QJbbAaVrY0M+UQKPkY73nWAkJSwgkoe84fsQ6+lLRDcD7Stkz3FV35Aq5RTPEWEdLFavt7HQXnTVPEimbnM4ThDbQtytvLy85oKCgnGHcXG3lAjHoxAogbNJlTWIq6VDQn6k5DLmih+y/EgJMsqPlFaOvZW3/y0v1A+xp9v+ADhPuomDsZuZAAAAAElFTkSuQmCC">
-							<div>
+							<div style="margin-right: 10px;">
 							${prod.hit }
 							</div>
 						</div>
@@ -110,16 +164,19 @@ function mouseClick(obj){
 						<div class="status-grey" style="display: flex; align-items: center;">
 							<img style="margin-right: 5px;" width="16" height="16" 
 								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAuRJREFUWAnFV01rE1EUzUwSMWATENpFRNyIi0YI+eiui4LoogWFgkvBH6Dgpip+dONKgivdC3XlpkWELkTQRVw1H4QwWQmhLrKwq1IwxHyM54zvDck4mc6bTO3AY97MO/eeM/e9d+c+LeLzqlQq8Wg0ujIajW6ZprkIs7SmaRfQN9HvsOG5pev6h+Fw+LVYLPb9uNaOAzUajYXBYPAcPHeATR2HF+OHEPMuFou9yGazP71spgowDONMt9t9BOMNtDkvJx5jRxgrJRKJl5lM5rcbzlVArVabR6i3YbDsZhTgXRlTs57P5w+ctv8IAPkiwr2LdskJnuUZU7KPtgoRrXE/EwL45SDeC5tcEgoRS+OR0OUg55xhPyly8tA3OcgleW0BYsEpzTnm9THaknTm874suCy4JYBbDU9c7UoXvugzwllRMvoL3hCcEUsA9zneB91qAfgjc4IzojPD4UuYZP7rRU5y60yvYPab4cIUmSK3ztweplcVX+TWEYqMilGYWHJzEabDdKroK60jO52aAHLbiUhReShwTIHJNcBiYqYLX/IxoIMOIxBYANLweRIXCoWb2FJrEPJdUUiHa8BQNLLh2EY7+IM+a7fbZ3O53G4ymbwKf08B+GWDPDrAtrR6vX4dNdwnD5yfoR9w9hCReE9ws9m82Ov1XqF728sYUbuhMR0CxEoljGz4DdPyQP6gqtXqXayxt1NEHOL9vFWQAPgawHtTgEqvEQm4Mrcg5An6VxDdL24OMPYGEbtvCeCvsd/vcwGF+UdkZRyFmHMuAo7i8fhlVsxWHhClc8kFOMur1BRy+izJct1ORCydMVCehdGnbVlwWXBbAOt2zNs6wrbv05EyjL7JMX5GsAXQG6tVgFZPQgR90vd4RUzOCQFCRAtAFpphTkeZPkE+cSZwFSBEHGCerqG/icbjVdCLtpv05fxy6dDahvLB7X5qh1OnGMfxnFUUj+dWLYHtJo/nBhaZ0vH8D6NELRJSWvu9AAAAAElFTkSuQmCC">
-							<div>
+							<div style="margin-right: 10px;">
 								<c:choose>
-									<c:when test="${time.hour == 0 && time.min == 0}">
+									<c:when test="${time.days == 0 && time.hour == 0 && time.min == 0}">
 										${time.sec % 60 }초 전
 									</c:when>
-									<c:when test="${time.hour == 0 }">
+									<c:when test="${time.days == 0 && time.hour == 0 }">
 										${time.min % 60 }분 전
 									</c:when>
+									<c:when test="${time.days == 0 }">
+										${time.hour % 60 }시간 전
+									</c:when>
 									<c:otherwise>
-										${time.hour }시간 ${time.min % 60}분 전
+										${time.days }일 전
 									</c:otherwise>
 								</c:choose>
 							</div>
@@ -132,11 +189,6 @@ function mouseClick(obj){
 							찜
 							</div>
 						</div>
-					</div>
-					
-					<div>	
-						<a class="trd_state_btn" onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정</a>
-						<a class="trd_state_btn" onclick="deleteChk()">삭제</a>
 					</div>
 				</div>
 			

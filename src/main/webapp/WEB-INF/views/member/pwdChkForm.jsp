@@ -41,13 +41,13 @@
 <body>
 	<div style="display: flex; justify-content: center; margin-top: 130px;">
 		<img style="width: 400px;"
-			src="${contextPath}/resources/image/duck.png" onclick="location.href='http://localhost:8085/root/'"/>
+			src="${contextPath}/resources/image/duck.png" onclick="location.href='${contextPath}'"/>
 	</div>
 	<div class="pwdC">
 		<c:set var="dto" value="${mbrInfo }" />
 		<form id="fo" action="pwdChk" method="post">
 			<input type="text" class="inip" readonly value="${dto.mbrId }" name="mbrId"><br>
-			<input type="text" class="inip" name="mbrPw" id="mbrPw" placeholder="현재 비밀번호 입력"><br>
+			<input type="password" class="inip" name="mbrPw" id="mbrPw" placeholder="현재 비밀번호 입력"><br>
 			<input type="button" onclick="inputChk()" value="제출"
 				style="cursor:pointer; font-size: 18px; width: 388px; height: 60px;
 				background-color: #FFA200; border-radius: 10px; border: 0px;

@@ -2,6 +2,7 @@ package com.market.root.product.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.market.root.file.dto.FileDTO;
+import com.market.root.file.service.FileService;
 import com.market.root.mybatis.categories.CategoriesMapper;
 import com.market.root.mybatis.product.ProductMapper;
 import com.market.root.product.dto.CategoriesDTO;
@@ -20,6 +23,7 @@ public class ProductServiceImpl implements ProductService{
 
 	@Autowired ProductMapper mapper;
 	@Autowired CategoriesMapper cMapper; //카테고리 mapper
+	@Autowired FileService fs; //파일 서비스 처리
 	
 	//판매중인 게시판
 	public void psAllView(Model model, int num, HttpSession session) {
@@ -57,6 +61,9 @@ public class ProductServiceImpl implements ProductService{
 			//게시글 모든 정보 가져옴
 			model.addAttribute("psList", mapper.psAllView(start,end,mbrId) );
 
+			addImgModel(model, mapper.psAllView(start,end,mbrId));
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -105,10 +112,9 @@ public class ProductServiceImpl implements ProductService{
 	//상품 검색 기능
 	public void prodSearch(String keyword, Model model) {
 		try {
-			model.addAttribute("prodList", mapper.prodSearch(keyword));
-			System.out.println("디비연결"); 
+			model.addAttribute("prodList", mapper.prodSearch(keyword));	
+			addImgModel(model, mapper.prodSearch(keyword));
 		} catch (Exception e) {
-			System.out.println("디비고장");
 			e.printStackTrace(); 
 		}
 	}
@@ -143,7 +149,7 @@ public class ProductServiceImpl implements ProductService{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
+	}
 	
 	//자신의 상품 삭제
 	public int prodDelete(int prodId) {
@@ -159,6 +165,8 @@ public class ProductServiceImpl implements ProductService{
 	public void prodStatus(int prodId, Model model) {
 		try {
 			model.addAttribute("prod", mapper.prodStatus(prodId));
+			//카테고리명만 가져오는 model - cateNameAll
+			oneCateAll(model, mapper.prodStatus(prodId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -181,9 +189,27 @@ public class ProductServiceImpl implements ProductService{
 		try {
 			arr = cMapper.cateList(sltCode);
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		return arr;
+	}
+	
+	//하나의 상품 카테고리 model
+	@Override
+	public void oneCateAll(Model model,ProductDTO dto) {
+		try {
+			ArrayList<CategoriesDTO> arr = cMapper.oneCateAll(dto.getCateCode());
+			String getCateName = "";
+			for(int i=0; i<arr.size(); i++) {
+				CategoriesDTO cDto = arr.get(i);
+				
+				if(i != 0) { getCateName += " > "; }
+				getCateName += cDto.getCateName();
+			}
+			model.addAttribute("cateNameAll", getCateName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//상품 등록
@@ -234,6 +260,46 @@ public class ProductServiceImpl implements ProductService{
 		return result;
 	}
 
+	//main페이지 상품 출력 메소드
+	@Override
+	public void mainAllView(Model model) {
+		try {
+			model.addAttribute("mainAllView", mapper.mainAllView()); //모델값 저장
+			addImgModel(model,mapper.mainAllView()); //이미지경로 모델값 저장 메소드
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//현재 model로 출력될 리스트의 이미지들 새로운 이미지 model에 저장하는 메소드
+	public void addImgModel(Model model, 
+							List<ProductDTO> arr) {
+		List<String> fArr = new ArrayList<String>();
+		
+		for(int i=0; i<arr.size(); i++) {
+			ProductDTO dto = arr.get(i); //prod 값 저장
+			//System.out.println("상품번호 : "+dto.getProdId());
+			//이미지 관련 메소드 호출
+			fs.prodImgList(model, dto.getProdId());
+			
+			FileDTO fDto = (FileDTO) model.getAttribute("fileDTO");//file 값 저장
+			
+			//이미지 경로 저장 준비
+			String getU = fDto.getUUID();
+			String[] UUID = getU.split("/");
+			
+			String getO = fDto.getOrgImg();
+			String[] OrgImg = getO.split("/");
+			
+			//이미지 경로 저장
+			String filePath = fDto.getUploadPath()+"/s_"+UUID[0]+"_"+OrgImg[0];
+			
+			fArr.add(filePath); // 배열에 저장
+		}
+		model.addAttribute("filePath", fArr);
+	}
+	
+	// 찜 테이블 model 메소드
 
 }
 

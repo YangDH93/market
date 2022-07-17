@@ -93,7 +93,7 @@
 			<div>
 				<img style="width: 400px; cursor: pointer; margin-bottom: 30px;"
 					src="${contextPath}/resources/image/duck.png"
-					onclick="location.href='http://localhost:8085/root/'"/>
+					onclick="location.href='${contextPath}'"/>
 			</div>
 
 			<table style="width: 400px;">

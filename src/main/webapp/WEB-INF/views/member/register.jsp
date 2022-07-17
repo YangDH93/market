@@ -116,8 +116,6 @@ function dupChk(userInput, chkCode){
             }else if(chkCode == "2"){
                bool2 = false;
             }else if(chkCode == "3"){
-               bool5 = false;
-               bool6 = false;
                bool7 = false;
                alert("중복 이메일")
             }
@@ -423,9 +421,10 @@ function regChk(){
 		<div id="rg">
 			<table>
 				<tr>
-					<td colspan="2" align="center"><img style="width: 400px;"
+					<td colspan="2" align="center"><img style="width: 400px;
+					 	cursor: pointer;"
 						src="${contextPath}/resources/image/duck.png"
-						onclick="location.href='http://localhost:8085/root/'"></img></td>
+						onclick="location.href='${contextPath}'"></img></td>
 				</tr>
 
 				<tr>

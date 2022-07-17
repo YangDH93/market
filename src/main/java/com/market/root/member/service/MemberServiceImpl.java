@@ -163,5 +163,14 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 
-	
+	//회원 주소 검색
+	@Override
+	public void mbrAddr(HttpSession session,Model model) {
+		String mbrId = (String)session.getAttribute("loginUser");
+		try {
+			model.addAttribute("mbrAddr", mapper.logChk(mbrId));
+		} catch (Exception e) {
+			
+		}
+	}
 }

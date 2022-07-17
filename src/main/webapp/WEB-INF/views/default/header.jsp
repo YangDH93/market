@@ -38,10 +38,10 @@
 			<div class="IvAsD">
 				<div class="kaFNmQ">
 					<div class="jYMzIJ">
-						<a class="hvNQEV"> <img
+						<a class="hvNQEV"> <img style="padding-right: 5px;"
 							src="${contextPath}/resources/image/duck.png" width="16"
 							height="17" alt="앱다운로드버튼 이미지"> 앱 다운로드
-						</a> <a class="hvNQEV"> <img
+						</a> <a class="hvNQEV"> <img style="padding-right: 5px;"
 							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAN8xiK6nINoEgUKSjyFc4eDd0Vws_5PoeyQ&usqp=CAU"
 							width="16" height="15" alt="즐겨찾기버튼 이미지"> 즐겨찾기
 						</a>
@@ -63,24 +63,22 @@
 			</div>
 			<div class="hLFFUa">
 				<div class=" zvczX">
-					<div class="gLAQAm">
+					<div class="gLAQAm" >
+						<button class="gIJOQQ" style="background-color: white; border: 0"><!-- 카테고리 -->
+							<div class="cate_img"></div>
+							<div class="cate_img"></div>
+							<div class="cate_img"></div>
+						</button>
 						<a class="hDmINX" href="${contextPath}"> <img 
-							src="${contextPath}/resources/image/duck.png" width="150"
-							height="120" alt="오리마켓 로고">
+							src="${contextPath}/resources/image/duck_cut.png" width="120px"
+							alt="오리마켓 로고">
 						</a>
-						<div class="keyjxL" style="border-radius: 5px;">
+						<div class="keyjxL">
 							<div class="voMyM">
 								<form action="${contextPath}/product/prodSearch">
 									<input type="text" placeholder="제목, 상품이름 입력"
 									name="keyword" class="cLfdog" size="50" style="border: none; outline: none; color: black;">
 								</form>
-							</div>
-							<div class="iOzCaT">
-								<div class="letkud">
-									<div class="ciUXLo">
-										<a class="drHLIP">최근검색어</a> <a class="kFQETw">인기검색어</a>
-									</div>
-								</div>
 							</div>
 						</div>
 						<div class="etIgxm">
@@ -98,14 +96,6 @@
 								<img src="https://cdn-icons-png.flaticon.com/512/1611/1611178.png" width="23" height="26" alt="판매하기버튼 이미지">
 								판매하기
 							</a>
-						</div>
-					</div>
-					<div class="ZKoFr">
-						<!-- 카테고리 -->
-						<div class="gIJOQQ">
-							<img alt="메뉴 버튼 아이콘"
-								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAADcCAMAAAAshD+zAAAAQlBMVEX///8AAABERERbW1sGBgbm5uacnJzo6OhxcXGtra04ODjR0dELCwv8/PzMzMx0dHTCwsITExPu7u6Ojo4/Pz+0tLRWWxupAAABbUlEQVR4nO3aSXKDQAxAUeIBz8bj/a+auFzeNgQWjeT3TiAVJODmNw0AAAAAAAAAADDKut0uFyEst+36X6vt9j+h7HeDVzsEW+1lfxh42Y61Jx3jOOjitbXHHKvt3+2yqj3kWKtL3263a+0Zx7veepbb1p5wiq682zrsTfmyKj/w7rXnm+ZeXO5Re7xpFqXdTqHvyr/78lT6k6s93VSbwnLn2sNNdf7W5VLflqn/oaR+FOR+iKd+/Wq62gNO0fPinPsnT+ofq7mPGZrmmfiAKObR3mPg0V6T+lD2ZdN2UY7Tu7b0RgkAAAAAAIwivZ8N6f37siX+spr5m3jmmiF1hyK9nyvpfVjS+7Ck91FJ74OS3kclvQ9Keh+T9F56PzfS+w/pPQAAAAAAfDfp/WxI79+XLfGX1czfxDPXDKk7FOn9XEnvw5LehyW9j0p6H5T0PirpfVDS+5ik99L7uZHef0jvAQAAAAAAAADgG/wCAYxL0BP5utUAAAAASUVORK5CYII="
-								width="20" height="16">
 						</div>
 					</div>
 				</div>
