@@ -83,11 +83,12 @@ function mouseClick(obj){
 					<c:choose>
 					
 						<c:when test="${prod.mbrId == loginUser && loginUser != null}">
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;
+									cursor: pointer;"
 									onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
 							</button>
 							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
-															border: 2px solid #FFA000; border-radius: 5px;"
+													cursor: pointer; border: 2px solid #FFA000; border-radius: 5px;"
 									onclick="deleteChk()">삭제
 							</button>
 						</c:when>
