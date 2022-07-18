@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -14,7 +15,10 @@ import org.springframework.ui.Model;
 import com.market.root.file.dto.FileDTO;
 import com.market.root.file.service.FileService;
 import com.market.root.mybatis.categories.CategoriesMapper;
+import com.market.root.mybatis.pick.PickMapper;
 import com.market.root.mybatis.product.ProductMapper;
+import com.market.root.pick.dto.PickDTO;
+import com.market.root.pick.service.PickService;
 import com.market.root.product.dto.CategoriesDTO;
 import com.market.root.product.dto.ProductDTO;
 
@@ -23,7 +27,9 @@ public class ProductServiceImpl implements ProductService{
 
 	@Autowired ProductMapper mapper;
 	@Autowired CategoriesMapper cMapper; //카테고리 mapper
+	@Autowired PickMapper pMapper;
 	@Autowired FileService fs; //파일 서비스 처리
+	@Autowired PickService pickSc; //찜 처리
 	
 	//판매중인 게시판
 	public void psAllView(Model model, int num, HttpSession session) {
@@ -60,9 +66,10 @@ public class ProductServiceImpl implements ProductService{
 			model.addAttribute("repeat", repeat);
 			//게시글 모든 정보 가져옴
 			model.addAttribute("psList", mapper.psAllView(start,end,mbrId) );
-
+			//게시글에 맞는 이미지 가져옴
 			addImgModel(model, mapper.psAllView(start,end,mbrId));
-			
+			//게시글에 맞는 pickTotal값 가져옴
+			pickSc.getTotalList(model, mapper.psAllView(start,end,mbrId));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -102,11 +109,48 @@ public class ProductServiceImpl implements ProductService{
 			//마지막 페이지번호 가져옴
 			model.addAttribute("repeat", repeat);
 			//게시글 모든 정보 가져옴
-			model.addAttribute("psList", mapper.sellsAllView(start,end,mbrId) );	
+			model.addAttribute("psList", mapper.sellsAllView(start,end,mbrId) );
+			//게시글에 맞는 이미지 가져옴
+			addImgModel(model, mapper.sellsAllView(start,end,mbrId));
+			//게시글에 맞는 pickTotal값 가져옴
+			pickSc.getTotalList(model, mapper.sellsAllView(start,end,mbrId));
+			
 	
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//userPick 구현 
+	@Override
+	public void picksAllView(Model model, int num, HttpSession session) {
+		int repeat;
+		String mbrId = (String)session.getAttribute("loginUser");
+		try {
+			int allCount; //개인 pickList 수
+			int pageLetter = 5; 
+			//전체 게시글 수 불러오기
+			allCount = mapper.selectPickBoardCount(mbrId);
+			//페이지 수 = 전체 게시글 수 / 보여줄 게시글 수
+			repeat = allCount / pageLetter;
+			if(allCount % pageLetter != 0 || repeat == 0) {
+					repeat += 1;
+			}
+			
+			//끝 페이지 번호
+			int end = num * pageLetter;
+			//시작 페이지 번호
+			int start = end + 1 - pageLetter;
+			//마지막 페이지번호 가져옴
+			model.addAttribute("repeat", repeat);
+			//게시글 모든 정보 가져옴
+			model.addAttribute("pickList", mapper.picksAllView(start,end,mbrId));
+			//게시글에 맞는 이미지 가져옴
+			addImgModel(model, mapper.picksAllView(start,end,mbrId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	//상품 검색 기능
@@ -266,7 +310,6 @@ public class ProductServiceImpl implements ProductService{
 		try {
 			model.addAttribute("mainAllView", mapper.mainAllView()); //모델값 저장
 			addImgModel(model,mapper.mainAllView()); //이미지경로 모델값 저장 메소드
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -304,8 +347,20 @@ public class ProductServiceImpl implements ProductService{
 		model.addAttribute("filePath", fArr);
 	}
 	
-	// 찜 테이블 model 메소드
-
+	//찜 삭제 메소드
+	@Override
+	public void pickDelete(ProductDTO dto) {
+		
+		String prodId = Integer.toString(dto.getProdId());
+		String mbrId = dto.getMbrId();
+		try {
+			pMapper.pickDelete(prodId, mbrId);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
 
 

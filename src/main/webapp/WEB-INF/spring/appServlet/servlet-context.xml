@@ -25,6 +25,69 @@
 	<!-- 자동로그인 -->
 	<beans:bean id="loginInterceptor" class="com.market.root.common.LoginInterceptor"/>
 	
+	<!-- interceptor bean 설정 -->
+	 	<beans:bean id="product" 
+		class="com.market.root.common.ProductInterceptor"/>
+		
+		<beans:bean id="customer"
+		class="com.market.root.common.CustomerInterceptor"/>
+		
+		<beans:bean id="member"
+		class="com.market.root.common.MemberInterceptor"/>
+			
+	<!-- url방지용 인터셉터 설정 -->
+	<interceptors>
+	<!-- 회원관련 페이지 -->
+		<interceptor>
+			<mapping path="/member/modifyForm" />
+			<beans:ref bean="member" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/member/pwdChkForm" />
+			<beans:ref bean="member" />
+		</interceptor>
+	
+	<!-- 고객관련 페이지 -->
+		<interceptor>
+			<mapping path="/customer/csList" />
+			<beans:ref bean="customer" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/customer/csView" />
+			<beans:ref bean="customer" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/customer/csWriteForm" />
+			<beans:ref bean="customer" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/customer/csUpdateForm" />
+			<beans:ref bean="customer" />
+		</interceptor>  
+	
+	<!-- 상품관련 페이지 -->
+		<interceptor>
+			<mapping path="/product/prodStatus" />
+			<beans:ref bean="product" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/product/prodNew" />
+			<beans:ref bean="product" />
+		</interceptor> 
+		<interceptor>
+			<mapping path="/product/prodUpdateForm" />
+			<beans:ref bean="product" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/product/review" />
+			<beans:ref bean="product" />
+		</interceptor>
+		<interceptor>
+			<mapping path="/product/sellsComplete" />
+			<beans:ref bean="customer" />
+		</interceptor>	
+	</interceptors>
+	
 	
 	<!-- 인터셉터 설정 -->
 	<interceptors>

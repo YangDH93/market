@@ -8,23 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-.manage_li{
-	float: left;
-}
-.manage_li+.manage_li:before{
-	content: "";
-	display: inline-block;
-	width: 1px;
-	height: 10px;
-	margin: 0 50px; /* 상하 좌우 */
-	background-color: #e4e8eb;
-	vertical-align: -1px;
-}
-.manage_li a{
-	color: #777;
-	font-size:14px;
-	text-decoration: none;
-}
 td{
 	text-align: center;
 }
@@ -34,22 +17,16 @@ td{
 <body>
 <div class="wrap_manage" style="min-width: 1024px; width: 1024px; margin: 0 auto;">
 	<!-- 페이지 메뉴바 상품관리/구매판매내역 -->
-	<div class="" style="border-top: 1px solid #e4e8eb;
-						border-bottom: 1px solid #e4e8eb;">
-		<ul class="manage_ul" style="padding-left: 0; list-style: none; display: inline-block;">
-			<li class="manage_li"><a href="prodStatus">상품관리</a></li>
-			<li class="manage_li"><a href="sellsComplete">구매/판매 내역</a></li>
-		</ul>
-	</div>
+	<jsp:include page="../default/prodNav.jsp"/>
 <!-- 목록 : 테이블형식 -->
-<div class="">
+<div class="" >
 	<table style="border-top: 2px solid black;
 					border-collapse: collapse; width: 100%">
 		<!-- 테이블 머리 -->
 		<thead style="border-bottom: 2px solid black; ">
 			<tr>
 				<th>사진</th> <th>판매상태</th> <th>상품명</th>
-				<th>가격</th> <th>찜/댓글</th> 
+				<th>가격</th> <th>찜</th> 
 			</tr>
 		</thead>
 		<!-- 테이블 몸통(내용 리스트로 가져옴) -->
@@ -64,9 +41,11 @@ td{
 					</tr>
 				</c:when>
 			<c:otherwise>
-				<c:forEach var="psdto" items="${psList }">
+				<c:forEach var="psdto" items="${psList }" varStatus="status">
 					<tr>
-						<td>사진</td> 
+						<td>
+							<img width="100px" height="100px" src="${contextPath}/product/display?fileName=${filePath[status.index]}"/>
+						</td> 
 						<td>
 							<c:choose>
 								<c:when test="${psdto.prodStat != 1 }">
@@ -78,12 +57,12 @@ td{
 							</c:choose>
 						</td>
 						<td>
-							<a href="${contextPath }/product/trade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}">
+							<a href="${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}">
 								${psdto.prodTitle }
 							</a>
 						</td>
 						<td>${psdto.price}</td> 
-						<td>찜 / 댓글</td> 
+						<td>${pickTotal[status.index] }</td> 
 					</tr>
 				</c:forEach>
 			</c:otherwise>

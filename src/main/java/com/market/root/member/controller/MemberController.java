@@ -9,13 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -164,9 +161,13 @@ public class MemberController{
 	//동훈이형 나중에 여기 이미지 업데이트시 modifyForm.jsp에서 multipart로 받을것
 	@PostMapping("memberUpdate")
 	public String memberUpdate(@RequestParam Map<Object, Object> map) {
-		System.out.println(map.get("mbrImg"));
+		
+//		System.out.println(map.get("mbrName"));
+//		System.out.println(map.get("dName"));
+//		System.out.println(map.get("mbrAddr"));
+//		System.out.println(map.get("mbrTel"));
+		
 		int result = ms.mbrUpdate(map);
-		System.out.println(map.get("mbrAddr"));
 		if(result == 1) {
 			System.out.println("업데이트 완료!");
 			return "redirect:/";
@@ -185,7 +186,7 @@ public class MemberController{
 		
 		if(result == 1) {
 			System.out.println(mbrId + " : 계정 삭제 성공!");
-			return "redirect:/";
+			return "redirect:logout";
 		}else {
 			System.out.println(mbrId + " : 계정 삭제 실패!");
 		}

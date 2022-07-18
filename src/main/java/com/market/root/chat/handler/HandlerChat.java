@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -18,10 +20,10 @@ public class HandlerChat extends TextWebSocketHandler {
 
 	// (<"bang_id", 방ID>, <"session", 세션>) - (<"bang_id", 방ID>, <"session", 세션>) - (<"bang_id", 방ID>, <"session", 세션>) 형태 
 	private List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();
-	
 	// 클라이언트가 서버로 메세지 전송 처리
 	@Override
-	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+	protected void handleTextMessage(WebSocketSession session, 
+			TextMessage message) throws Exception {
 
 		super.handleTextMessage(session, message);
         
@@ -49,7 +51,8 @@ public class HandlerChat extends TextWebSocketHandler {
 					Map<String, String> mapToSend = new HashMap<String, String>();
 					mapToSend.put("bang_id", bang_id);
 					mapToSend.put("cmd", "CMD_ENTER");
-					mapToSend.put("msg", session.getId() +  "님이 입장 했습니다.");
+					//session.getId() < 현재 사용자 Id
+					mapToSend.put("msg", session.getId() + "님이 입장 했습니다.");
 					
 					String jsonStr = objectMapper.writeValueAsString(mapToSend);
 					sess.sendMessage(new TextMessage(jsonStr));
@@ -69,6 +72,7 @@ public class HandlerChat extends TextWebSocketHandler {
 					Map<String, String> mapToSend = new HashMap<String, String>();
 					mapToSend.put("bang_id", bang_id);
 					mapToSend.put("cmd", "CMD_MSG_SEND");
+					System.out.println(mapToSend.get("cmd"));
 					mapToSend.put("msg", session.getId() + " : " + mapReceive.get("msg"));
 
 					String jsonStr = objectMapper.writeValueAsString(mapToSend);

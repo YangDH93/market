@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.root.file.service.FileService;
 import com.market.root.member.service.MemberService;
+import com.market.root.pick.service.PickService;
 import com.market.root.product.dto.CategoriesDTO;
 import com.market.root.product.dto.ProductDTO;
 import com.market.root.product.service.ProductService;
@@ -28,6 +29,7 @@ public class ProductController {
 	@Autowired ProductService ps;
 	@Autowired FileService fs;
 	@Autowired MemberService ms;
+	@Autowired PickService pickSc;
 	
 	//상품등록
 	@GetMapping("prodNew")
@@ -35,6 +37,11 @@ public class ProductController {
 		ps.cateAllList(model);
 		ms.mbrAddr(session,model);
 		return "product/prodNew";
+	}
+	
+	@GetMapping("review")
+	public String review() {
+		return "product/review";
 	}
 	
 	//상품 정보 prodUpdateForm으로 넘겨줌
@@ -54,12 +61,22 @@ public class ProductController {
 		return "product/products";
 	}
 	
+	//prodNew 카테고리 ajax
 	@ResponseBody //값 리턴
 	@PostMapping(value = "getList",
 	produces = "application/json; charset=utf-8")
 	public ArrayList<CategoriesDTO> getList(String sltCode) {
 		ArrayList<CategoriesDTO> arr = ps.cateList(sltCode);
 		return arr;
+	}
+	
+	//prodTrade 찜 ajax
+	@ResponseBody //값 리턴
+	@PostMapping(value = "pickChk",
+	produces = "application/json; charset=utf-8")
+	public int pickChk(String mbrId, String prodId, String num) {
+		int pickTotal = pickSc.pickChk(mbrId, prodId, num);
+		return pickTotal;
 	}
 	
 	//구매,판매목록, 찜목록, 등 상품관리 기능
@@ -124,13 +141,18 @@ public class ProductController {
 	//한개의 상품 정보 가져옴
 	@GetMapping("prodTrade")
 	public String prodTrade(@RequestParam (required = false)Map<Object, Object> map,
-						Model model) {
+						Model model, HttpSession session) {
 		System.out.println("상품 아이디 : " + map.get("prodId") + ", 조회수 : " + map.get("hit"));
 		
 		fs.prodImgList(model, map.get("prodId"));
 		ps.oneProduct(map,model);
+		pickSc.pickTotal(model, (String)map.get("prodId"));
+		pickSc.userPick(model, (String)map.get("prodId"), session);
 		return "product/prodTrade";
 	}
+	
+	
+	
 	
 	//자신의 상품 삭제
 	@GetMapping("prodDelete")
@@ -175,6 +197,26 @@ public class ProductController {
 		
 		return "product/sellsComplete";
 	}
+	
+	//개인 찜목록
+	@GetMapping("userPick")
+	public String userPick(Model model,
+							@RequestParam(value="num", required = false, defaultValue = "1") int num,
+							HttpSession session) {
+		ps.picksAllView(model, num, session);
+		
+		return "product/userPick";
+	}
+	
+	//찜 삭제 메소드 - delete
+	@GetMapping("pickDelete")
+	public String pickDelete(ProductDTO dto,
+								HttpSession session) {
+		dto.setMbrId((String) session.getAttribute("loginUser"));
+		ps.pickDelete(dto);
+		return "redirect:userPick";
+	}
+	
 
 }
 

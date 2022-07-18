@@ -367,7 +367,8 @@ function deleteChk(){
 
 				<tr>
 					<td>주소</td>
-					<td><input class="input_st" type="text" readonly id="addr2" name="mbrAddr"></td>
+					<td><input class="input_st" type="text" readonly id="addr2"
+						name="mbrAddr"></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -380,19 +381,21 @@ function deleteChk(){
 				</tr>
 
 				<tr>
-					<td colspan="2" align="center">
-					<input type="button" value="수정완료" onclick="subChk()"
+					<td colspan="2" align="center"><input type="button"
+						value="수정완료" onclick="subChk()"
 						style="cursor: pointer; font-weight: 500; color: #FFFFFF; background-color: #FFA200; border: 0px; border-radius: 10px; font-size: 18px; width: 100%; height: 50px;">
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
-	<div style="font-size: 13px; display: flex; justify-content: center;">
-		&nbsp;&nbsp; <input type="text" value="${dto.mbrId }" name="mbrId"
-			style="display: none;"> <a onclick="deleteChk()"
-			style="cursor: pointer; color: #FFA200; font-weight: bold;">회원
-			탈퇴를 원하시면 여기를 눌러주세요</a>
-	</div>
+	<form action="userDelete" id="delfo">
+		<div style="font-size: 13px; display: flex; justify-content: center;">
+			&nbsp;&nbsp; <input type="text" value="${dto.mbrId }" name="mbrId"
+				style="display: none;"> <a onclick="deleteChk()"
+				style="cursor: pointer; color: #FFA200; font-weight: bold;">회원
+				탈퇴를 원하시면 여기를 눌러주세요</a>
+		</div>
+	</form>
 </body>
 </html>

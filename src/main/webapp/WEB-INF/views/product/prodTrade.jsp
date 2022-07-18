@@ -29,12 +29,14 @@
 .trd_btn {
 	height: 47px;
 	width: 220px;
+	cursor: pointer;
 }
 
 .trd_state_btn {
 	color: black;
 }
 </style>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 //등록된 상품의 시간
 var days = ${time.days}
@@ -60,11 +62,71 @@ function mouseClick(obj){
 		var img = document.getElementById("imgSelect"); 
 		document.getElementById("imgMen").src = obj.src;
 		
-}	
+}
+
+//연락하기 버튼
+function chat(){
+	var mbrId = '${loginUser}';//비로그인 유저값 처리
+	if(mbrId == ""){//비로그인
+		alert("로그인이 필요합니다.")
+	}else{
+		//location.href="${contextPath}/~~채팅주소~~";
+	}
+}
+
+//찜버튼 이벤트
+function pkTog(){
+	var mbrId = '${loginUser}';//비로그인 유저값 처리
+	
+	if(mbrId == ""){//비로그인
+		alert("로그인이 필요합니다.")
+	}else{//로그인 유저
+		if( $("#pick_heart_no").css('display') == "inline" ){
+			//찜
+			$("#pick_heart_no").css("display","none");
+			$("#pick_heart_ck").css("display","inline");
+			pick(1);
+		}else if( $("#pick_heart_ck").css('display') == "inline" ){
+			//찜 취소
+			$("#pick_heart_no").css("display","inline");
+			$("#pick_heart_ck").css("display","none");
+			pick(0);
+		}
+	}
+}
+
+//ajax처리 이벤트
+function pick(num){
+	   var mbrId = '${loginUser}';
+	   var prodId = '${prod.prodId}';
+	   //0 : 찜 취소, 1 : 찜
+	   $.ajax({
+	      url : 'pickChk', type : 'post', dataType : 'json',
+	      data : {
+	         mbrId : mbrId,
+	         prodId : prodId,
+	         num : num
+	      },
+	      success : function(data){//성공시 화면에 뿌려줌
+	         $("#pick_totoal").html(data)
+	      }
+	   })
+} 
+
+
+// load시 찜여부 확인
+function pickStatus(){
+	var pickstat = '${pick }';
+	
+	if(pickstat == 1){
+		$("#pick_heart_no").css("display","none");
+		$("#pick_heart_ck").css("display","inline");
+	}
+}
 
 </script>
 </head>
-<body>
+<body onload="pickStatus();">
 <%@include file="../default/header.jsp" %>
 	<section class="trd_wrap">
 		<div style="display: flex; justify-content: space-between;"><!-- 상단 -->
@@ -74,37 +136,55 @@ function mouseClick(obj){
  				</div>
  				<div>
 					<div style="margin:30px 0; text-align: center;"><!-- 서브 사진 -->
-	 					<c:forEach var="i" begin="0" end="${imgLength -1 }">
+	 					<c:forEach var="i" begin="0" end="${imgLength-1}">
 							<img id="imgSelect" onclick="mouseClick(this)" style="border-radius: 3px;" src='${contextPath}/product/display?fileName=${fileDTO.uploadPath}/s_${UUID[i]}_${orgImg[i]}' width="39px;" height="39px;" >
-	 					</c:forEach> 
+	 					</c:forEach>
 					</div>
 				</div>
 				<div style="display: flex; justify-content: space-between;"><!-- 버튼 -->
 					<c:choose>
-					
-						<c:when test="${prod.mbrId == loginUser && loginUser != null}">
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
-									onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
-							</button>
-							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
-															border: 2px solid #FFA000; border-radius: 5px;"
-									onclick="deleteChk()">삭제
-							</button>
+						<c:when test="${prod.prodStat == 1 }"><!-- 판매완료 -->
+							<div style="background-color:#FFA000; height: 40px; width:100%;  
+										text-align:center; line-height: 40px;
+										border-radius: 5px; color: white;">
+								<span style="font-size:12pt;">이미 판매 완료된 상품입니다.&nbsp;&nbsp;</span>
+							    <a style="font-weight:bold; color: white; text-decoration: none;  font-size:14pt;"
+							    	href="${contextPath}/product/prodStatus"><b>[ 상품목록 바로가기 ]</b></a>
+							</div>
 						</c:when>
-						
-						<c:otherwise>
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;">
-								<span id="pick_heart_no">&#9825;</span>
-								<span>&#9829;</span>
-								<span>찜</span>
-							</button>
-							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
-									border: 2px solid #FFA000; border-radius: 5px;">
-								연락하기
-							</button>
+					
+						<c:otherwise><!-- 판매중 -->
+							
+							<c:choose>
+								<c:when test="${(prod.mbrId == loginUser || 'admin' == loginUser) && loginUser != null }">
+									<button class="trd_btn" style="background-color: #FFA200; color:white; border: 0; border-radius: 5px;"
+											onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+																	border: 2px solid #FFA000; border-radius: 5px;"
+											onclick="deleteChk()">삭제
+									</button>
+								</c:when>
+								
+								<c:otherwise>
+									<button class="trd_btn" style="background-color: #FFA200; color:white; border: 0; border-radius: 5px;"
+											type="button" onclick="pkTog()">
+										<span id="pick_heart_no">&#9825;</span>
+										<span id="pick_heart_ck" style="display: none;">&#9829;</span>
+										<span>찜</span>
+									</button>
+									<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+											border: 2px solid #FFA000; border-radius: 5px;"
+											type="button" onclick="chat()"><!-- chat()메소드에서 location.href설정 -->
+										연락하기
+									</button>
+								</c:otherwise>
+							</c:choose>
+							
 						</c:otherwise>
-						
 					</c:choose>
+				
+				
 				</div>
 			</div>
 			
@@ -149,7 +229,7 @@ function mouseClick(obj){
 							<img style="margin-right: 5px;" width="16" height="16" 
 								src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAjhJREFUWAnFl1uPKUEUhbdCxF2Iu7h78f9/ixdexANeSNxCkJnz1ZwSRncrM0OvhK6ufVmrdiu1O/DxD/INq9VKFouFbDYbOR6PEggEJBKJSDqdlkKhIKFQ6FvE1+3pdJL5fC7EHw4HIXU4HJZEIiHZbFZSqdRdXOBaAEHj8VjW6/Wdo5kIBoNSLBalVCppYcxDNJvNNPn5fDaud9dkMimNRkMvxhgvAna7nQyHQ2EVNmBV3W5Xu45GI10tmziq1+v1JBaLaXctANLBYKDLbZPE+MTjcT3cbrdmyurKY+n3+/pRKiImk8nT5MRB/Cw5cfyu4ARqv9/LcrnUN+/8ghNuxcBhI7xcC5xwK7aMX4BbsfX8AtzKa9++Whjcij8WvwC3Yk/6BbiV+TPxQwTcKpPJ+MGtOeFWHBB+PAY44VYctZxu7waccOuzIJ/Pv7UKrB5OoAUopfQ5/a4q0BPAeRHAgG4nl8vpyVd+wQGXwZeM/3f1el2i0aix/fmV3HBc40YAZel0Oq4933Xgs2M6IXKb0pv4GwFM0ny22+1Lv2ccf3Pl195qtW56QZPvTgAG9mez2fwTEZCTy6kjhstRAAba6FqtxvBXIAe53OAqgADeASqVilvsw3liyeEFTwEElstl/fFK4mSzjXsogOSshBcRW+BrWzkrARBXq1UrEZDjawtrAUYEpXXDs+TkeUoAAZTWScRPyMnn/JqLxQPm+U6nU+2FIDPnEeZourycOlofTF4LeODqav4EUxqvNxGf2nsAAAAASUVORK5CYII=">
 							<div>
-							찜
+								<span id="pick_totoal">${pickTotal }</span>
 							</div>
 						</div>
 					</div>

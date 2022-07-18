@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.root.mybatis.pick.PickMapper">
+<resultMap type="com.market.root.pick.dto.PickDTO" id="pick">
+	<result property="prodId" column="prod_id"/>
+	<result property="pickId" column="pick_id"/>
+</resultMap>
+
+<!-- prodTrade 찜 Total -->
+<select id="pickTotal" resultType="Integer">
+	select count(*) from pick where prod_id=#{prodId}
+</select>
+
+<!-- 로그인 mbrId pickId여부 확인 -->
+<select id="userPickChk" resultType="Integer">
+	select count(*) from pick where prod_id=#{prodId} and pick_id=#{mbrId}
+</select>
+
+<!-- prodTrade 찜 insert -->
+<insert id="pickInsert">
+	insert into pick values(#{prodId},#{mbrId})
+</insert>
+
+<!-- prodTrade 찜 delete -->
+<delete id="pickDelete">
+	delete from pick where prod_id=#{prodId} and pick_id=#{mbrId}
+</delete>
+
+</mapper>
