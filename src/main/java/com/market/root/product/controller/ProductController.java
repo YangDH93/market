@@ -37,6 +37,11 @@ public class ProductController {
 		return "product/prodNew";
 	}
 	
+	@GetMapping("review")
+	public String review() {
+		return "product/review";
+	}
+	
 	//상품 정보 prodUpdateForm으로 넘겨줌
 	@GetMapping("prodUpdateForm")
 	public String prodUpdateForm(@RequestParam (required = false) int prodId,

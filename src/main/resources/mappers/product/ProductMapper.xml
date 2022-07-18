@@ -19,7 +19,7 @@
 
 <!-- main 전체 목록 불러오기 -->
 <select id="mainAllView" resultMap="product">
-	select * from prod_info where prod_stat=0
+	select * from prod_info where prod_stat=0 order by prod_date desc
 </select>
 
 <!-- 판매중인 게시글 불러오기 -->
@@ -68,6 +68,7 @@
 <!-- 상품 제목 검색 -->
 <select id="prodSearch" resultMap="product">
      select * from prod_info where prod_title like '%'||#{keyword}||'%' and prod_stat=0
+     order by prod_date desc
 </select>
 
 <!-- 물품 등록 -->
