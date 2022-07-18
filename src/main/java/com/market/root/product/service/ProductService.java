@@ -32,4 +32,8 @@ public interface ProductService {
 	public void prodStatus(int prodId, Model model);
 	public int sellsComple(ProductDTO dto, Model model);
 	public void sellsAllView(Model model, int num, HttpSession session);
+	
+	public void picksAllView(Model model, int num, HttpSession session);
+	public void pickDelete(ProductDTO dto);
+	
 }
