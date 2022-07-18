@@ -186,7 +186,7 @@ public class MemberController{
 		
 		if(result == 1) {
 			System.out.println(mbrId + " : 계정 삭제 성공!");
-			return "redirect:/";
+			return "redirect:logout";
 		}else {
 			System.out.println(mbrId + " : 계정 삭제 실패!");
 		}
