@@ -337,15 +337,23 @@ function buttonChk(){
 .catewrap {
    width: 874px;
    display: flex;
+   border: 1px solid #ccc;
+   border-radius: 5px;
 }
 /* 카테고리 box */
-.cateBox1, .cateBox2, .cateBox3 {
+.cateBox1 {
    float: left;
-   border: 1px solid #ccc;
-   width: 30%;
-   height: 300px;
+   width: 100%;
+   height: 200px;
    overflow: auto;
-   border-radius: 3px;
+}
+
+.cateBox2, .cateBox3 {
+   float: left;
+   border-left: 1px solid #ccc;
+   width: 100%;
+   height: 200px;
+   overflow: auto;
 }
 /* 카테고리 리스트 */
 .cate1List, .cate2List, .cate3List {
@@ -353,6 +361,7 @@ function buttonChk(){
    text-align: left;
    cursor: pointer;
    transition: 0.3s;
+   font-size: 11pt;
 }
 /* 카테고리 리스트 hover */
 .cate1List:hover, .cate2List:hover, .cate3List:hover {
@@ -364,7 +373,7 @@ function buttonChk(){
 }
 
 #psub {
-   margin-left:830px;
+   float: right; 
    width: 100px;
    height: 40px;
    background-color: #FFA200;
@@ -418,7 +427,7 @@ function buttonChk(){
             <div>
                <input type="text" id="prodTitle" name="prodTitle"
                   placeholder="상품 제목을 입력해주세요." size="100px"
-                  style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 778px;">
+                  style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 874px;">
             </div>
          </div>
          <br>
@@ -444,7 +453,7 @@ function buttonChk(){
 				</div>
 				
 				<div class="flex">
-			      <div style="padding: 10px 0">
+			      <div style="padding: 30px 0">
 			         <label>선택한 카테고리 : </label>
 			         <span id="userSel1"></span>
 			         <span id="userSel2"></span>
@@ -494,12 +503,12 @@ function buttonChk(){
             </div>
             <div>
                <textarea id="prodContent" name="prodContent" maxlength="500"
-                  style="resize: none; outline-style: none; border-color: #C0C0C0; border-radius: 3px; width: 793px;"
+                  style="resize: none; outline-style: none; border-color: #C0C0C0; border-radius: 3px; width: 874px;"
                   rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요."></textarea>
                <div id="textcount">(0 / 500)</div>
             </div>
          </div>
-         <div class="flex">
+         <div style="overflow: hidden;">
             <input type="button" id="psub" onclick="buttonChk()" value="등록하기">
          </div>
       </section>

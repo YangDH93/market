@@ -66,7 +66,6 @@ function mouseClick(obj){
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
-	${cateNameAll }
 	<section class="trd_wrap">
 		<div style="display: flex; justify-content: space-between;"><!-- 상단 -->
 			<div style="width: 450px;"><!-- 상단왼쪽 -->
@@ -84,22 +83,22 @@ function mouseClick(obj){
 					<c:choose>
 					
 						<c:when test="${prod.mbrId == loginUser && loginUser != null}">
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
+							<button class="trd_btn" style="cursor: pointer; background-color: #FFA200; color:white;  border: 0; border-radius: 5px;"
 									onclick="location.href='prodUpdateForm?prodId=${prod.prodId}'">수정
 							</button>
-							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+							<button class="trd_btn" style="cursor: pointer; background-color: white; color: #FFA000; font-weight:600;
 															border: 2px solid #FFA000; border-radius: 5px;"
 									onclick="deleteChk()">삭제
 							</button>
 						</c:when>
 						
 						<c:otherwise>
-							<button class="trd_btn" style="background-color: #FFA200; color:white;  border: 0; border-radius: 5px;">
+							<button class="trd_btn" style="cursor: pointer; background-color: #FFA200; color:white;  border: 0; border-radius: 5px;">
 								<span>&#9829;</span>
 								<span>찜</span>
 								<span>0</span>
 							</button>
-							<button class="trd_btn" style="background-color: white; color: #FFA000; font-weight:600;
+							<button class="trd_btn" style="cursor: pointer; background-color: white; color: #FFA000; font-weight:600;
 									border: 2px solid #FFA000; border-radius: 5px;">
 								연락하기
 							</button>
@@ -169,8 +168,8 @@ function mouseClick(obj){
 				
 				<!-- 거래지역 -->
 				<div style="display: flex; padding-top: 15px;">
-					<div style="width: 90px; color: rgb(153, 153, 153);">
-					거래지역
+					<div style="width: 100px; color: rgb(153, 153, 153);">
+					거래선호지역
 					</div>
 					<div style="display: flex; align-items: center; padding-bottom: 15px;">
 						<img style="padding-right: 10px;" width="12" height="15"
@@ -179,9 +178,9 @@ function mouseClick(obj){
 					</div>
 				</div>
 				<!-- 상세정보 글 -->
-				<div style="height:370px; overflow:auto;
+				<div style="height:320px; overflow:auto;
 							border: 1px solid #C0C0C0; border-radius: 5px;">
-					<div style="padding: 3px; ">
+					<div style="padding: 3px;">
 						${prod.prodContent }
 					</div>
 				</div>
