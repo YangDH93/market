@@ -42,6 +42,13 @@
 	order by prod_id desc)A)B 
 	where (rn between #{s} and #{e})
 </select>
+<!-- 개인찜 게시글 불러오기 -->
+<select id="picksAllView" resultMap="product">
+	select B.* from(select rownum rn, A.* from
+	(select * from prod_info where prod_id in (select prod_id from pick where pick_id=#{mbrId})
+	order by prod_id desc)A)B 
+	where (rn between #{s} and #{e})
+</select>
 
 <!-- prod_info 개인 판매중인 행 호출 -->
 <select id="personalSell" resultType="Integer">
@@ -63,6 +70,9 @@
 </select>
 <select id="selectCompleBoardCount" resultType="Integer">
 	select count(*) from prod_info where prod_stat = 1
+</select>
+<select id="selectPickBoardCount" resultType="Integer">
+	select count(*) from prod_info where prod_id in (select prod_id from pick where pick_id=#{mbrId})
 </select>
 
 <!-- 상품 제목 검색 -->
