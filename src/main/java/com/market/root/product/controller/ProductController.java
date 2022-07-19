@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.market.root.chat.handler.HandlerChat;
 import com.market.root.file.service.FileService;
 import com.market.root.member.service.MemberService;
 import com.market.root.pick.service.PickService;
