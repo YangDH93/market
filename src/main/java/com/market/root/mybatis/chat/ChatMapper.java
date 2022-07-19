@@ -11,4 +11,8 @@ public interface ChatMapper {
 
 	public List<ChatDTO> getChatList(Map<String, Object> map);
 
+	public void updateBang(Map<String, Object> map);
+
+	public void deleteZBang();
+
 }
