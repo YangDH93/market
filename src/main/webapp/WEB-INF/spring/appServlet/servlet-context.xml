@@ -34,9 +34,21 @@
 		
 		<beans:bean id="member"
 		class="com.market.root.common.MemberInterceptor"/>
+		
+		<beans:bean id="chat"
+		class="com.market.root.common.ChatInterceptor"/>
 			
 	<!-- url방지용 인터셉터 설정 -->
 	<interceptors>
+	<!-- 채팅관련 -->
+		<interceptor>
+			<mapping path="/chat/*"/>
+			<beans:ref bean="chat"/>
+		</interceptor>		
+		<interceptor>
+			<mapping path="/chatList"/>
+			<beans:ref bean="chat"/>
+		</interceptor>
 	<!-- 회원관련 페이지 -->
 		<interceptor>
 			<mapping path="/member/modifyForm" />
