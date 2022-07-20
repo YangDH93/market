@@ -7,19 +7,33 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>웹소켓 채팅</title>
 <style type="text/css">
-#btnSend{
+.exit_btn {
 	width: 95px;
 	height: 38px;
-	cursor:pointer;
+	cursor: pointer;
 	color: #FFA200;
-	font-weight:bold;
+	font-weight: bold;
 	background-color: white;
 	border: 2px solid #FFA200;
 	border-radius: 5px;
 }
-#btnSend:hover{
+
+.exit_btn:hover {
 	color: white;
 	background-color: #FFA200;
+}
+
+.myChat {
+	padding: 17px;
+	text-align: right;
+}
+
+.myChatBox {
+	color: white;
+	background-color: #FFA200;
+	padding: 10px;
+	border-radius: 5px;
+<div class="myChat"><span>${chatList }</span></div>
 }
 
 </style>
@@ -92,17 +106,17 @@
 <body>
 <%@include file="../default/header.jsp" %>
 <div style="min-width: 1024px; width: 1024px; margin: 0 auto; padding:40px 0;">
-		<div style="overflow: auto; margin: 0 auto; height: 500px; padding: 10px; border: solid 1px #e1e3e9; border-radius: 10px; ">
+		<div style="overflow: auto; margin: 0 auto; width: 600px; height: 500px; padding: 10px; border: solid 1px #e1e3e9; border-radius: 10px; ">
 			<div id="divChatData" style="overflow: auto;">
 				<c:forEach var="chatList" items="${chatList}">
 					${chatList }<br>
 				</c:forEach>
 			</div>
 		</div>
-		<div style="margin: 0 auto; display:flex; justify-content:space-between; width: 800px; margin-top: 20px;">
-			<input style="display:block; width: 680px;" type="text" id="message" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />
-			<input style="display:block;" type="button" id="btnSend" value="채팅 전송" onclick="webSocket.sendChat()" />
-			<input style="display:block;" type="button" value="방 나가기" onclick="location.href='${contextPath}/chatList'" />
+		<div style="margin: 0 auto; display:flex; justify-content:space-between; width: 600px; margin-top: 20px;">
+			<input style="display:block; width: 400px;" type="text" id="message" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />
+			<input class="exit_btn" style="display:block;" type="button" id="btnSend" value="채팅 전송" onclick="webSocket.sendChat()" />
+			<input class="exit_btn" style="display:block;" type="button" value="방 나가기" onclick="location.href='${contextPath}/chatList'" />
 		</div>
 </div>
 <%@ include file="../default/footer.jsp" %>	
