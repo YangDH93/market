@@ -1,5 +1,7 @@
 package com.market.root.chat.service;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -240,6 +242,24 @@ public class ChatServiceImpl implements ChatService{
 		}
 		
 	}
-	
+
+	@Override
+	public void selectChatRoom(Model model, String bang_id) {
+		List<String> arr = new ArrayList<String>();
+		////////////////File Read/////////////////
+		try(FileReader rw = new FileReader("C:\\market\\chat\\"+bang_id+".txt");
+				BufferedReader br = new BufferedReader( rw );
+				) {
+			//읽을 라인이 없을 경우 br은 null을 리턴한다.
+			String readLine = null;
+			while( ( readLine = br.readLine() ) != null ) {
+				//System.out.println(readLine);
+				arr.add(readLine);
+			}
+			model.addAttribute("chatList",arr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

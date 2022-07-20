@@ -13,6 +13,8 @@ public interface ChatService {
 	public void updateSB(String bangId);
 	//buyer 방 나가기
 	public void updateBB(String bangId);
+	//chat 파일위치 부르기
+	public void selectChatRoom(Model model, String bang_id);
 	
 
 }

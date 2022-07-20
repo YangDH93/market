@@ -92,7 +92,11 @@
 <%@include file="../default/header.jsp" %>
 <div style="min-width: 1024px; width: 1024px; margin: 0 auto; padding:40px 0;">
 		<div style="margin: 0 auto; width: 800px; height: 500px; padding: 10px; border: solid 1px #e1e3e9; border-radius: 10px;">
-			<div id="divChatData"></div>
+			<div id="divChatData">
+				<c:forEach var="chatList" items="${chatList}">
+					${chatList }<br>
+				</c:forEach>
+			</div>
 		</div>
 		<div style="margin: 0 auto; display:flex; justify-content:space-between; width: 800px; margin-top: 20px;">
 			<input style="display:block; width: 680px;" type="text" id="message" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />

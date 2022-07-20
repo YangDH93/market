@@ -1,5 +1,7 @@
 package com.market.root.chat.controller;
 
+import java.io.FileWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.market.root.chat.handler.HandlerChat;
 import com.market.root.chat.service.ChatService;
 import com.market.root.product.dto.ProductDTO;
 
@@ -20,16 +23,19 @@ public class ControllerView {
 
 	@Autowired ChatService cs;
 	
+	
 	// 채팅방 입장
 	@RequestMapping(value = "/chat.do", method = RequestMethod.GET)
 	public String view_chat(HttpServletRequest request, 
 						HttpServletResponse response, 
 						Model model,
-						@RequestParam String bang_id) throws Exception {
+						@RequestParam String bang_id,
+						HttpSession session) throws Exception {
 		
 		cs.addChatRoom(bang_id);
 		model.addAttribute("bangId", bang_id);
-		
+		session.setAttribute("bangId", bang_id);
+		cs.selectChatRoom(model,bang_id);
 		return "chat/view_chat";
 	}
 	
