@@ -56,7 +56,8 @@ public class HandlerChat extends TextWebSocketHandler {
 					mapToSend.put("bang_id", bang_id);
 					mapToSend.put("cmd", "CMD_ENTER");
 					//session.getId() < 현재 사용자 Id
-					String chatUser = (String) session.getAttributes().get("loginUser");
+					//String chatUser = (String) session.getAttributes().get("loginUser");
+					String chatUserN = (String) session.getAttributes().get("userName");
 					
 					//입장 전 보여줄 메세지
 					readFile(session);
@@ -66,9 +67,9 @@ public class HandlerChat extends TextWebSocketHandler {
 						//sess.sendMessage(new TextMessage(jsonStr));
 					}
 					//입장 후
-					mapToSend.put("msg", chatUser + "님이 입장 했습니다.");
-					String sendMessage = chatUser + "님이 입장 했습니다.";
-					saveFile(chatUser, sendMessage, session);
+					mapToSend.put("msg", chatUserN + "님이 입장 했습니다.");
+					String sendMessage = chatUserN + "님이 입장 했습니다.";
+					saveFile(chatUserN, sendMessage, session);
 				
 					String jsonStr = objectMapper.writeValueAsString(mapToSend);
 					sess.sendMessage(new TextMessage(jsonStr));
@@ -88,10 +89,11 @@ public class HandlerChat extends TextWebSocketHandler {
 					Map<String, String> mapToSend = new HashMap<String, String>();
 					mapToSend.put("bang_id", bang_id);
 					mapToSend.put("cmd", "CMD_MSG_SEND");
-					String chatUser = (String) session.getAttributes().get("loginUser");
-					mapToSend.put("msg", chatUser + " : " + mapReceive.get("msg"));
-					String sendMessage = chatUser + " : " + mapReceive.get("msg");
-					saveFile(chatUser, sendMessage, session);
+					//String chatUser = (String) session.getAttributes().get("loginUser");
+					String chatUserN = (String) session.getAttributes().get("userName");
+					mapToSend.put("msg", chatUserN + " : " + mapReceive.get("msg"));
+					String sendMessage = chatUserN + " : " + mapReceive.get("msg");
+					saveFile(chatUserN, sendMessage, session);
 
 					String jsonStr = objectMapper.writeValueAsString(mapToSend);
 					sess.sendMessage(new TextMessage(jsonStr));
@@ -133,10 +135,11 @@ public class HandlerChat extends TextWebSocketHandler {
 				Map<String, String> mapToSend = new HashMap<String, String>();
 				mapToSend.put("bang_id", bang_id);
 				mapToSend.put("cmd", "CMD_EXIT");
-				String chatUser = (String) session.getAttributes().get("loginUser");
-				mapToSend.put("msg", chatUser + "님이 퇴장 했습니다.");
-				String sendMessage = chatUser + "님이 퇴장 했습니다.";
-				saveFile(chatUser, sendMessage,session);
+				//String chatUser = (String) session.getAttributes().get("loginUser");
+				String chatUserN = (String) session.getAttributes().get("userName");
+				mapToSend.put("msg", chatUserN + "님이 퇴장 했습니다.");
+				String sendMessage = chatUserN + "님이 퇴장 했습니다.";
+				saveFile(chatUserN, sendMessage,session);
 
 				String jsonStr = objectMapper.writeValueAsString(mapToSend);
 				sess.sendMessage(new TextMessage(jsonStr));

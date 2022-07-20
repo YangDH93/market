@@ -7,34 +7,64 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>웹소켓 채팅</title>
 <style type="text/css">
+
 .exit_btn {
 	width: 95px;
 	height: 38px;
 	cursor: pointer;
-	color: #FFA200;
-	font-weight: bold;
+	color: #85573E;
 	background-color: white;
-	border: 2px solid #FFA200;
+	border: 1px solid #FFBD11;
 	border-radius: 5px;
 }
 
 .exit_btn:hover {
 	color: white;
-	background-color: #FFA200;
+	background-color: #FFBD11;
+	border-style: none;
 }
-
 .myChat {
-	padding: 17px;
-	text-align: right;
+	word-break:break-all;
+	padding: 20px 0;
 }
 
 .myChatBox {
+	margin-left: auto;
+	display:block;
+	width: fit-content;
+	
 	color: white;
-	background-color: #FFA200;
-	padding: 10px;
+	background-color: #FFBD11;
 	border-radius: 5px;
-<div class="myChat"><span>${chatList }</span></div>
+	padding: 10px;
 }
+.userInOut{
+	padding: 20px 0;
+	text-align: center;
+	
+}
+.userInOutBox{
+	color: #C0C0C0;
+	font-size:10pt;
+	padding: 10px;
+}
+.otherChat {
+	word-break:break-all;
+	padding: 20px 0;
+}
+
+.otherChatBox {
+	margin-right: auto;
+	display:block;
+	width: fit-content;
+	
+	color: black;
+	background-color: white;
+	border: 1px solid #FFBD11;
+	border-radius: 5px;
+	padding: 10px;
+}
+
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -57,15 +87,15 @@
 
 			// 정의된 CMD 코드에 따라서 분기 처리
 			if(msgData.cmd == 'CMD_MSG_SEND') {					
-				$('#divChatData').append('<div>' + msgData.msg + '</div>');
+				$('#divChatData').append('<div class="myChat"><p class="myChatBox">' + msgData.msg + '</p></div>');
 			}
 			// 입장
 			else if(msgData.cmd == 'CMD_ENTER') {
-				$('#divChatData').append('<div>' + msgData.msg + '</div>');
+				$('#divChatData').append('<div class="userInOut"><div class="userInOutBox">' + msgData.msg + '</div></div>');
 			}
 			// 퇴장
 			else if(msgData.cmd == 'CMD_EXIT') {					
-				$('#divChatData').append('<div>' + msgData.msg + '</div>');
+				$('#divChatData').append('<div class="userInOut"><p class="userInOutBox">' + msgData.msg + '</p></div>');
 			}
 		},
 		closeMessage: function(str) {
@@ -101,19 +131,20 @@
        $(window).on('load', function () {
 		webSocket.init({ url: '<c:url value="/chat" />' });	
 	});
+
 </script>
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
 <div style="min-width: 1024px; width: 1024px; margin: 0 auto; padding:40px 0;">
-		<div style="overflow: auto; margin: 0 auto; width: 600px; height: 500px; padding: 10px; border: solid 1px #e1e3e9; border-radius: 10px; ">
-			<div id="divChatData" style="overflow: auto;">
+		<div id=autoscroll style="overflow: auto; margin: 0 auto;  width: 600px; height: 500px; padding: 20px; border: solid 1px #e1e3e9; border-radius: 10px; ">
+			<div id="divChatData">
 				<c:forEach var="chatList" items="${chatList}">
-					${chatList }<br>
+					${chatList }
 				</c:forEach>
 			</div>
 		</div>
-		<div style="margin: 0 auto; display:flex; justify-content:space-between; width: 600px; margin-top: 20px;">
+		<div style="margin: 0 auto; display:flex; justify-content:space-between; width: 640px; margin-top: 20px;">
 			<input style="display:block; width: 400px;" type="text" id="message" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />
 			<input class="exit_btn" style="display:block;" type="button" id="btnSend" value="채팅 전송" onclick="webSocket.sendChat()" />
 			<input class="exit_btn" style="display:block;" type="button" value="방 나가기" onclick="location.href='${contextPath}/chatList'" />

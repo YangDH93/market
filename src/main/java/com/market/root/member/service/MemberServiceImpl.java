@@ -39,8 +39,8 @@ public class MemberServiceImpl implements MemberService{
 					session.setAttribute(SessionId.LOGIN, dto.getMbrId());
 					System.out.println(dto.getMbrId()); // 아이디 세션저장
 					
-					// 이름으로 사용 할 경우 주석 풀고 userName변수로 사용~
-					// session.setAttribute("userName", dto.getMbrName());
+					// 이름으로 사용 할 경우 주석 풀고 userName변수로 사용
+					session.setAttribute("userName", dto.getMbrName());
 					
 					result = 0; // session id값 저장 + 로그인 성공
 				}else {
