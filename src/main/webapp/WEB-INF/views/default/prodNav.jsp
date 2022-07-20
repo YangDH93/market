@@ -27,6 +27,12 @@
 	color: #777;
 	font-size:14px;
 	text-decoration: none;
+}
+.manage_li a:hover{
+   color: orange;
+   padding-bottom: 3px; /* a태그 밑줄과 글씨 간격*/
+   border-bottom: 1px solid orange;
+}
 </style>
 </head>
 <body>
