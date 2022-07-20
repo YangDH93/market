@@ -147,6 +147,18 @@ public class HandlerChat extends TextWebSocketHandler {
 	//파일에 메세지 내용 save
 	private void saveFile(String id, String message, WebSocketSession readBI) {
 		File file = new File("C:\\market\\chat\\"+(String)readBI.getAttributes().get("bangId")+".txt");
+		String path = "C:\\market\\chat";
+		File Folder = new File(path);
+		if(!Folder.exists()) {
+			try {
+				Folder.mkdir();//폴더 생성
+				System.out.println("폴더가 생성되었습니다.");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println("이미 폴더가 생성되어 있습니다.");
+		}
 		try(FileWriter fw = new FileWriter("C:\\market\\chat\\"+(String)readBI.getAttributes().get("bangId")+".txt", true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			) 
