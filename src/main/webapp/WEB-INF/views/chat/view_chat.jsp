@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,6 +102,7 @@
 		<div style="margin: 0 auto; display:flex; justify-content:space-between; width: 800px; margin-top: 20px;">
 			<input style="display:block; width: 680px;" type="text" id="message" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />
 			<input style="display:block;" type="button" id="btnSend" value="채팅 전송" onclick="webSocket.sendChat()" />
+			<input style="display:block;" type="button" value="방 나가기" onclick="location.href='${contextPath}/chatList'" />
 		</div>
 </div>
 <%@ include file="../default/footer.jsp" %>	

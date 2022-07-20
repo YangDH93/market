@@ -35,4 +35,9 @@
 	delete from chat_room where seller_bang=0 and buyer_bang=0
 </delete>
 
+<!-- 삭제할 채팅방 불러오기 -->
+<select id="delFileName" resultMap="chat">
+	select * from chat_room where bang_id=#{bangId} and seller_bang='0' and buyer_bang='0'
+</select>
+
 </mapper>
