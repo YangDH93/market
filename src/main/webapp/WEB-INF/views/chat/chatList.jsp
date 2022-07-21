@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓</title>
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
@@ -18,23 +18,22 @@
 		<span id="chat_sell_top">판매 채팅 목록</span>
 	</div>
 	<div class="chat_table">
-		<table style="border-top: 2px solid black;
-						border-collapse: collapse; width: 100%">
+		<table>
 			<!-- 테이블 머리 -->
-			<thead style="border-bottom: 2px solid black; ">
+			<thead>
 				<tr>
 					<td width="20%">판매상태</td> <td width="60%">채팅방</td> <td width="20%">기능</td>
 				</tr>
 			</thead>
 			<!-- 테이블 몸통(내용 리스트로 가져옴) -->
-			<tbody style="border-bottom: 1px solid black">
+			<tbody>
 				<c:choose>
 				
 					<c:when test="${sellList.size() == 0 }">
 						<tr>
 							<th colspan="5" align="center" style="padding: 30px 30px">
 								<div>판매 채팅 목록이 없습니다.</div>
-								<a class="click_main" href="${contextPath}/product/prodNew"
+								<a class="click_a" href="${contextPath}/product/prodNew"
 									title="오리마켓 상품등록 페이지로 이동합니다">[ 오리마켓 상품 등록하기  ]</a>
 						</tr>
 					</c:when>
@@ -73,23 +72,22 @@
 		<span id="chat_buy_top">구매 채팅 목록</span>
 	</div>
 	<div class="chat_table">
-		<table style="border-top: 2px solid black;
-						border-collapse: collapse; width: 100%">
+		<table>
 			<!-- 테이블 머리 -->
-			<thead style="border-bottom: 2px solid black; ">
+			<thead>
 				<tr>
 					<td width="20%">판매상태</td> <td width="60%">채팅방</td> <td width="20%">기능</td>
 				</tr>
 			</thead>
 			<!-- 테이블 몸통(내용 리스트로 가져옴) -->
-			<tbody style="border-bottom: 1px solid black">
+			<tbody>
 				<c:choose>
 				
 					<c:when test="${buyList.size() == 0 }">
 						<tr>
 							<th colspan="5" align="center" style="padding: 30px 30px">
 								<div>구매 채팅 목록이 없습니다.</div>
-								<a class="click_main" href="${contextPath}"
+								<a class="click_a" href="${contextPath}"
 									title="오리마켓 메인 페이지로 이동합니다">[ 오리마켓 둘러보기 ]</a>
 						</tr>
 					</c:when>

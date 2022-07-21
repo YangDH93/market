@@ -35,6 +35,7 @@ public class MemberController{
 	public String login() {
 		return "member/login";
 	}
+	
 	//회원정보 수정 전 - 비밀번호 확인 페이지
 	@GetMapping("pwdChkForm")
 	public String pwdChkForm(@RequestParam String mbrId,
@@ -44,6 +45,7 @@ public class MemberController{
 		
 		return "member/pwdChkForm";
 	}
+	
 	//비밀번호 일치 확인 후 회원정보 수정 페이지로 DTO값 전송
 	@PostMapping("pwdChk")
 	public String pwdChk(@RequestParam String mbrId,
@@ -61,6 +63,7 @@ public class MemberController{
 		}
 		
 	}
+	
 	//회원정보 수정/추가 페이지
 	@GetMapping("modifyForm")
 	public String memberModify(Model model,
@@ -70,6 +73,7 @@ public class MemberController{
 		
 		return "member/modifyForm";
 	}
+	
 	//회원정보 수정/추가 메소드
 	@PostMapping("modify")
 	public String modify(String si,Model model) {
@@ -86,7 +90,8 @@ public class MemberController{
 		return "product/prodStatus";
 	}
 	
-	@PostMapping("logChk") //로그인 확인 페이지
+	//로그인 확인 페이지
+	@PostMapping("logChk")
 	public String logChk(@RequestParam String mbrId,
 						@RequestParam String mbrPw,
 						@RequestParam(required = false)
@@ -109,7 +114,8 @@ public class MemberController{
 		return "redirect:/member/login"; 
 	}
 	
-	@GetMapping("successLogin") // 자동로그인,세션,쿠키저장
+	// 자동로그인,세션,쿠키저장
+	@GetMapping("successLogin")
 	public String successLoin(HttpSession session,
 							HttpServletRequest request,
 							HttpServletResponse response) {
@@ -133,14 +139,15 @@ public class MemberController{
 		return "redirect:/";
 	}
 	
-	@GetMapping("logout") // 로그아웃
+	// 로그아웃
+	@GetMapping("logout")
 	public ModelAndView logout(HttpSession session,
 							HttpServletRequest request,
 							HttpServletResponse response) {
-		System.out.println("/member/logout 요청");
 		
 		// 리턴타입 object이므로 String으로 다운캐스팅
 		String se = (String)session.getAttribute(SessionId.LOGIN);
+		
 		if(se != null) { // 세션객체 있을 경우
 			session.removeAttribute(SessionId.LOGIN); //세션객체 삭제
 			session.invalidate(); //세션 객체 무효화
@@ -157,6 +164,7 @@ public class MemberController{
 		}
 		return new ModelAndView("redirect:/");
 	}
+	
 	//회원정보 수정 - 업데이트
 	//동훈이형 나중에 여기 이미지 업데이트시 modifyForm.jsp에서 multipart로 받을것
 	@PostMapping("memberUpdate")
@@ -176,6 +184,7 @@ public class MemberController{
 			return "member/modifyForm";
 		}
 	}
+	
 	//계정삭제
 	@GetMapping("userDelete")
 	public String userDelete(@RequestParam (required = false) String mbrId) {

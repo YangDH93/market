@@ -14,9 +14,9 @@ public interface ChatService {
 	//buyer 방 나가기
 	public void updateBB(String bangId);
 	//chat 파일위치 부르기
-	public void selectChatRoom(Model model, String bang_id);
+	public void selectChatRoom(Model model, String bang_id, HttpSession session);
 	//삭제할 chat 파일 위치 부르기
-	public void delFileName(String bang_id,HttpSession session);
+	public void delFileName(String bang_id);
 	
 
 }

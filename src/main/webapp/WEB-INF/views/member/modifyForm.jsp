@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓!</title>
 <style type="text/css">
 .correct {
 	color: green;
@@ -296,10 +296,11 @@ function deleteChk(){
 
 			<table>
 				<tr>
-					<td colspan="2" align="center"><img
-						style="width: 300px; height: 300px;"
-						src="${contextPath}/resources/image/duck.png"
-						onclick="location.href='${contextPath}'" /></td>
+				<td colspan="2" align="center">
+				<img style="width: 300px; height: 300px; cursor: pointer;"
+					src="${contextPath}/resources/image/duck.png"
+					onclick="location.href='${contextPath}'" />
+				</td>
 				</tr>
 				<tr>
 					<td>닉네임</td>

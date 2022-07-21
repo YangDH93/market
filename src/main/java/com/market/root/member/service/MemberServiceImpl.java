@@ -24,7 +24,6 @@ public class MemberServiceImpl implements MemberService{
 	BCryptPasswordEncoder en =
 			new BCryptPasswordEncoder();
 
-
 	// loginChk
 	@Override
 	public int logChk(String mbrId, String mbrPw, HttpSession session) {
@@ -36,11 +35,11 @@ public class MemberServiceImpl implements MemberService{
 			if(dto != null) { // 데이터베이스 값 들어옴
 				if(en.matches(mbrPw, dto.getMbrPw()) || dto.getMbrPw().equals(mbrPw)) {
 					// 관리자계정 때문에 두 가지로 확인(관리자계정 - 암호화 안됨)
-					session.setAttribute(SessionId.LOGIN, dto.getMbrId());
-					System.out.println(dto.getMbrId()); // 아이디 세션저장
 					
-					// 이름으로 사용 할 경우 주석 풀고 userName변수로 사용~
-					// session.setAttribute("userName", dto.getMbrName());
+					// 아이디 세션저장
+					session.setAttribute(SessionId.LOGIN, dto.getMbrId());
+					// 이름 세션 저장 - 채팅 기능때문
+					session.setAttribute("userName", dto.getMbrName());
 					
 					result = 0; // session id값 저장 + 로그인 성공
 				}else {
@@ -55,7 +54,6 @@ public class MemberServiceImpl implements MemberService{
 		return result;
 	}
 	
-
 	@Override
 	public void KeepLogin(String sessionId, Date limitDate, String mbrId) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -78,6 +76,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return dto;
 	}
+	
 	//한 명의 회원 모든정보 가져옴
 	public void memberInfo(String id, Model model) {
 		try {
@@ -102,7 +101,6 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return result;
 	}
-
 
 	//비밀번호 확인 전 DTO값 전송
 	public void pwChkForm(String mbrId,Model model) {
@@ -137,6 +135,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return result;
 	}
+	
 	//회원정보 수정 - 업데이트
 	public int mbrUpdate(Map<Object, Object> map) { 
 		int result=0;
@@ -150,6 +149,7 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return result;
 	}
+	
 	//계정 삭제
 	public int userDelete(String mbrId) {
 		int result = 0;

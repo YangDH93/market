@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓!</title>
 <style type="text/css">
 .mainlist {
 	width: 1024px;
@@ -19,7 +19,7 @@
 .div_st {
 	float: left;
 	margin: 0 13.5px 13.5px 0;
-	border: 1px solid grey;
+	border: 1px solid #C0C0C0;
 	cursor: pointer;
 	width: 192px;
 	border-radius: 3px;
@@ -37,11 +37,20 @@
 .mian_list_text{
 	padding: 10px;
 	font-size: 11pt;
-	text-overflow: ellipsis;
 }
 .main_list_t1st{
 	padding-bottom: 10px;
 	font-weight: bold;
+	width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.price_st{
+	width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 </style>
 </head>
@@ -50,7 +59,7 @@
 <div class="mainlist">
 	<c:choose>
 		<c:when test="${prodList.size() == 0}">
-			<div style="text-align: center; font-weight: bold; padding-bottom: 30px;">
+			<div style="text-align: center; font-weight: 500; padding-bottom: 20px;">
 				일치하는 결과가 존재하지 않습니다.
 			</div>	
 		</c:when>
@@ -60,7 +69,7 @@
 					<img class="imglist" src="${contextPath}/product/display?fileName=${filePath[status.index]}"/>
 					<div class="mian_list_text">
 						<div class="main_list_t1st">${productDTO.prodTitle }</div>
-						<div>
+						<div class="price_st">
 							<span>${productDTO.price } 원</span>
 						</div>
 					</div>

@@ -64,7 +64,7 @@
 			<div class="hLFFUa">
 				<div class=" zvczX">
 					<div class="gLAQAm" >
-						<button class="gIJOQQ" style="background-color: white; border: 0"><!-- 카테고리 -->
+						<button class="gIJOQQ" style="background-color: white; border: 0; cursor: pointer;"><!-- 카테고리 -->
 							<div class="cate_img"></div>
 							<div class="cate_img"></div>
 							<div class="cate_img"></div>

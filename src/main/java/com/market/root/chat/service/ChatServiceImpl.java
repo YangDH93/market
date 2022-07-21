@@ -103,8 +103,6 @@ public class ChatServiceImpl implements ChatService{
 		}else if(result == 1) { //있음+채팅시도
 			updateBang("seller_bang", "1", bang_id); //방 목록 생성
 			updateBang("buyer_bang", "1", bang_id); //방 목록 생성
-			
-			System.out.println("채팅방 있음 목록 불러오는 방법은?");
 		}else {
 			System.out.println("DB 고장");
 		}
@@ -245,17 +243,32 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public void selectChatRoom(Model model, String bang_id) {
+	public void selectChatRoom(Model model, String bang_id, HttpSession session) {
 		List<String> arr = new ArrayList<String>();
+		String chatUserN = (String) session.getAttribute("userName")+" ";
 		////////////////File Read/////////////////
 		try(FileReader rw = new FileReader("C:\\market\\chat\\"+bang_id+".txt");
 				BufferedReader br = new BufferedReader( rw );
 				) {
 			//읽을 라인이 없을 경우 br은 null을 리턴한다.
 			String readLine = null;
+			String me = null;
+			String inOut = null;
+			String other = null;
 			while( ( readLine = br.readLine() ) != null ) {
-				//System.out.println(readLine);
-				arr.add(readLine);
+				System.out.println(readLine);
+				String[] userChk = readLine.split(":");
+				
+				if(chatUserN.equals(userChk[0])) {
+					me = "<div class='myChat'><p class='myChatBox'>"+ readLine +"</p></div>";
+					arr.add(me);
+				}else if(userChk.length == 1){
+					//inOut = "<div class='userInOut'><div class='userInOutBox'>" + readLine + "</div></div>";
+					//arr.add(inOut);
+				}else {
+					other = "<div class='otherChat'><p class='otherChatBox'>"+ readLine +"</p></div>";
+					arr.add(other);
+				}
 			}
 			model.addAttribute("chatList",arr);
 		} catch (Exception e) {
@@ -264,8 +277,7 @@ public class ChatServiceImpl implements ChatService{
 	}
 
 	@Override
-	public void delFileName(String bang_id,HttpSession session) {
-		String mbrId = (String)session.getAttribute("loginUser");
+	public void delFileName(String bang_id) {
 		try {
 			ChatDTO dto = mapper.delFileName(bang_id);
 			if(dto != null) {//지움

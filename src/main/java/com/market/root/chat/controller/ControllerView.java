@@ -35,8 +35,7 @@ public class ControllerView {
 		cs.addChatRoom(bang_id);
 		model.addAttribute("bangId", bang_id);
 		session.setAttribute("bangId", bang_id);
-		cs.selectChatRoom(model,bang_id);
-		
+		cs.selectChatRoom(model,bang_id,session);
 		
 		return "chat/view_chat";
 	}
@@ -56,7 +55,7 @@ public class ControllerView {
 	@GetMapping("/updateSB")
 	public String updateSB(@RequestParam String bangId,HttpSession session) {
 		cs.updateSB(bangId);
-		cs.delFileName(bangId, session);
+		cs.delFileName(bangId);
 		return "redirect:chatList";
 	}
 	
@@ -64,7 +63,7 @@ public class ControllerView {
 	@GetMapping("/updateBB")
 	public String updateBB(@RequestParam String bangId,HttpSession session) {
 		cs.updateBB(bangId);
-		cs.delFileName(bangId, session);
+		cs.delFileName(bangId);
 		return "redirect:chatList";
 	}
 	
