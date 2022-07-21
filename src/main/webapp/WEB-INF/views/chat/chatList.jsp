@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓!</title>
 </head>
 <body>
 <%@include file="../default/header.jsp" %>
@@ -18,10 +18,10 @@
 		<span id="chat_sell_top">판매 채팅 목록</span>
 	</div>
 	<div class="chat_table">
-		<table style="border-top: 2px solid black;
-						border-collapse: collapse; width: 100%">
+		<table border=1 style="border-collapse: collapse; width: 100%">
 			<!-- 테이블 머리 -->
-			<thead style="border-bottom: 2px solid black; ">
+			<thead style="background-color: #FFB300; color: white;
+			font-weight: 600;">
 				<tr>
 					<td width="20%">판매상태</td> <td width="60%">채팅방</td> <td width="20%">기능</td>
 				</tr>
@@ -58,7 +58,8 @@
 								</td>
 								
 								<td>
-									<button onclick="location.href='${contextPath}/updateSB?bangId=${sellList.bangId}'">삭제</button>
+									<button onclick="location.href='${contextPath}/updateSB?bangId=${sellList.bangId}'"
+									style="color: #414141;">삭제</button>
 								</td>
 							</tr>
 						</c:forEach>
@@ -111,7 +112,8 @@
 									[ ${bProdList[status.index].prodTitle } ] 판매자 ${buyList.sellerName}님
 								</td>
 								<td>
-									<button onclick="location.href='${contextPath}/updateBB?bangId=${buyList.bangId}'">삭제</button>
+									<button onclick="location.href='${contextPath}/updateBB?bangId=${buyList.bangId}'"
+									style="color: #414141;">삭제</button>
 								</td>
 							</tr>
 						</c:forEach>

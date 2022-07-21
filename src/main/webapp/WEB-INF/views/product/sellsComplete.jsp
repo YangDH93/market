@@ -11,6 +11,7 @@
 #td_st{
 	width: 145px;
 	height: 145px;
+	vertical-align: middle;
 }
 </style>
 </head>
@@ -20,7 +21,7 @@
 	<!-- 페이지 메뉴바 상품관리/구매판매내역 -->
 	<jsp:include page="../default/prodNav.jsp"/>
 <!-- 목록 : 테이블형식 -->
-<div style="text-align: center;" >
+<div class="prodTable_st" style="text-align: center;" >
 	<table border="1" style="border-color: #C0C0C0; width: 100%;
 	border-collapse: collapse;">
 		<!-- 테이블 머리 -->
@@ -60,13 +61,14 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td id="td_st">
+						<td id="td_st" class="td_title_st" style="cursor: pointer;"
+						onclick="location.href='${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}'">
 						<div>
 						<div align="center">
-							<a href="${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}"
+							<span
 								style="text-decoration: none; color: #551A8B;
 								overflow: hidden; white-space: nowrap; text-overflow: ellipsis; width: 145px; display: block;">${psdto.prodTitle }
-									</a>
+							</span>
 						</div>
 						</div>
 									</td>
