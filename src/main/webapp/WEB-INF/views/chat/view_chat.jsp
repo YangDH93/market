@@ -87,7 +87,15 @@
 
 			// 정의된 CMD 코드에 따라서 분기 처리
 			if(msgData.cmd == 'CMD_MSG_SEND') {					
-				$('#divChatData').append('<div class="myChat"><p class="myChatBox">' + msgData.msg + '</p></div>');
+				var sendChk = msgData.msg;
+				var sendSplit = sendChk.split(' : ');
+				if(sendSplit[0] == '${userName}'){ /* 내가 보낸 메시지 */
+					$('#divChatData').append('<div class="myChat"><p class="myChatBox">' + msgData.msg + '</p></div>');
+				}else{ /* 상대방 메시지 */
+					$('#divChatData').append('<div class="otherChat"><p class="otherChatBox">' + msgData.msg + '</p></div>');
+				}
+				let chat = document.querySelector('#autoscroll');
+		        chat.scrollTop = chat.scrollHeight;
 			}
 			// 입장
 			else if(msgData.cmd == 'CMD_ENTER') {
