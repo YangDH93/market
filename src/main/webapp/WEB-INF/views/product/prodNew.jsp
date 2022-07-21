@@ -142,7 +142,7 @@ function showUploadImage(uploadResultArr){
 		uploadResult2.append(str);
 	}
 	$("#mes1").css({
-		"color":"red",
+		"color":"green",
 		"font-size" : "14px"
 	});
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
@@ -165,12 +165,11 @@ function resetImg() {
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
 	$("#mes1").css({
-		"color":"red",
+		"color":"green",
 		"font-size" : "14px"
 	});
 	$("#mes").css({
-		"font-size" : "14px",
-		"color":"green"
+		"font-size" : "14px"
 	});
 	$("#mes").html(" 등록된 사진이 없습니다.");
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
@@ -275,7 +274,15 @@ function myLocation(){
 	   let place = document.getElementById("place").value;
 	   console.log(place);
 	   if(place == ""){
+		   $("#mes2").css({
+				"color" : "red",
+	   	   });
 		   $("#mes2").html("&nbsp;회원정보 수정란에서 내 위치(주소)를 추가할 수 있습니다.");
+	   }else{
+		   $("#mes2").css({
+				"color" : "green",
+	   	   });
+		   $("#mes2").html("&nbsp;내 위치(주소)가 입력되었습니다.");
 	   }
 	   $("#trdLocation").val(place);
 }
@@ -410,11 +417,11 @@ function buttonChk(){
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
                 </div>
-                <div><span id ="mes1" style="color:red; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
+                <div><span id ="mes1" style="color:green; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;"></div>
                 <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;"></div>
                 <div>
-         			<span id="mes" style="font-size: 14px; color: green;">등록된 사진이 없습니다.</span>
+         			<span id="mes" style="font-size: 14px;">등록된 사진이 없습니다.</span>
          		</div>
          	</div>		
          	<input id="orgImg" name='orgImg' style="display: none;">

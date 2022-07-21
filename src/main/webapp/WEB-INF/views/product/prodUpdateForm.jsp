@@ -70,7 +70,8 @@ $(document).ready(function(){
 	    	dataType : 'json',
 	    	success : function(result){
 	    		$('#uploadPath').val(result[0].uploadPath);
-	    		
+	    		console.log(count);
+	    		console.log(result.length);
 	    		if(count==0 && result.length > 1){
 	    			$("#mes1").css({
 	    				"color" : "red",
@@ -93,7 +94,7 @@ $(document).ready(function(){
 	    			}
 		    		count++;
 		    		$("#mes2").css({
-						"font-size" : "15px"
+						"font-size" : "14px"
 			   		});
 		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
@@ -289,6 +290,10 @@ function myLocation(){
 			$("#mes2").html('&nbsp;같은 주소입니다.');
 			return false;   
 	   }
+	   $("#mes2").css({
+			"color" : "green",
+			"font-size" : "12px"
+  		});
 	   $("#mes2").html('&nbsp;내 위치(주소)로 수정되었습니다.');
 	   $("#trdLocation").val(place);
 }
@@ -424,7 +429,7 @@ function buttonChk(){
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
                 </div>
-                <div><span id ="1" style="color:green; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
+                <div><span id ="mes1" style="color:green; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;">
                		<!-- 대표사진 -->
 					<div style='margin: 5px;'>
@@ -439,7 +444,7 @@ function buttonChk(){
 	 					</c:forEach> 
 					</div>
 				</div>
-				<span id="mes" style="font-size: 14px; color: green;">현재 등록된 사진 갯수: ${imgLength}/10</span>
+				<span id="mes" style="font-size: 14px;">현재 등록된 사진 갯수: ${imgLength}/10</span>
          	</div>	
          	<input id="orgImg" name='orgImg' style="display: none;" value="${fileDTO.orgImg }">
          	<input id="uploadPath" name='uploadPath' style="display: none;" value="${fileDTO.uploadPath }">
