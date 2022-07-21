@@ -1,6 +1,7 @@
 package com.market.root.chat.service;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.market.root.chat.dto.ChatDTO;
 import com.market.root.member.dto.MemberDTO;
@@ -129,9 +131,6 @@ public class ChatServiceImpl implements ChatService{
 				chatBuy1(model, bArr); //상태 0
 			}
 			
-			//DB에 둘다 값이 0이면 delete처리
-			mapper.deleteZBang();
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -237,6 +236,8 @@ public class ChatServiceImpl implements ChatService{
 		map.put("v2", v2);
 		try {
 			mapper.updateBang(map);
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -257,6 +258,29 @@ public class ChatServiceImpl implements ChatService{
 				arr.add(readLine);
 			}
 			model.addAttribute("chatList",arr);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void delFileName(String bang_id,HttpSession session) {
+		String mbrId = (String)session.getAttribute("loginUser");
+		try {
+			ChatDTO dto = mapper.delFileName(bang_id);
+			if(dto != null) {//지움
+				mapper.deleteZBang();
+				File file = new File("C:\\market\\chat\\" + bang_id + ".txt");
+		    	if( file.exists() ){
+		    		if(file.delete()){
+		    			System.out.println("파일삭제 성공");
+		    		}else{
+		    			System.out.println("파일삭제 실패");
+		    		}
+		    	}else{
+		    		System.out.println("파일이 존재하지 않습니다.");
+		    	}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

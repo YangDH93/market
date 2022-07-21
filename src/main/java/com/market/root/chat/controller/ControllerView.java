@@ -36,6 +36,8 @@ public class ControllerView {
 		model.addAttribute("bangId", bang_id);
 		session.setAttribute("bangId", bang_id);
 		cs.selectChatRoom(model,bang_id);
+		
+		
 		return "chat/view_chat";
 	}
 	
@@ -52,15 +54,17 @@ public class ControllerView {
 	
 	// 오리톡 seller의 방 나가기-update
 	@GetMapping("/updateSB")
-	public String updateSB(@RequestParam String bangId) {
+	public String updateSB(@RequestParam String bangId,HttpSession session) {
 		cs.updateSB(bangId);
+		cs.delFileName(bangId, session);
 		return "redirect:chatList";
 	}
 	
 	// 오리톡 buyer의 방 나가기-update
 	@GetMapping("/updateBB")
-	public String updateBB(@RequestParam String bangId) {
+	public String updateBB(@RequestParam String bangId,HttpSession session) {
 		cs.updateBB(bangId);
+		cs.delFileName(bangId, session);
 		return "redirect:chatList";
 	}
 	
