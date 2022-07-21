@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓!</title>
 <style type="text/css">
 .correct {
 	color: green;
@@ -523,7 +523,7 @@ function regChk(){
 					<td>
 						<div class="emailAuth">
 							<input disabled id="inputCode" maxlength="14" type="text"
-								style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 260px; background: white;">
+								style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 260px; background: white; font-size: 16px;">
 							<button class="ebtn" disabled id="codeCkBtn" type="button"
 								onclick="mailCodeChk()">인증번호 확인</button>
 							<br>

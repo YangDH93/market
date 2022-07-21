@@ -20,10 +20,10 @@ function daumPost(){
          var trdLocation=data.jibunAddress
          document.getElementById("trdLocation").value=data.zonecode;
 	         $("#mes2").css({
-					"color" : "red",
+					"color" : "green",
 					"font-size" : "12px"
 		   	 });
-		   	 $("#mes2").html('주소가 수정되었습니다.');
+		   	 $("#mes2").html('&nbsp;주소가 수정되었습니다.');
 	         $("#trdLocation").val(trdLocation);
          } 
     }).open();
@@ -74,7 +74,7 @@ $(document).ready(function(){
 	    		if(count==0 && result.length > 1){
 	    			$("#mes1").css({
 	    				"color" : "red",
-	    				"font-size" : "13px"
+	    				"font-size" : "14px"
 	    			});
 	    			$("#mes1").html('먼저 대표 사진 1장만 등록해주세요!');
 	    			return false;
@@ -146,8 +146,8 @@ function showUploadImage(uploadResultArr){
 		
 	}
 	$("#mes1").css({
-		"color":"blue",
-		"font-size" : "12px"
+		"color":"green",
+		"font-size" : "14px"
 	});
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");	
 }
@@ -169,11 +169,11 @@ function resetImg() {
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
 	$("#mes1").css({
-		"color":"blue",
-		"font-size" : "12px"
+		"color":"green",
+		"font-size" : "14px"
 	});
 	$("#mes").css({
-		"font-size" : "12px"
+		"font-size" : "14px"
 	});
 	$("#mes").html(" 등록된 사진이 없습니다.");
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
@@ -286,10 +286,10 @@ function myLocation(){
 				"color" : "red",
 				"font-size" : "12px"
 	   		});
-			$("#mes2").html('같은 주소입니다.');
+			$("#mes2").html('&nbsp;같은 주소입니다.');
 			return false;   
 	   }
-	   $("#mes2").html('내 위치(주소)로 수정되었습니다.');
+	   $("#mes2").html('&nbsp;내 위치(주소)로 수정되었습니다.');
 	   $("#trdLocation").val(place);
 }
 
@@ -424,7 +424,7 @@ function buttonChk(){
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
                 </div>
-                <div><h2>[ 대표사진 ]<span id ="mes1" style="color:blue; font-size: 12px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></h2></div>
+                <div><span id ="1" style="color:green; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;">
                		<!-- 대표사진 -->
 					<div style='margin: 5px;'>
@@ -439,7 +439,7 @@ function buttonChk(){
 	 					</c:forEach> 
 					</div>
 				</div>
-				<span id="mes" style="font-size: 15px;">현재 등록된 사진 갯수: ${imgLength}/10</span>
+				<span id="mes" style="font-size: 14px; color: green;">현재 등록된 사진 갯수: ${imgLength}/10</span>
          	</div>	
          	<input id="orgImg" name='orgImg' style="display: none;" value="${fileDTO.orgImg }">
          	<input id="uploadPath" name='uploadPath' style="display: none;" value="${fileDTO.uploadPath }">
@@ -504,10 +504,10 @@ function buttonChk(){
 	                     style="cursor: pointer; padding: 3px; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">                           
 	                  <input type="button" onclick="daumPost()" value="주소 검색"
 	                     style="padding: 3px; margin-left: 15px; width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
-	                     <span id="mes2" style="color:blue; font-size: 12px;"></span>
+	                     <span id="mes2" style="color:red; font-size: 12px;"></span>
                   </div>
                   <input type="text" readonly id="trdLocation" name="trdLocation" placeholder="도로명주소, 지번주소"
-	                  style="padding-top:10px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 530px;"
+	                  style="padding-top:10px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 580px;"
 	                  value="${prod.trdLocation}">
                   </div>
             </div>
@@ -527,8 +527,8 @@ function buttonChk(){
                	설명<span class="redmen">*</span>
             </div>
             <div>
-            <textarea id="prodContent" name="prodContent" maxlength="500" style="resize: none;"
-            	style="resize: none; outline-style: none; border-color: #C0C0C0; border-radius: 3px; width: 874px;"
+            <textarea id="prodContent" name="prodContent" maxlength="500" style="resize: none; 
+            resize: none;outline: none; border-color: #C0C0C0; border-radius: 3px; width: 874px;"
             	rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)">${prod.prodContent}</textarea>
             <div id="textcount">(0 / 500)</div>
             </div>

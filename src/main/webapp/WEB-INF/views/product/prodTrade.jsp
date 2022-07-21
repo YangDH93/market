@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓!</title>
 <style type="text/css">
 .trd_wrap {
 	width: 1024px;
@@ -34,6 +34,24 @@
 
 .trd_state_btn {
 	color: black;
+}
+.text_st{
+	font-size: 24px;
+	padding-bottom: 20px;
+	font-weight: 600;
+	text-overflow: ellipsis;
+	width: 500px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.price_st{
+	font-size: 40px;
+	font-weight: 500;
+	text-overflow: ellipsis;
+	width: 500px;
+	overflow: hidden;
+	white-space: nowrap;
+	
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -239,11 +257,10 @@ function pickStatus(){
 				<!-- 제목/가격 -->
 				<div style="padding-bottom: 20px;
 	    					border-bottom: 1px solid #C0C0C0;">
-					<div style="font-size: 24px;padding-bottom: 20px;
-								font-weight: 600;">
+					<div class="text_st">
 						${prod.prodTitle }
 					</div>
-					<div style="font-size: 40px; font-weight: 500;">
+					<div class="price_st">
 						${prod.price }
 						<span style="font-size: 28px;font-weight: 400;">원</span>
 					</div>
@@ -251,8 +268,8 @@ function pickStatus(){
 				
 				<!-- 거래지역 -->
 				<div style="display: flex; padding-top: 15px;">
-					<div style="width: 90px; color: rgb(153, 153, 153);">
-					거래지역
+					<div style="width: 100px; color: rgb(153, 153, 153);">
+					거래선호지역
 					</div>
 					<div style="display: flex; align-items: center; padding-bottom: 15px;">
 						<img style="padding-right: 10px;" width="12" height="15"
@@ -261,9 +278,9 @@ function pickStatus(){
 					</div>
 				</div>
 				<!-- 상세정보 글 -->
-				<div style="height:370px; overflow:auto;
+				<div style="height:367px; overflow:auto;
 							border: 1px solid #C0C0C0; border-radius: 5px;">
-					<div style="padding: 3px; ">
+					<div style="padding: 3px;">
 						${prod.prodContent }
 					</div>
 				</div>

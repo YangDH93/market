@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓!</title>
 <style type="text/css">
 .mainlist {
 	width: 1024px;
@@ -37,11 +37,20 @@
 .mian_list_text{
 	padding: 10px;
 	font-size: 11pt;
-	text-overflow: ellipsis;
 }
 .main_list_t1st{
 	padding-bottom: 10px;
 	font-weight: bold;
+	width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.price_st{
+	width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 </style>
 </head>
@@ -60,7 +69,7 @@
 					<img class="imglist" src="${contextPath}/product/display?fileName=${filePath[status.index]}"/>
 					<div class="mian_list_text">
 						<div class="main_list_t1st">${productDTO.prodTitle }</div>
-						<div>
+						<div class="price_st">
 							<span>${productDTO.price } 원</span>
 						</div>
 					</div>

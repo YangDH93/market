@@ -19,10 +19,10 @@ function daumPost(){
          var trdLocation=data.jibunAddress
          document.getElementById("trdLocation").value=data.zonecode;
 	         $("#mes2").css({
-					"color" : "red",
+					"color" : "green",
 					"font-size" : "12px"
 		   	 });
-		   	 $("#mes2").html('주소가 입력되었습니다.');
+		   	 $("#mes2").html('&nbsp;주소가 입력되었습니다.');
 	         $("#trdLocation").val(trdLocation);
          } 
     }).open();
@@ -71,7 +71,7 @@ $(document).ready(function(){
 	    		if(count==0 && result.length > 1){
 	    			$("#mes1").css({
 	    				"color" : "red",
-	    				"font-size" : "13px"
+	    				"font-size" : "14px"
 	    			});
 	    			$("#mes1").html('먼저 대표 사진 1장만 등록해주세요!');
 	    			return false;
@@ -90,7 +90,7 @@ $(document).ready(function(){
 	    			}
 		    		count++;
 		    		$("#mes").css({
-	    				"font-size" : "15px"
+	    				"font-size" : "14px"
 	    			});
 		    		$("#mes").html("현재 등록된 사진 갯수: " + count +"/10");
 	    		}
@@ -142,8 +142,8 @@ function showUploadImage(uploadResultArr){
 		uploadResult2.append(str);
 	}
 	$("#mes1").css({
-		"color":"blue",
-		"font-size" : "12px"
+		"color":"green",
+		"font-size" : "14px"
 	});
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
 }
@@ -165,11 +165,12 @@ function resetImg() {
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
 	$("#mes1").css({
-		"color":"blue",
-		"font-size" : "12px"
+		"color":"green",
+		"font-size" : "14px"
 	});
 	$("#mes").css({
-		"font-size" : "12px"
+		"font-size" : "14px",
+		"color":"green"
 	});
 	$("#mes").html(" 등록된 사진이 없습니다.");
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
@@ -274,7 +275,7 @@ function myLocation(){
 	   let place = document.getElementById("place").value;
 	   console.log(place);
 	   if(place == ""){
-		   $("#mes2").html("회원정보 수정란에서 내 위치(주소)를 추가할 수 있습니다.");
+		   $("#mes2").html("&nbsp;회원정보 수정란에서 내 위치(주소)를 추가할 수 있습니다.");
 	   }
 	   $("#trdLocation").val(place);
 }
@@ -409,11 +410,11 @@ function buttonChk(){
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
                 </div>
-                <div><h2>[ 대표사진 ]<span id ="mes1" style="color:blue; font-size: 12px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></h2></div>
+                <div><span id ="mes1" style="color:green; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;"></div>
                 <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;"></div>
                 <div>
-         			<span id="mes" style="font-size: 12px;">등록된 사진이 없습니다.</span>
+         			<span id="mes" style="font-size: 14px; color: green;">등록된 사진이 없습니다.</span>
          		</div>
          	</div>		
          	<input id="orgImg" name='orgImg' style="display: none;">
@@ -477,11 +478,11 @@ function buttonChk(){
                       style="cursor: pointer; padding: 3px; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">                           
                    <input type="button" onclick="daumPost()" value="주소 검색"
                       style="padding: 3px; margin-left: 15px; width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
-                   <span id="mes2" style="color:blue; font-size: 12px;"></span>
+                   <span id="mes2" style="color:green; font-size: 12px;"></span>
                 </div>
                	<div>
                    <input type="text" readonly id="trdLocation" name="trdLocation" placeholder="도로명주소, 지번주소"
-                      style="padding-top:10px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 530px;">
+                      style="padding-top:10px; outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 580px;">
                 </div>     
             </div>
          </div>
@@ -491,7 +492,7 @@ function buttonChk(){
             </div>
             <div>
                <input type="text" id="price" name="price"
-                  placeholder="숫자만 입력해주세요."
+                  placeholder="숫자만 입력해주세요." maxlength="14"
                   style="outline-style: none; border-color: #FFA200; border-top: none; border-left: none; border-right: none; width: 220px;"
                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">&nbsp;원<br>
                <br>

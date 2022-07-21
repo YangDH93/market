@@ -40,7 +40,7 @@
 </head>
 <body>
 	<div style="display: flex; justify-content: center; margin-top: 130px;">
-		<img style="width: 400px;"
+		<img style="width: 400px; cursor: pointer;"
 			src="${contextPath}/resources/image/duck.png" onclick="location.href='${contextPath}'"/>
 	</div>
 	<div class="pwdC">
