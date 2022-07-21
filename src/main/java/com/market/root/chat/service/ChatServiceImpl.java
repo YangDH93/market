@@ -103,8 +103,6 @@ public class ChatServiceImpl implements ChatService{
 		}else if(result == 1) { //있음+채팅시도
 			updateBang("seller_bang", "1", bang_id); //방 목록 생성
 			updateBang("buyer_bang", "1", bang_id); //방 목록 생성
-			
-			System.out.println("채팅방 있음 목록 불러오는 방법은?");
 		}else {
 			System.out.println("DB 고장");
 		}
@@ -265,8 +263,8 @@ public class ChatServiceImpl implements ChatService{
 					me = "<div class='myChat'><p class='myChatBox'>"+ readLine +"</p></div>";
 					arr.add(me);
 				}else if(userChk.length == 1){
-					inOut = "<div class='userInOut'><div class='userInOutBox'>" + readLine + "</div></div>";
-					arr.add(inOut);
+					//inOut = "<div class='userInOut'><div class='userInOutBox'>" + readLine + "</div></div>";
+					//arr.add(inOut);
 				}else {
 					other = "<div class='otherChat'><p class='otherChatBox'>"+ readLine +"</p></div>";
 					arr.add(other);

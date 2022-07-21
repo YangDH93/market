@@ -94,9 +94,7 @@
 				}else{ /* 상대방 메시지 */
 					$('#divChatData').append('<div class="otherChat"><p class="otherChatBox">' + msgData.msg + '</p></div>');
 				}
-				let chat = document.querySelector('#autoscroll');
-		        chat.scrollTop = chat.scrollHeight;
-			}
+			}/* 
 			// 입장
 			else if(msgData.cmd == 'CMD_ENTER') {
 				$('#divChatData').append('<div class="userInOut"><div class="userInOutBox">' + msgData.msg + '</div></div>');
@@ -104,7 +102,10 @@
 			// 퇴장
 			else if(msgData.cmd == 'CMD_EXIT') {					
 				$('#divChatData').append('<div class="userInOut"><p class="userInOutBox">' + msgData.msg + '</p></div>');
-			}
+			} */
+			let chat = document.querySelector('#autoscroll');
+	        chat.scrollTop = chat.scrollHeight;
+			
 		},
 		closeMessage: function(str) {
 			$('#divChatData').append('<div>' + '연결 끊김 : ' + str + '</div>');

@@ -59,24 +59,24 @@ public class HandlerChat extends TextWebSocketHandler {
 					//String chatUser = (String) session.getAttributes().get("loginUser");
 					String chatUserN = (String) session.getAttributes().get("userName");
 					
-					//입장 전 보여줄 메세지
-					readFile(session);
-					for(int j=0; j<this.arr.size(); j++) {
-						System.out.println(arr.get(i));
-						//String jsonStr = objectMapper.writeValueAsString(this.arr.get(j));
-						//sess.sendMessage(new TextMessage(jsonStr));
-					}
-					//입장 후
-					mapToSend.put("msg", chatUserN + "님이 입장 했습니다.");
-					String sendMessage = chatUserN + "님이 입장 했습니다.";
-					saveFile(chatUserN, sendMessage, session);
-				
-					String jsonStr = objectMapper.writeValueAsString(mapToSend);
-					sess.sendMessage(new TextMessage(jsonStr));
+//					//입장 전 보여줄 메세지
+//					readFile(session);
+//					for(int j=0; j<this.arr.size(); j++) {
+//						System.out.println(arr.get(i));
+//						//String jsonStr = objectMapper.writeValueAsString(this.arr.get(j));
+//						//sess.sendMessage(new TextMessage(jsonStr));
+//					}
+//					//입장 후
+//					mapToSend.put("msg", chatUserN + "님이 입장 했습니다.");
+//					String sendMessage = chatUserN + "님이 입장 했습니다.";
+//					saveFile(chatUserN, sendMessage, session);
+//				
+//					String jsonStr = objectMapper.writeValueAsString(mapToSend);
+//					sess.sendMessage(new TextMessage(jsonStr));
 				}
 			}
 			break;
-			
+		
 		// CLIENT 메세지
 		case "CMD_MSG_SEND":
 			// 같은 채팅방에 메세지 전송
@@ -125,26 +125,26 @@ public class HandlerChat extends TextWebSocketHandler {
 			}	
 		}
 		
-		// 같은 채팅방에 퇴장 메세지 전송 
-		for (int i = 0; i < sessionList.size(); i++) {
-			Map<String, Object> mapSessionList = sessionList.get(i);
-			String bang_id = (String) mapSessionList.get("bang_id");
-			WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
-
-			if (bang_id.equals(now_bang_id)) {
-				Map<String, String> mapToSend = new HashMap<String, String>();
-				mapToSend.put("bang_id", bang_id);
-				mapToSend.put("cmd", "CMD_EXIT");
-				//String chatUser = (String) session.getAttributes().get("loginUser");
-				String chatUserN = (String) session.getAttributes().get("userName");
-				mapToSend.put("msg", chatUserN + "님이 퇴장 했습니다.");
-				String sendMessage = chatUserN + "님이 퇴장 했습니다.";
-				saveFile(chatUserN, sendMessage,session);
-
-				String jsonStr = objectMapper.writeValueAsString(mapToSend);
-				sess.sendMessage(new TextMessage(jsonStr));
-			}
-		}
+//		// 같은 채팅방에 퇴장 메세지 전송 
+//		for (int i = 0; i < sessionList.size(); i++) {
+//			Map<String, Object> mapSessionList = sessionList.get(i);
+//			String bang_id = (String) mapSessionList.get("bang_id");
+//			WebSocketSession sess = (WebSocketSession) mapSessionList.get("session");
+//
+//			if (bang_id.equals(now_bang_id)) {
+//				Map<String, String> mapToSend = new HashMap<String, String>();
+//				mapToSend.put("bang_id", bang_id);
+//				mapToSend.put("cmd", "CMD_EXIT");
+//				//String chatUser = (String) session.getAttributes().get("loginUser");
+//				String chatUserN = (String) session.getAttributes().get("userName");
+//				mapToSend.put("msg", chatUserN + "님이 퇴장 했습니다.");
+//				String sendMessage = chatUserN + "님이 퇴장 했습니다.";
+//				saveFile(chatUserN, sendMessage,session);
+//
+//				String jsonStr = objectMapper.writeValueAsString(mapToSend);
+//				sess.sendMessage(new TextMessage(jsonStr));
+//			}
+//		}
 	}
 	
 	//파일에 메세지 내용 save

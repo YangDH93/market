@@ -9,35 +9,35 @@
 <title>오!리!마!켓!</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-	/* 공백체크 */
-	$(document).ready(function() {
-		$("#login_btn").click(function() {
-			if ($("#mbrId").val().length == 0) {
-				$("#caps_check_message").css("display", "none")
-				$("#login_check_message").html("");
-				$("#input_check_message").css("display", "block")
-				$("#input_check_message").html("<b>아이디</b>를 입력하세요");
-				$("#mbrId").focus();
-				return false;
-			}
-			if ($("#mbrPw").val().length == 0) {
-				$("#login_check_message").html("");
-				$("#input_check_message").css("display", "block")
-				$("#input_check_message").html("<b>비밀번호</b>를 입력하세요");
-				$("#mbrPw").focus();
-				return false;
-			}
-		});
-	});
-
-	/* CapsLock 체크 */
-	function checkCapsLock(event) {
-		if (event.getModifierState("CapsLock")) {
-			$("#caps_check_message").css("display", "block")
-		} else {
+/* 공백체크 */
+$(document).ready(function() {
+	$("#login_btn").click(function() {
+		if ($("#mbrId").val().length == 0) {
 			$("#caps_check_message").css("display", "none")
+			$("#login_check_message").html("");
+			$("#input_check_message").css("display", "block")
+			$("#input_check_message").html("<b>아이디</b>를 입력하세요");
+			$("#mbrId").focus();
+			return false;
 		}
+		if ($("#mbrPw").val().length == 0) {
+			$("#login_check_message").html("");
+			$("#input_check_message").css("display", "block")
+			$("#input_check_message").html("<b>비밀번호</b>를 입력하세요");
+			$("#mbrPw").focus();
+			return false;
+		}
+	});
+});
+
+/* CapsLock 체크 */
+function checkCapsLock(event) {
+	if (event.getModifierState("CapsLock")) {
+		$("#caps_check_message").css("display", "block")
+	} else {
+		$("#caps_check_message").css("display", "none")
 	}
+}
 </script>
 
 <style type="text/css">
