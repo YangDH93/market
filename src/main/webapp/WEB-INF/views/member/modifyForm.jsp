@@ -390,11 +390,13 @@ function deleteChk(){
 			</table>
 		</form>
 	</div>
-	<div style="font-size: 13px; display: flex; justify-content: center;">
-		&nbsp;&nbsp; <input type="text" value="${dto.mbrId }" name="mbrId"
-			style="display: none;"> <a onclick="deleteChk()"
-			style="cursor: pointer; color: #FFA200; font-weight: bold;">회원
-			탈퇴를 원하시면 여기를 눌러주세요</a>
-	</div>
+	<form action="userDelete" id="delfo">
+		<div style="font-size: 13px; display: flex; justify-content: center;">
+			&nbsp;&nbsp; <input type="text" value="${dto.mbrId }" name="mbrId"
+				style="display: none;"> <a onclick="deleteChk()"
+				style="cursor: pointer; color: #FFA200; font-weight: bold;">회원
+				탈퇴를 원하시면 여기를 눌러주세요</a>
+		</div>
+	</form>
 </body>
 </html>

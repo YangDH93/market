@@ -320,29 +320,33 @@ public class ProductServiceImpl implements ProductService{
 							List<ProductDTO> arr) {
 		List<String> fArr = new ArrayList<String>();
 		
-		for(int i=0; i<arr.size(); i++) {
-			ProductDTO dto = arr.get(i); //prod 값 저장
-			//System.out.println("상품번호 : "+dto.getProdId());
-			//이미지 관련 메소드 호출
-			fs.prodImgList(model, dto.getProdId());
-			
-			FileDTO fDto = (FileDTO) model.getAttribute("fileDTO");//file 값 저장
-			
-			//이미지 경로 저장 준비
-			String getU = fDto.getUUID();
-			String[] UUID = getU.split("/");
-			
-			String getO = fDto.getOrgImg();
-			String[] OrgImg = getO.split("/");
-			
-			//이미지 경로 저장
-			String filePath = fDto.getUploadPath()+"/s_"+UUID[0]+"_"+OrgImg[0];
-			
-			fArr.add(filePath); // 배열에 저장
+		try {
+			for(int i=0; i<arr.size(); i++) {
+				ProductDTO dto = arr.get(i); //prod 값 저장
+				//System.out.println("상품번호 : "+dto.getProdId());
+				//이미지 관련 메소드 호출
+				fs.prodImgList(model, dto.getProdId());
+				
+				FileDTO fDto = (FileDTO) model.getAttribute("fileDTO");//file 값 저장
+				
+				//이미지 경로 저장 준비
+				String getU = fDto.getUUID();
+				String[] UUID = getU.split("/");
+				
+				String getO = fDto.getOrgImg();
+				String[] OrgImg = getO.split("/");
+				
+				//이미지 경로 저장
+				String filePath = fDto.getUploadPath()+"/s_"+UUID[0]+"_"+OrgImg[0];
+				
+				fArr.add(filePath); // 배열에 저장
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		model.addAttribute("filePath", fArr);
 	}
-
+	
 	//찜 삭제 메소드
 	@Override
 	public void pickDelete(ProductDTO dto) {

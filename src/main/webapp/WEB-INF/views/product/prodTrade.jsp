@@ -88,7 +88,7 @@ function chat(){
 	if(mbrId == ""){//비로그인
 		alert("로그인이 필요합니다.")
 	}else{
-		//location.href="${contextPath}/~~채팅주소~~";
+		location.href="${contextPath}/chat.do?bang_id=${prod.prodId}_${loginUser}" ;
 	}
 }
 
