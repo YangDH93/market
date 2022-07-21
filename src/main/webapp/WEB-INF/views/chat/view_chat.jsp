@@ -154,7 +154,7 @@
 			</div>
 		</div>
 		<div style="margin: 0 auto; display:flex; justify-content:space-between; width: 640px; margin-top: 20px;">
-			<input style="display:block; width: 400px;" type="text" id="message" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />
+			<input style="outline: none; display:block; width: 400px;" type="text" id="message" onkeypress="if(event.keyCode==13){webSocket.sendChat();}" />
 			<input class="exit_btn" style="display:block;" type="button" id="btnSend" value="채팅 전송" onclick="webSocket.sendChat()" />
 			<input class="exit_btn" style="display:block;" type="button" value="방 나가기" onclick="location.href='${contextPath}/chatList'" />
 		</div>
