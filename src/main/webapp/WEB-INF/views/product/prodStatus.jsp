@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>오!리!마!켓!</title>
 <style type="text/css">
-td{
-	text-align: center
+#td_st{
+	width: 150px;
+	height: 150px;
 }
 </style>
 </head>
@@ -19,11 +20,11 @@ td{
 	<!-- 페이지 메뉴바 상품관리/구매판매내역 -->
 	<jsp:include page="../default/prodNav.jsp"/>
 <!-- 목록 : 테이블형식 -->
-<div class="">
-	<table style="border-top: 2px solid black;
-					border-collapse: collapse; width: 100%">
+<div style="text-align: center;">
+	<table border="1" style="border-color: #C0C0C0; width: 100%;
+	border-collapse: collapse;">
 		<!-- 테이블 머리 -->
-		<thead style="border-bottom: 2px solid black; ">
+		<thead style="background-color: #FFB300; border-color: #FFB300; color: white; font-weight: 600;">
 			<tr>
 				<th>사진</th> <th>판매상태</th> <th>상품명</th>
 				<th>가격</th> <th>찜</th>
@@ -33,7 +34,7 @@ td{
 			</tr>
 		</thead>
 		<!-- 테이블 몸통(내용 리스트로 가져옴) -->
-		<tbody style="border-bottom: 1px solid black">
+		<tbody>
 			<!-- DB에서 반복문으로 데이터 list로 가져올때 사용 -->
 			<c:choose>
 				<c:when test="${psList.size() == 0}">
@@ -55,10 +56,13 @@ td{
 			<c:otherwise>
 				<c:forEach var="psdto" items="${psList }" varStatus="status">
 					<tr>
-						<td>
-							<img width="100px" height="100px" src="${contextPath}/product/display?fileName=${filePath[status.index]}"/>
+						<td id="td_st">
+							<div>
+								<img width="100%" height="150" src="${contextPath}/product/display?fileName=${filePath[status.index]}"
+								style="vertical-align: bottom;"/>
+							</div>
 						</td> 
-						<td>
+						<td id="td_st">
 							<c:choose>
 								<c:when test="${psdto.prodStat != 1 }">
 									판매중
@@ -68,16 +72,25 @@ td{
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td>
-							<a href="${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}">
+						<td id="td_st">
+						<div style="text-align: left;">
+							<a href="${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}"
+							style="text-decoration: none; color: #551A8B; overflow: hidden;
+							white-space: nowrap; text-overflow: ellipsis; width: 150px;
+							display: block;">
 								${psdto.prodTitle }
 							</a>
+						</div>
 						</td>
-						<td>${psdto.price}</td> 
-						<td>${pickTotal[status.index] }</td> 
-						<td>
+						<td id="td_st" style="text-align: right;">${psdto.price}원</td> 
+						<td id="td_st">${pickTotal[status.index] }</td> 
+						<td id="td_st">
 							<c:if test="${loginUser != 'admin' }">
-								<button onclick="location.href='${contextPath}/product/sellsComple?prodStat=${psdto.prodStat}&prodId=${psdto.prodId}'">
+								<button onclick="location.href='${contextPath}/product/sellsComple?prodStat=${psdto.prodStat}&prodId=${psdto.prodId}'"
+								style="background-color: #FFFFFF; vertical-align: bottom;
+								border: 1px solid #FFA200; border-radius:5px; color: #414141;
+								padding: 3px; margin-bottom: 5px;
+								font-weight: 500; cursor: pointer;">
 									판매완료
 								</button>
 							</c:if>
@@ -91,12 +104,13 @@ td{
 </div>
 	
 <!-- 페이징 처리 -->
-<div class="" style="text-align: center; padding: 20px 0; ">
-	<a href="#">&laquo;</a>
+<div class="" style="text-align: center; margin: 20px 20px;">
+	<a href="#" style="color: #000000; text-decoration: none;">&laquo;</a>
 			<c:forEach var="num" begin="1" end="${repeat }">
-				<a href="prodStatus?num=${num }">[${num }]</a>
+				<a href="prodStatus?num=${num }" style="color: #000000;
+				text-decoration: none;">${num }</a>
 			</c:forEach>
-	<a href="#">&raquo;</a>
+	<a href="#" style="color: #000000; text-decoration: none;">&raquo;</a>
 </div>
 
 </div><!-- wrap끝 -->

@@ -43,14 +43,14 @@
 	margin-bottom: 30px;
 	width: 500px;
 	font-size: 25px;
-}
+	}
 
 .memo {
 	outline: none;
 	resize: none;
 	width: 500px;
 	height: 500px;
-	font-size: 1.3em;
+	font-size: 15px;
 	border-color: #C0C0C0;
 	font-family: sans-serif;
 }
