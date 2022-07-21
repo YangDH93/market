@@ -76,8 +76,12 @@
 			this._initSocket();
 		},
 		sendChat: function() {
-			this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val());
-			$('#message').val('');
+			if($('#message').val() == ''){
+				return false;
+			}else{
+				this._sendMessage('${param.bang_id}', 'CMD_MSG_SEND', $('#message').val());
+				$('#message').val('');
+			}
 		},
 		sendEnter: function() {
 			this._sendMessage('${param.bang_id}', 'CMD_ENTER', $('#message').val());
