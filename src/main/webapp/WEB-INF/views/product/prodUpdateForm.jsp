@@ -529,7 +529,7 @@ function buttonChk(){
             <div>
             <textarea id="prodContent" name="prodContent" maxlength="500" style="resize: none; 
             resize: none;outline: none; border-color: #C0C0C0; border-radius: 3px; width: 874px;"
-            	rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)">${prod.prodContent}</textarea>
+            	rows="8" cols="100" wrap="hard" placeholder="상품 설명을 상세히 작성해주세요.(10자 이상)">${prod.prodContent}</textarea>
             <div id="textcount">(0 / 500)</div>
             </div>
          </div>

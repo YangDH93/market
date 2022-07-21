@@ -142,7 +142,7 @@ function showUploadImage(uploadResultArr){
 		uploadResult2.append(str);
 	}
 	$("#mes1").css({
-		"color":"green",
+		"color":"red",
 		"font-size" : "14px"
 	});
 	$("#mes1").html(" 첫 번째 등록된 사진이 대표 사진입니다.");
@@ -165,7 +165,7 @@ function resetImg() {
 	/* orgImg 리셋부분 */
 	$('#orgImg').empty();
 	$("#mes1").css({
-		"color":"green",
+		"color":"red",
 		"font-size" : "14px"
 	});
 	$("#mes").css({
@@ -410,7 +410,7 @@ function buttonChk(){
                 	<label for="pr" style="padding: 3px; margin-left: 10px; width: 80px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141; cursor: pointer;">이미지 리셋</label>
                 	<input type="button" id="pr" value="사진 리셋" onclick="resetImg()"  style="display: none;">
                 </div>
-                <div><span id ="mes1" style="color:green; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
+                <div><span id ="mes1" style="color:red; font-size: 14px;"> 첫 번째 등록된 사진이 대표 사진입니다.</span></div>
                 <div id="uploadResult1" class="flex" style="width: 200; flex-flow: wrap;"></div>
                 <div id="uploadResult2" class="flex" style="width: 600; flex-flow: wrap;"></div>
                 <div>
@@ -478,7 +478,7 @@ function buttonChk(){
                       style="cursor: pointer; padding: 3px; width: 70px; height: 30px; background-color: #FFFFFF; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">                           
                    <input type="button" onclick="daumPost()" value="주소 검색"
                       style="padding: 3px; margin-left: 15px; width: 80px; height: 30px; background-color: #FFFFFF; cursor: pointer; border-radius: 5px; border: 1px solid #FFA200; color: #414141;">
-                   <span id="mes2" style="color:green; font-size: 12px;"></span>
+                   <span id="mes2" style="color:red; font-size: 12px;"></span>
                 </div>
                	<div>
                    <input type="text" readonly id="trdLocation" name="trdLocation" placeholder="도로명주소, 지번주소"
@@ -504,6 +504,7 @@ function buttonChk(){
             </div>
             <div>
                <textarea id="prodContent" name="prodContent" maxlength="500"
+                  wrap="hard"
                   style="resize: none; outline-style: none; border-color: #C0C0C0; border-radius: 3px; width: 874px;"
                   rows="8" cols="100" placeholder="상품 설명을 상세히 작성해주세요."></textarea>
                <div id="textcount">(0 / 500)</div>

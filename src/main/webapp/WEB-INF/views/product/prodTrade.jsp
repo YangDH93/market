@@ -278,7 +278,7 @@ function pickStatus(){
 					</div>
 				</div>
 				<!-- 상세정보 글 -->
-				<div style="height:367px; overflow:auto;
+				<div style="height:374px; width: 520px; overflow:auto; word-break:break-all;
 							border: 1px solid #C0C0C0; border-radius: 5px;">
 					<div style="padding: 3px;">
 						${prod.prodContent }

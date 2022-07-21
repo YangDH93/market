@@ -73,15 +73,17 @@
 							</c:choose>
 						</td>
 						<td id="td_st">
-							<div style="text-align: left;">
+						<div align="center">
+							<div>
 								<a href="${contextPath }/product/prodTrade?prodId=${psdto.prodId}&hit=${psdto.hit}&prodDate=${psdto.prodDate}&prodStat=${psdto.prodStat}"
 							style="text-decoration: none; color: #551A8B; overflow: hidden;
 							white-space: nowrap; text-overflow: ellipsis; width: 150px;
 							display: block;">${psdto.prodTitle }
 								</a>
+						</div>
 							</div>
 						</td>
-						<td id="td_st" style="text-align: right;">${psdto.price}원</td> 
+						<td id="td_st" style="text-align: center;">${psdto.price}원</td> 
 						<td id="td_st">
 							<button onclick="location.href='${contextPath}/product/pickDelete?prodId=${psdto.prodId}&mbrId=${psdto.mbrId}'"
 							style="background-color: #FFFFFF; vertical-align: bottom;

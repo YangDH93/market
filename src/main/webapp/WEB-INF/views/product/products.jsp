@@ -19,7 +19,7 @@
 .div_st {
 	float: left;
 	margin: 0 13.5px 13.5px 0;
-	border: 1px solid grey;
+	border: 1px solid #C0C0C0;
 	cursor: pointer;
 	width: 192px;
 	border-radius: 3px;
@@ -59,7 +59,7 @@
 <div class="mainlist">
 	<c:choose>
 		<c:when test="${prodList.size() == 0}">
-			<div style="text-align: center; font-weight: bold; padding-bottom: 30px;">
+			<div style="text-align: center; font-weight: 500; padding-bottom: 20px;">
 				일치하는 결과가 존재하지 않습니다.
 			</div>	
 		</c:when>
