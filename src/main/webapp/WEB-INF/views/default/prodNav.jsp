@@ -55,7 +55,7 @@
 	color: #FFFFFF;
 	width: 80px;
 	background-color: #FFFFFF;
-	border: 1px solid #FFA200;
+	border: 1px solid #FFB300;
 	border-radius: 5px;
 	color: #414141;
 	padding: 3px;
@@ -66,8 +66,7 @@
 .td_btn_st button:hover {
 	color: #FFFFFF;
 	font-weight: 600;
-	background-color: #FFA200;
-	border: 1px solid #FFA200;
+	background-color: #FFB300;
 }
 
 
@@ -75,7 +74,7 @@
 	color: #FFFFFF;
 	width: 50px;
 	background-color: #FFFFFF;
-	border: 1px solid #FFA200;
+	border: 1px solid #FFB300;
 	border-radius: 5px;
 	color: #414141;
 	padding: 5px;
@@ -85,9 +84,7 @@
 .td_pbtn_st button:hover {
 	color: #FFFFFF;
 	font-weight: 600;
-	background-color: #FFA200;
-	border: 1px solid #FFA200;
-
+	background-color: #FFB300;
 }
 .td_title_st:hover{
 	border: 1px solid #551A8B;

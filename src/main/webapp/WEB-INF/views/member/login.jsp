@@ -200,15 +200,53 @@ function checkCapsLock(event) {
 
 								}
 							</script>
+							<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+							<script>
+								Kakao.init('0714ea0499e91b95e2f8ef3bc4206ee6'); //발급받은 키 중 javascript키를 사용해준다.
+								console.log(Kakao.isInitialized()); // sdk초기화여부판단
+								//카카오로그인
+								function kakaoLogin() {
+								    Kakao.Auth.login({
+								      success: function (response) {
+								        Kakao.API.request({
+								          url: '/v2/user/me',
+								          success: function (response) {
+								        	  console.log(response)
+								          },
+								          fail: function (error) {
+								            console.log(error)
+								          },
+								        })
+								      },
+								      fail: function (error) {
+								        console.log(error)
+								      },
+								    })
+								  }
+								//카카오로그아웃  
+								function kakaoLogout() {
+								    if (Kakao.Auth.getAccessToken()) {
+								      Kakao.API.request({
+								        url: '/v1/user/unlink',
+								        success: function (response) {
+								        	console.log(response)
+								        },
+								        fail: function (error) {
+								          console.log(error)
+								        },
+								      })
+								      Kakao.Auth.setAccessToken(undefined)
+								    }
+								  }  
+							</script>
 							<ul style="list-style: none; margin:0px; padding:10px 40px 0 0;">
-							
 								<!-- 카카오 들어갈 부분 -->
 								<li style="list-style: none;">
-									<!-- 아래와같이 아이디를 꼭 써준다. --> <a id="naverIdLogin_loginButton" href="javascript:void(0)">
-									<span><img src="${contextPath}/resources/image/naverLogin.png" width="142"></span>
+									<!-- 아래와같이 아이디를 꼭 써준다. --> 
+									<a id="kakaoIdLogin_loginButton" href="javascript:kakaoLogin()">
+									<span><img src="${contextPath}/resources/image/kakaoLogin.png" width="142"></span>
 								</a>
 								</li>
-							
 							</ul>
 					</td>
 				</tr>

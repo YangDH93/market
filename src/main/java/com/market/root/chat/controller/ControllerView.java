@@ -37,7 +37,6 @@ public class ControllerView {
 		session.setAttribute("bangId", bang_id);
 		cs.selectChatRoom(model,bang_id,session);
 		
-		
 		return "chat/view_chat";
 	}
 	
