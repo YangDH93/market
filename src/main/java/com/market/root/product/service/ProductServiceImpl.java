@@ -315,6 +315,17 @@ public class ProductServiceImpl implements ProductService{
 		}
 	}
 	
+	//카테고리 검색 상품 출력 메소드
+	@Override
+	public void cateSerchView(Model model,String cateCode) {
+		try {
+			model.addAttribute("cateSerchView", mapper.cateSerchView(cateCode)); //모델값 저장
+			addImgModel(model,mapper.cateSerchView(cateCode)); //이미지경로 모델값 저장 메소드
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//현재 model로 출력될 리스트의 이미지들 새로운 이미지 model에 저장하는 메소드
 	public void addImgModel(Model model, 
 							List<ProductDTO> arr) {

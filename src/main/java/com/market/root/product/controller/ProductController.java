@@ -118,6 +118,17 @@ public class ProductController {
 		return "product/products";
 	}
 	
+	//카테고리 상품 검색
+	@GetMapping("cateSerchView")
+	public String cateSerchView(@RequestParam String cateCode,
+								Model model) {
+		ps.cateAllList(model);
+		ps.cateSerchView(model,cateCode);
+		
+		return "product/cateSerchView";
+	}
+	
+	
 	//상품 추가기능
 	@PostMapping("prodRegister")
 	public String prodRegister(@RequestParam(value="orgImg", required = false) String orgImg,
