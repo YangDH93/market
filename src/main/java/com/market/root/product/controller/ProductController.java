@@ -120,9 +120,8 @@ public class ProductController {
 	
 	//카테고리 상품 검색
 	@GetMapping("cateSerchView")
-	public String cateSerchView(@RequestParam String cateCode,
+	public String cateSerchView(@RequestParam(value="cateCode", required = false) String cateCode,
 								Model model) {
-		ps.cateAllList(model);
 		ps.cateSerchView(model,cateCode);
 		
 		return "product/cateSerchView";

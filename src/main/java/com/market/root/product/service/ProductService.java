@@ -36,5 +36,6 @@ public interface ProductService {
 	public void picksAllView(Model model, int num, HttpSession session);
 	public void pickDelete(ProductDTO dto);
 	public void cateSerchView(Model model, String cateCode);
+	public void cateSet(HttpSession session);
 	
 }

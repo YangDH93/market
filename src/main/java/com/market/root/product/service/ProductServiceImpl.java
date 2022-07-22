@@ -216,6 +216,16 @@ public class ProductServiceImpl implements ProductService{
 		}
 	}
 	
+	//카테고리 대분류 데이터 session 저장
+	@Override
+	public void cateSet(HttpSession session) {
+		try {
+			session.setAttribute("cateData", cMapper.cateAllList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//카테고리 대분류 불러오기
 	@Override
 	public void cateAllList(Model model) {
@@ -371,6 +381,8 @@ public class ProductServiceImpl implements ProductService{
 			e.printStackTrace();
 		}
 	}
+
+
 	
 }
 

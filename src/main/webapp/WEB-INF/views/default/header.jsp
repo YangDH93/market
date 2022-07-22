@@ -14,96 +14,94 @@
 /* 카테고리 하위 목록 ajax */
 function getList(sltCode,num){
    $.ajax({
-      url : 'getList', type : 'post', dataType : 'json',
+      url : '${contextPath}/product/getList', type : 'post', dataType : 'json',
       data : { sltCode : sltCode },
       success : function(list){
-         
          let str = "";
-         let lab = "";
-         
          if(num == 1){
             for(let i=0; i<list.length; i++){
-               str += '<div class="cate2List" onclick="openCate2(event,'+list[i].cateCode+", '"+list[i].cateName+"'"+')">'+list[i].cateName+'</div>';
+               str += '<div class="cate2List" onmouseover="'+"openCate2(event,'"+list[i].cateCode+"')"+'"'+' onclick="location.href='+"'${contextPath }/product/cateSerchView?cateCode="+list[i].cateCode+"'"+'">'+list[i].cateName+'</div>'
             }
             $(".cateBox2").append(str);
             
          }else if(num == 2){
             for(let i=0; i<list.length; i++){
-               str += '<div class="cate3List" onclick="openCate3(event,'+list[i].cateCode+", '"+list[i].cateName+"'"+')">'+list[i].cateName+'</div>';
+               str += '<div class="cate3List" onmouseover="'+"openCate3(event,'"+list[i].cateCode+"')"+'"'+' onclick="location.href='+"'${contextPath }/product/cateSerchView?cateCode="+list[i].cateCode+"'"+'">'+list[i].cateName+'</div>'
             }
             $(".cateBox3").append(str);
          }
       }
    });
 }
-
 /* 카테고리 중분류 목록 이벤트 */ 
-function openCate(evt, sltCode, name) { //대분류 코드, 이름
+function openCate(evt, sltCode) { //대분류 코드, 이름
+	var cate1List = $(".cate1List");
    
-   $('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
-   
-   var cate1List = $(".cate1List");
-   
-   /* ==========기존삭제========== */
-   
-   for (var i = 0; i < cate1List.length; i++) {
-      cate1List[i].className = cate1List[i].className.replace(" active", "");
-   }
-
-   $(".cateBox2").empty(); //기존 중분류 목록 지움
-   $(".cateBox3").empty(); //기존 소분류 목록 지움
-   
-   $("#userSel2").text("") //기존 중분류 이름 지움
-   $("#userSel3").text("") //기존 소분류 이름 지움
-   
-   /* ==========새로생성========== */
-   
-   $("#userSel1").text(name) //선택한 대분류 이름 들어옴
-   evt.currentTarget.className += " active"; //색상변경
-
-   getList(sltCode,"1") //ajax 리스트 불러옴
-   
+	/* ==========기존삭제========== */
+	for (var i = 0; i < cate1List.length; i++) {
+	   cate1List[i].className = cate1List[i].className.replace(" active", "");
+	}
+	$(".cateBox3").css("display", "none");
+	$(".cateBox2").empty(); //기존 중분류 목록 지움
+	$(".cateBox3").empty(); //기존 소분류 목록 지움
+	
+	/* ==========새로생성========== */
+	$(".cateBox2").css("display", "block");
+	evt.currentTarget.className += " active"; //색상변경
+	getList(sltCode,"1") //ajax 리스트 불러옴
 }
 
 /* 카테고리 소분류 목록 이벤트 */
-function openCate2(evt, sltCode, name) { //소분류 나타남
-   
-   $('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
-   
-   var cate2List = $(".cate2List");
-   
-   /* ==========기존삭제========== */
-
-   for (var i = 0; i < cate2List.length; i++) {
-      cate2List[i].className = cate2List[i].className.replace(" active", "");
-   }
-   $(".cateBox3").empty(); //기존 소분류 목록 지움
-   $("#userSel3").text("") //기존 소분류 이름 지움
-   
-   /* ==========새로생성========== */
-   
-   $("#userSel2").text(" > "+name) //선택한 중분류 이름 들어옴
-   evt.currentTarget.className += " active"; //색상변경
-   
-   getList(sltCode,"2") //ajax 리스트 불러옴
+function openCate2(evt, sltCode) { //소분류 나타남
+	var cate2List = $(".cate2List");
+	
+	/* ==========기존삭제========== */
+	for (var i = 0; i < cate2List.length; i++) {
+		cate2List[i].className = cate2List[i].className.replace(" active", "");
+	}
+	$(".cateBox3").empty(); //기존 소분류 목록 지움
+	
+	/* ==========새로생성========== */
+	$(".cateBox3").css("display", "block");
+	evt.currentTarget.className += " active"; //색상변경
+	getList(sltCode,"2") //ajax 리스트 불러옴
 }
+
 /* 카테고리 소분류  */
-function openCate3(evt, sltCode, name) { //소분류 나타남
+function openCate3(evt, sltCode) { //소분류 나타남
+	var cate3List = $(".cate3List");
    
-   $('input[name=cateCode]').attr('value',sltCode); // 카테고리저장 
+	/* ==========기존삭제========== */
+	for (var i = 0; i < cate3List.length; i++) {
+		cate3List[i].className = cate3List[i].className.replace(" active", "");
+	}
    
-   var cate3List = $(".cate3List");
-   
-   /* ==========기존삭제========== */
-   
-   for (var i = 0; i < cate3List.length; i++) {
-      cate3List[i].className = cate3List[i].className.replace(" active", "");
-   }
-   
-   /* ==========새로생성========== */
-   
-   $("#userSel3").text(" > "+name) //선택한 소분류 이름 들어옴
-   evt.currentTarget.className += " active"; //색상변경
+	/* ==========새로생성========== */
+	evt.currentTarget.className += " active"; //색상변경
+}
+
+function openCateBox(){
+	$(".cate_img").css("backgroundColor", "#FFA200");
+	$(".cateBox1").css("display", "block");
+}
+function nondisBox(){
+	$(".cate_img").css("backgroundColor", "grey");
+	$(".cateBox1").css("display", "none");
+	$(".cateBox2").css("display", "none");
+	$(".cateBox3").css("display", "none");
+	var cate1List = $(".cate1List");
+	var cate2List = $(".cate2List");
+	var cate3List = $(".cate3List");
+	/* ==========기존삭제========== */
+	for (var i = 0; i < cate1List.length; i++) {
+	   cate1List[i].className = cate1List[i].className.replace(" active", "");
+	}
+	for (var i = 0; i < cate2List.length; i++) {
+		cate2List[i].className = cate2List[i].className.replace(" active", "");
+	}
+	for (var i = 0; i < cate3List.length; i++) {
+		cate3List[i].className = cate3List[i].className.replace(" active", "");
+	}
 }
 </script>
 <style>
@@ -128,25 +126,33 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
    padding-bottom: 3px; /* a태그 밑줄과 글씨 간격*/
    border-bottom: 1px solid orange;
 }
-
+.cate_img {
+	width: 35px;
+	height: 5px;
+	background-color: grey;
+	margin: 6px 0;
+}
 /* 카테고리 wrap */
 .catewrap {
 	z-index: 11;
 	position: absolute;
-	width: 900px;
-	height: 900px;
-	background-color: pink;
+	background-color: white;
 }
 /* 카테고리 box */
 .cateBox1 {
    float: left;
-   width: 300px;
+   border: 1px solid #ccc;
+   width: 200px;
+   height: 280px; /* 40의 배수로 설정 */
+   display: none;
 }
-
 .cateBox2, .cateBox3 {
    float: left;
-   border-left: 1px solid #ccc;
-   width: 300px;
+   border: 1px solid #ccc;
+   border-left:none;
+   width: 200px;
+   height: 280px; /* 40의 배수로 설정 */
+   display: none;
 }
 /* 카테고리 리스트 */
 .cate1List, .cate2List, .cate3List {
@@ -160,11 +166,10 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
 .cate1List:hover, .cate2List:hover, .cate3List:hover {
    background-color: #FFD823;
 }
-
+/* 카테코리 리스트 active */
 .cate1List.active, .cate2List.active, .cate3List.active {
    background-color: #FFD823;
 }
-
 </style>
 </head>
 <body>
@@ -199,7 +204,8 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
 		<div class="hLFFUa">
 			<div class=" zvczX">
 				<div class="gLAQAm" >
-					<button class="gIJOQQ" style="background-color: white; border: 0; cursor: pointer;"><!-- 카테고리 -->
+					<button class="gIJOQQ" onmouseover="openCateBox()"
+							style="background-color: white; border: 0; cursor: pointer;"><!-- 카테고리 -->
 						<div class="cate_img"></div>
 						<div class="cate_img"></div>
 						<div class="cate_img"></div>
@@ -238,14 +244,11 @@ function openCate3(evt, sltCode, name) { //소분류 나타남
 	</div>
 </div>
 <div style="width: 1024px; margin: 0 auto; ">
-	<div class="catewrap">
+	<div class="catewrap" onmouseleave="nondisBox()">
  		<div class="cateBox1">
-			<c:forEach var="dto" items="${cateList }">
-			<!-- 
-				<div class="cate1List" onmouseover="openCate()" onmouseout="hiddenCate()"
+			<c:forEach var="dto" items="${cateData }">
+				<div class="cate1List" onmouseover="openCate(event,'${dto.cateCode}')" 
 					onclick="location.href='${contextPath }/product/cateSerchView?cateCode=${dto.cateCode}'">${dto.cateName }</div>
-			 -->	
-				<div >${dto.cateName }</div>
 			</c:forEach>
 		</div>
 	

@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath }" />
+<c:set var="fileDTO" value="${fileDTO }"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,9 +57,9 @@
 </style>
 </head>
 <body>
-<%@include file="default/header.jsp"%>
+<%@include file="../default/header.jsp"%>
 	<div class="mainlist">
-		<c:forEach var="prod_dto" items="${mainAllView }" varStatus="status" >
+		<c:forEach var="prod_dto" items="${cateSerchView }" varStatus="status" >
 		<div class="div_st" onclick="location.href='${contextPath }/product/prodTrade?prodId=${prod_dto.prodId}&hit=${prod_dto.hit}&prodDate=${prod_dto.prodDate}&prodStat=${prod_dto.prodStat}';">
 			<img class="imglist" src="${contextPath}/product/display?fileName=${filePath[status.index]}"/>
 			<div class="mian_list_text">
@@ -68,6 +69,6 @@
 		</div>
 		</c:forEach>
 	</div>
-<%@include file="default/footer.jsp"%>
+<%@include file="../default/footer.jsp"%>
 </body>
 </html>
