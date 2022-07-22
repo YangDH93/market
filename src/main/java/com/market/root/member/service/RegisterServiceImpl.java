@@ -124,6 +124,22 @@ public class RegisterServiceImpl implements RegisterService{
 		sendGmail(to,subject,body);
 		return key; // key값 돌려줌
 	}
+	
+	// 임시비밀번호 메일 발송 코드
+	@Override
+	public String gSendPwd(String mail) {
+		String to, subject, body, key;
+		
+		key = createKey(6);// 키 생성
+		
+		to = mail; // 받는메일
+		subject = "[오리마켓]임시 비밀번호입니다."; // 메일제목
+		// 메일내용
+		body = "임시 비밀번호 : "+ key;
+		
+		sendGmail(to,subject,body);
+		return key; // key값 돌려줌
+	}
 
 	
 }

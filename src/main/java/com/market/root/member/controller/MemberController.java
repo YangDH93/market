@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 
 import com.market.root.common.SessionId;
-import com.market.root.member.dto.MemberDTO;
 import com.market.root.member.service.MemberService;
 
 // 주소값 ~root/member/로 시작
@@ -29,7 +28,7 @@ import com.market.root.member.service.MemberService;
 @RequestMapping("member")
 public class MemberController{
 
-	@Autowired MemberService ms; //Member 관련 class
+	@Autowired MemberService ms; //Member 관련
 	
 	@GetMapping("login") // 로그인 페이지
 	public String login() {
@@ -203,11 +202,12 @@ public class MemberController{
 		return "redirect:/";
 	}
 	
-	//아이디 찾기 페이지
+	//아이디 비밀번호 찾기 페이지
 	@GetMapping("forgetIdPwd")
 	public String forgetId() {
 		return "member/forgetIdPwd";
 	}
+	
 	//아이디 찾음 페이지
 	@PostMapping("findId")
 	public String findId(@RequestParam String mbrEmail,
