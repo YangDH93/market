@@ -23,4 +23,6 @@ public interface MemberService {
 	public int userDelete(String mbrId);
 	//사용자 저장된 주소 확인
 	public void mbrAddr(HttpSession session,Model model);
+	public void findId(String mbrEmail, Model model);
+	public void sendPwd(String mbrEmail, Model model);
 }
