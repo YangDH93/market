@@ -21,6 +21,17 @@
 <select id="mainAllView" resultMap="product">
 	select * from prod_info where prod_stat=0 order by prod_date desc
 </select>
+<!-- 카테고리 검색 -->
+<select id="cateSerchView" resultMap="product">
+	(select cate_code from categories
+                where (cate_code=#{cateCode} 
+                    	or cate_code in 
+							(select cate_code from categories where cate_parent=#{cateCode})
+                   		or cate_code in
+							(select cate_code from categories where cate_parent in 
+																	(select cate_code from categories where cate_parent=#{cateCode}))))
+                    and prod_stat=0 order by prod_date desc
+</select>
 
 <!-- 판매중인 게시글 불러오기 -->
 <select id="psAllView" resultMap="product">
