@@ -16,4 +16,5 @@ public interface MemberMapper {
 	public MemberDTO memberInfo(String id);
 	public int mbrUpdate(Map<Object, Object> map);
 	public int userDelete(String mbrId);
+	public void kakaoRegister(MemberDTO dto);
 }

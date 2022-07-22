@@ -7,4 +7,5 @@ public interface RegisterService {
 	public int register(MemberDTO dto);
 	public String gmailSend(String mail);
 	public int dupChk(String cIn, String uIn); //중복체크
+	public void kakaoRegister(MemberDTO dto);
 }

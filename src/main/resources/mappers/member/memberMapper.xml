@@ -42,6 +42,11 @@
 	<insert id="register">
 		insert into mbr_info(mbr_name,mbr_id,mbr_pw,mbr_email) values(#{mbrName},#{mbrId},#{mbrPw},#{mbrEmail})
 	</insert>
+	
+	<!-- 카카오 회원가입 -->
+	<insert id="kakaoRegister">
+		insert into mbr_info(mbr_name,mbr_id,mbr_email) values(#{mbrName},#{mbrId},#{mbrEmail})
+	</insert>
 
 	<!-- 회원정보 수정 -->
 	<update id="mbrUpdate">

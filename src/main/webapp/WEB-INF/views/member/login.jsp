@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>오!리!마!켓!</title>
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"charset="utf-8"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 /* 공백체크 */
@@ -151,7 +152,6 @@ function checkCapsLock(event) {
 								href="javascript:void(0)"> <span>네이버 로그아웃</span>
 							</a></li> -->
 						</ul> <!-- 네이버 스크립트 -->
-						 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"charset="utf-8"></script> 
 						 <script>
 								var naverLogin = new naver.LoginWithNaverId(
 										{
@@ -201,51 +201,15 @@ function checkCapsLock(event) {
 								}
 							</script>
 							<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-							<script>
-								Kakao.init('0714ea0499e91b95e2f8ef3bc4206ee6'); //발급받은 키 중 javascript키를 사용해준다.
-								console.log(Kakao.isInitialized()); // sdk초기화여부판단
-								//카카오로그인
-								function kakaoLogin() {
-								    Kakao.Auth.login({
-								      success: function (response) {
-								        Kakao.API.request({
-								          url: '/v2/user/me',
-								          success: function (response) {
-								        	  console.log(response)
-								          },
-								          fail: function (error) {
-								            console.log(error)
-								          },
-								        })
-								      },
-								      fail: function (error) {
-								        console.log(error)
-								      },
-								    })
-								  }
-								//카카오로그아웃  
-								function kakaoLogout() {
-								    if (Kakao.Auth.getAccessToken()) {
-								      Kakao.API.request({
-								        url: '/v1/user/unlink',
-								        success: function (response) {
-								        	console.log(response)
-								        },
-								        fail: function (error) {
-								          console.log(error)
-								        },
-								      })
-								      Kakao.Auth.setAccessToken(undefined)
-								    }
-								  }  
-							</script>
 							<ul style="list-style: none; margin:0px; padding:10px 40px 0 0;">
 								<!-- 카카오 들어갈 부분 -->
 								<li style="list-style: none;">
-									<!-- 아래와같이 아이디를 꼭 써준다. --> 
-									<a id="kakaoIdLogin_loginButton" href="javascript:kakaoLogin()">
+								<a class="p-2" id="kakaoIdLogin_loginButton" href="https://kauth.kakao.com/oauth/authorize?client_id=f08ac675d19148fc1c8231df859ca51a&redirect_uri=	
+http://localhost:8090/root/member/kakaoLogin&response_type=code">
+									<!-- REST_API키 및 REDIRECT_URI는 본인걸로 수정하세요 -->
+									<!-- 본인걸로 수정 시 띄어쓰기 절대 하지 마세요. 오류납니다. -->
 									<span><img src="${contextPath}/resources/image/kakaoLogin.png" width="142"></span>
-								</a>
+								</a>	
 								</li>
 							</ul>
 					</td>

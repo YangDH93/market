@@ -1,6 +1,7 @@
 package com.market.root.member.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -23,4 +24,6 @@ public interface MemberService {
 	public int userDelete(String mbrId);
 	//사용자 저장된 주소 확인
 	public void mbrAddr(HttpSession session,Model model);
+	public String getAccessToken(String code);
+	public HashMap<String, Object> getUserInfo(String access_Token);
 }

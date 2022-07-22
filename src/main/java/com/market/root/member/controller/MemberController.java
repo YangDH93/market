@@ -1,7 +1,14 @@
 package com.market.root.member.controller;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.lang.reflect.Member;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -15,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -23,12 +31,14 @@ import org.springframework.web.util.WebUtils;
 import com.market.root.common.SessionId;
 import com.market.root.member.dto.MemberDTO;
 import com.market.root.member.service.MemberService;
+import com.market.root.member.service.RegisterService;
 
 // 주소값 ~root/member/로 시작
 @Controller
 @RequestMapping("member")
 public class MemberController{
-
+	
+	@Autowired RegisterService rs;
 	@Autowired MemberService ms; //Member 관련 class
 	
 	@GetMapping("login") // 로그인 페이지
@@ -143,7 +153,8 @@ public class MemberController{
 	@GetMapping("logout")
 	public ModelAndView logout(HttpSession session,
 							HttpServletRequest request,
-							HttpServletResponse response) {
+							HttpServletResponse response,
+							String access_Token) {
 		
 		// 리턴타입 object이므로 String으로 다운캐스팅
 		String se = (String)session.getAttribute(SessionId.LOGIN);
@@ -162,6 +173,9 @@ public class MemberController{
 				ms.KeepLogin("nan", new java.util.Date(), se);// DB 세션아이디, 만료시간 update
 			}
 		}
+		//카카오 로그아웃
+		kakaoLogout(access_Token);
+		
 		return new ModelAndView("redirect:/");
 	}
 	
@@ -202,5 +216,65 @@ public class MemberController{
 		
 		return "redirect:/";
 	}
+	
+	//카카오 로그인 및 가입
+	@RequestMapping(value="/kakaoLogin", method=RequestMethod.GET)
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code,
+			HttpSession session) throws Exception {
+		//System.out.println("#########" + code);
+		String access_Token = ms.getAccessToken(code);
+		
+		HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
+        
+		// 위에서 만든 코드 아래에 코드 추가
+		//System.out.println("###access_Token#### : " + access_Token);
+		System.out.println("###nickname#### : " + userInfo.get("nickname"));
+		System.out.println("###kakaoId### : " + userInfo.get("kakaoId")); 
+		System.out.println("###email#### : " + userInfo.get("email"));
+
+		MemberDTO dto = new MemberDTO();
+		dto.setMbrName((String) userInfo.get("nickname"));
+		dto.setMbrId((String) userInfo.get("kakaoId"));
+		dto.setMbrEmail((String) userInfo.get("email"));
+		
+		//mbr_info로 kakao 이메일, 닉네임, 아이디 전송
+		rs.kakaoRegister(dto);
+		
+		String mbrName = URLEncoder.encode((String) userInfo.get("nickname"));
+		
+		
+		//리턴 매핑
+		//"redirect:reg?mbrId="+userInfo.get("kakaoId")+"&mbrEmail="+userInfo.get("email")+"&mbrName="+mbrName;
+		session.setAttribute(SessionId.LOGIN, userInfo.get("kakaoId"));
+		
+		return "redirect:/";
+    }
+	
+	//카카오 로그아웃
+    public void kakaoLogout(String access_Token) {
+        String reqURL = "https://kapi.kakao.com/v1/user/logout";
+        try {
+            URL url = new URL(reqURL);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+            int responseCode = conn.getResponseCode();
+            System.out.println("responseCode : " + responseCode);
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            String result = "";
+            String line = "";
+
+            while ((line = br.readLine()) != null) {
+                result += line;
+            }
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+	
 	
 }

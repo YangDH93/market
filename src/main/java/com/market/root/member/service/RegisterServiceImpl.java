@@ -125,5 +125,17 @@ public class RegisterServiceImpl implements RegisterService{
 		return key; // key값 돌려줌
 	}
 
+	//카카오 로그인과 동시에 회원가입
+	public void kakaoRegister(MemberDTO dto) {
+		try {
+			MemberDTO chkDTO = mapper.logChk(dto.getMbrId());
+			if(chkDTO == null) {
+				mapper.kakaoRegister(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	
 }
