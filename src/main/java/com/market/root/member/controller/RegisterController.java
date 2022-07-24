@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.market.root.member.dto.MemberDTO;
 import com.market.root.member.service.RegisterService;
+import java.io.IOException;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("member")
@@ -30,14 +37,23 @@ public class RegisterController {
 	
 	//회원가입 정보 전달
 	@PostMapping("reg")
-	public String reg(MemberDTO dto) {
+	public String reg(MemberDTO dto, Map<Object,Object> map) {
+		map.get("nickname");
+		map.get("email");
+		
+		/*
 		int result = rs.register(dto);
+		
+		
 		//회원가입 성공시 로그인 화면으로 이동
 		if(result == 1) {
 			return "redirect:login";
 		}
 		//회원가입 실패시 회원가입 창으로 다시 이동
 		return "redirect:register";
+		*/
+		
+		return "redirect:/";
 	}
 	
 	// 중복체크
@@ -64,7 +80,5 @@ public class RegisterController {
 		String key = rs.gmailSend(mail);//메일 전송 메소드
 		return key; //key값 ajax 리턴
 	}
-	
-	
 	
 }
