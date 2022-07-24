@@ -220,7 +220,7 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public void cateSet(HttpSession session) {
 		try {
-			session.setAttribute("cateData", cMapper.cateAllList());
+			session.setAttribute("cateData", cMapper.cateAllListSe());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

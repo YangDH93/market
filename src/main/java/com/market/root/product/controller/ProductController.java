@@ -60,6 +60,15 @@ public class ProductController {
 		return "product/products";
 	}
 	
+	//header 카테고리 ajax
+	@ResponseBody //값 리턴
+	@PostMapping(value = "hGetList",
+	produces = "application/json; charset=utf-8")
+	public ArrayList<CategoriesDTO> hGetList(String sltCode) {
+		ArrayList<CategoriesDTO> arr = ps.cateList(sltCode);
+		return arr;
+	}
+	
 	//prodNew 카테고리 ajax
 	@ResponseBody //값 리턴
 	@PostMapping(value = "getList",

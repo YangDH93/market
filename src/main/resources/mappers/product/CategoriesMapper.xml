@@ -10,6 +10,11 @@
 	<result property="cateParent" column="cate_parent"/>
 </resultMap>
 
+<!-- 카테고리 대분류 목록 불러오기-session분류(같이하면 오류남) -->
+<select id="cateAllListSe" resultMap="categories">
+	select * from categories where tier=1
+</select>
+
 <!-- 카테고리 대분류 목록 불러오기 -->
 <select id="cateAllList" resultMap="categories">
 	select * from categories where tier=1

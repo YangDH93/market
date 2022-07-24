@@ -12,95 +12,95 @@
 <script type="text/javascript">
 /* 카테고리 관련코드 */
 /* 카테고리 하위 목록 ajax */
-function getList(sltCode,num){
+function hGetList(sltCode,num){
    $.ajax({
-      url : '${contextPath}/product/getList', type : 'post', dataType : 'json',
+      url : '${contextPath}/product/hGetList', type : 'post', dataType : 'json',
       data : { sltCode : sltCode },
       success : function(list){
          let str = "";
          if(num == 1){
             for(let i=0; i<list.length; i++){
-               str += '<div class="cate2List" onmouseover="'+"openCate2(event,'"+list[i].cateCode+"')"+'"'+' onclick="location.href='+"'${contextPath }/product/cateSerchView?cateCode="+list[i].cateCode+"'"+'">'+list[i].cateName+'</div>'
+               str += '<div class="h_cate2List" onmouseover="'+"h_openCate2(event,'"+list[i].cateCode+"')"+'"'+' onclick="location.href='+"'${contextPath }/product/cateSerchView?cateCode="+list[i].cateCode+"'"+'">'+list[i].cateName+'</div>'
             }
-            $(".cateBox2").append(str);
+            $(".h_cateBox2").append(str);
             
          }else if(num == 2){
             for(let i=0; i<list.length; i++){
-               str += '<div class="cate3List" onmouseover="'+"openCate3(event,'"+list[i].cateCode+"')"+'"'+' onclick="location.href='+"'${contextPath }/product/cateSerchView?cateCode="+list[i].cateCode+"'"+'">'+list[i].cateName+'</div>'
+               str += '<div class="h_cate3List" onmouseover="'+"h_openCate3(event,'"+list[i].cateCode+"')"+'"'+' onclick="location.href='+"'${contextPath }/product/cateSerchView?cateCode="+list[i].cateCode+"'"+'">'+list[i].cateName+'</div>'
             }
-            $(".cateBox3").append(str);
+            $(".h_cateBox3").append(str);
          }
       }
    });
 }
 /* 카테고리 중분류 목록 이벤트 */ 
-function openCate(evt, sltCode) { //대분류 코드, 이름
-	var cate1List = $(".cate1List");
+function h_openCate(evt, sltCode) { //대분류 코드, 이름
+	var h_cate1List = $(".h_cate1List");
    
 	/* ==========기존삭제========== */
-	for (var i = 0; i < cate1List.length; i++) {
-	   cate1List[i].className = cate1List[i].className.replace(" active", "");
+	for (var i = 0; i < h_cate1List.length; i++) {
+	   h_cate1List[i].className = h_cate1List[i].className.replace(" active", "");
 	}
-	$(".cateBox3").css("display", "none");
-	$(".cateBox2").empty(); //기존 중분류 목록 지움
-	$(".cateBox3").empty(); //기존 소분류 목록 지움
+	$(".h_cateBox3").css("display", "none");
+	$(".h_cateBox2").empty(); //기존 중분류 목록 지움
+	$(".h_cateBox3").empty(); //기존 소분류 목록 지움
 	
 	/* ==========새로생성========== */
-	$(".cateBox2").css("display", "block");
+	$(".h_cateBox2").css("display", "block");
 	evt.currentTarget.className += " active"; //색상변경
-	getList(sltCode,"1") //ajax 리스트 불러옴
+	hGetList(sltCode,"1") //ajax 리스트 불러옴
 }
 
 /* 카테고리 소분류 목록 이벤트 */
-function openCate2(evt, sltCode) { //소분류 나타남
-	var cate2List = $(".cate2List");
+function h_openCate2(evt, sltCode) { //소분류 나타남
+	var h_cate2List = $(".h_cate2List");
 	
 	/* ==========기존삭제========== */
-	for (var i = 0; i < cate2List.length; i++) {
-		cate2List[i].className = cate2List[i].className.replace(" active", "");
+	for (var i = 0; i < h_cate2List.length; i++) {
+		h_cate2List[i].className = h_cate2List[i].className.replace(" active", "");
 	}
-	$(".cateBox3").empty(); //기존 소분류 목록 지움
+	$(".h_cateBox3").empty(); //기존 소분류 목록 지움
 	
 	/* ==========새로생성========== */
-	$(".cateBox3").css("display", "block");
+	$(".h_cateBox3").css("display", "block");
 	evt.currentTarget.className += " active"; //색상변경
-	getList(sltCode,"2") //ajax 리스트 불러옴
+	hGetList(sltCode,"2") //ajax 리스트 불러옴
 }
 
 /* 카테고리 소분류  */
-function openCate3(evt, sltCode) { //소분류 나타남
-	var cate3List = $(".cate3List");
+function h_openCate3(evt, sltCode) { //소분류 나타남
+	var h_cate3List = $(".h_cate3List");
    
 	/* ==========기존삭제========== */
-	for (var i = 0; i < cate3List.length; i++) {
-		cate3List[i].className = cate3List[i].className.replace(" active", "");
+	for (var i = 0; i < h_cate3List.length; i++) {
+		h_cate3List[i].className = h_cate3List[i].className.replace(" active", "");
 	}
    
 	/* ==========새로생성========== */
 	evt.currentTarget.className += " active"; //색상변경
 }
 
-function openCateBox(){
+function h_openCateBox(){
 	$(".cate_img").css("backgroundColor", "#FFA200");
-	$(".cateBox1").css("display", "block");
+	$(".h_cateBox1").css("display", "block");
 }
-function nondisBox(){
+function h_nondisBox(){
 	$(".cate_img").css("backgroundColor", "grey");
-	$(".cateBox1").css("display", "none");
-	$(".cateBox2").css("display", "none");
-	$(".cateBox3").css("display", "none");
-	var cate1List = $(".cate1List");
-	var cate2List = $(".cate2List");
-	var cate3List = $(".cate3List");
+	$(".h_cateBox1").css("display", "none");
+	$(".h_cateBox2").css("display", "none");
+	$(".h_cateBox3").css("display", "none");
+	var h_cate1List = $(".h_cate1List");
+	var h_cate2List = $(".h_cate2List");
+	var h_cate3List = $(".h_cate3List");
 	/* ==========기존삭제========== */
-	for (var i = 0; i < cate1List.length; i++) {
-	   cate1List[i].className = cate1List[i].className.replace(" active", "");
+	for (var i = 0; i < h_cate1List.length; i++) {
+	   h_cate1List[i].className = h_cate1List[i].className.replace(" active", "");
 	}
-	for (var i = 0; i < cate2List.length; i++) {
-		cate2List[i].className = cate2List[i].className.replace(" active", "");
+	for (var i = 0; i < h_cate2List.length; i++) {
+		h_cate2List[i].className = h_cate2List[i].className.replace(" active", "");
 	}
-	for (var i = 0; i < cate3List.length; i++) {
-		cate3List[i].className = cate3List[i].className.replace(" active", "");
+	for (var i = 0; i < h_cate3List.length; i++) {
+		h_cate3List[i].className = h_cate3List[i].className.replace(" active", "");
 	}
 }
 </script>
@@ -132,21 +132,22 @@ function nondisBox(){
 	background-color: grey;
 	margin: 6px 0;
 }
+
 /* 카테고리 wrap */
-.catewrap {
+.h_catewrap {
 	z-index: 11;
 	position: absolute;
 	background-color: white;
 }
 /* 카테고리 box */
-.cateBox1 {
+.h_cateBox1 {
    float: left;
    border: 1px solid #ccc;
    width: 200px;
    height: 280px; /* 40의 배수로 설정 */
    display: none;
 }
-.cateBox2, .cateBox3 {
+.h_cateBox2, .h_cateBox3 {
    float: left;
    border: 1px solid #ccc;
    border-left:none;
@@ -155,7 +156,7 @@ function nondisBox(){
    display: none;
 }
 /* 카테고리 리스트 */
-.cate1List, .cate2List, .cate3List {
+.h_cate1List, .h_cate2List, .h_cate3List {
    padding: 10px;
    text-align: left;
    cursor: pointer;
@@ -163,13 +164,14 @@ function nondisBox(){
    font-size: 11pt;
 }
 /* 카테고리 리스트 hover */
-.cate1List:hover, .cate2List:hover, .cate3List:hover {
+.h_cate1List:hover, .h_cate2List:hover, .h_cate3List:hover {
    background-color: #FFD823;
 }
 /* 카테코리 리스트 active */
-.cate1List.active, .cate2List.active, .cate3List.active {
+.h_cate1List.active, .h_cate2List.active, .h_cate3List.active {
    background-color: #FFD823;
 }
+
 </style>
 </head>
 <body>
@@ -204,7 +206,7 @@ function nondisBox(){
 		<div class="hLFFUa">
 			<div class=" zvczX">
 				<div class="gLAQAm" >
-					<button class="gIJOQQ" onmouseover="openCateBox()"
+					<button class="gIJOQQ" onmouseover="h_openCateBox()"
 							style="background-color: white; border: 0; cursor: pointer;"><!-- 카테고리 -->
 						<div class="cate_img"></div>
 						<div class="cate_img"></div>
@@ -244,18 +246,18 @@ function nondisBox(){
 	</div>
 </div>
 <div style="width: 1024px; margin: 0 auto; ">
-	<div class="catewrap" onmouseleave="nondisBox()">
- 		<div class="cateBox1">
+	<div class="h_catewrap" onmouseleave="h_nondisBox()">
+ 		<div class="h_cateBox1">
 			<c:forEach var="dto" items="${cateData }">
-				<div class="cate1List" onmouseover="openCate(event,'${dto.cateCode}')" 
+				<div class="h_cate1List" onmouseover="h_openCate(event,'${dto.cateCode}')" 
 					onclick="location.href='${contextPath }/product/cateSerchView?cateCode=${dto.cateCode}'">${dto.cateName }</div>
 			</c:forEach>
 		</div>
 	
-		<div class="cateBox2">
+		<div class="h_cateBox2">
 		</div>
 	
-		<div class="cateBox3">
+		<div class="h_cateBox3">
 		</div>
 	</div>
 </div>	

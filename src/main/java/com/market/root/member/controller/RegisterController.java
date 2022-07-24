@@ -41,7 +41,6 @@ public class RegisterController {
 		map.get("nickname");
 		map.get("email");
 		
-		/*
 		int result = rs.register(dto);
 		
 		
@@ -51,9 +50,7 @@ public class RegisterController {
 		}
 		//회원가입 실패시 회원가입 창으로 다시 이동
 		return "redirect:register";
-		*/
 		
-		return "redirect:/";
 	}
 	
 	// 중복체크
