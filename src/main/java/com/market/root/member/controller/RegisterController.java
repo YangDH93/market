@@ -43,14 +43,12 @@ public class RegisterController {
 		
 		int result = rs.register(dto);
 		
-		
 		//회원가입 성공시 로그인 화면으로 이동
 		if(result == 1) {
 			return "redirect:login";
 		}
 		//회원가입 실패시 회원가입 창으로 다시 이동
 		return "redirect:register";
-		
 	}
 	
 	// 중복체크
