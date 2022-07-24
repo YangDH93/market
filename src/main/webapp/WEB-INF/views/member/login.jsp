@@ -112,7 +112,7 @@ function checkCapsLock(event) {
 									style="cursor: pointer;"> <label for="autoLogin"
 									style="cursor: pointer;">자동로그인</label>
 							</div>
-							<a href="#" id="ip">아이디/비밀번호 찾기</a>
+							<a href="${contextPath }/member/forgetIdPwd" id="ip">아이디/비밀번호 찾기</a>
 						</div></td>
 				</tr>
 				<tr>

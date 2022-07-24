@@ -52,6 +52,11 @@
 	<update id="mbrUpdate">
 		update mbr_info set mbr_name=#{mbrName}, mbr_id=#{mbrId}, mbr_pw=#{mbrPw}, mbr_addr=#{mbrAddr}, mbr_tel=#{mbrTel} where mbr_name=#{dName}
 	</update> 
+	
+	<!-- 임시 비번저장 -->
+	<update id="mbrUpdatePwd">
+		update mbr_info set mbr_pw=#{mbrPw} where mbr_email=#{mbrEmail}
+	</update> 
 	 
 	<!-- 한 사람 모든 정보 -->
 	<select id="memberInfo" resultMap="member">

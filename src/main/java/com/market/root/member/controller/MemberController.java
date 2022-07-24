@@ -276,5 +276,30 @@ public class MemberController{
         }
     }
 	
+	//아이디 비밀번호 찾기 페이지
+	@GetMapping("forgetIdPwd")
+	public String forgetId() {
+		return "member/forgetIdPwd";
+	}
+	
+	//아이디 찾음 페이지
+	@PostMapping("findId")
+	public String findId(@RequestParam String mbrEmail,
+							Model model) {
+		//System.out.println(mbrEmail);
+		ms.findId(mbrEmail,model);
+		
+		return "member/findId";
+	}
+	
+	//임시 비밀번호 발송 페이지
+	@PostMapping("findPwd")
+	public String forgetPwd(@RequestParam String mbrEmail,
+								Model model) {
+		
+		ms.sendPwd(mbrEmail,model);
+		
+		return "member/findPwd";
+	}
 	
 }

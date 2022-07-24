@@ -2,6 +2,8 @@ package com.market.root.mybatis.member;
 
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.market.root.member.dto.MemberDTO;
 
 public interface MemberMapper {
@@ -17,4 +19,5 @@ public interface MemberMapper {
 	public int mbrUpdate(Map<Object, Object> map);
 	public int userDelete(String mbrId);
 	public void kakaoRegister(MemberDTO dto);
+	public int mbrUpdatePwd(@Param("mbrPw") String mbrPw, @Param("mbrEmail") String mbrEmail);
 }

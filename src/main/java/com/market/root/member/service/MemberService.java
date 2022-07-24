@@ -26,4 +26,6 @@ public interface MemberService {
 	public void mbrAddr(HttpSession session,Model model);
 	public String getAccessToken(String code);
 	public HashMap<String, Object> getUserInfo(String access_Token);
+	public void findId(String mbrEmail, Model model);
+	public void sendPwd(String mbrEmail, Model model);
 }

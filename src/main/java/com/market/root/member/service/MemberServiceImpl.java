@@ -32,6 +32,7 @@ import com.google.gson.JsonParser;
 public class MemberServiceImpl implements MemberService{
 	
 	@Autowired MemberMapper mapper;
+	@Autowired RegisterService rs; //Register 관련
 	
 	// 비번 암호화 클래스
 	BCryptPasswordEncoder en =
@@ -293,5 +294,50 @@ public class MemberServiceImpl implements MemberService{
 			e.printStackTrace();
 		}
 		return userInfo;
+	}
+	
+	//아이디 찾기
+	@Override
+	public void findId(String mbrEmail, Model model) {
+		MemberDTO dto = null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("col1", "*");
+		map.put("col2", "mbr_email");
+		map.put("uIn", mbrEmail);
+		
+		try {
+			dto = mapper.dupChk(map);
+			if(dto != null) {//정보 있음
+				model.addAttribute("result", dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void sendPwd(String mbrEmail, Model model) {
+		MemberDTO dto = null;
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("col1", "*");
+		map.put("col2", "mbr_email");
+		map.put("uIn", mbrEmail);
+		
+		try {
+			dto = mapper.dupChk(map);
+			if(dto != null) {//회원있음
+				//메일발송 비번 받아옴
+				String mbrPw = rs.gSendPwd(mbrEmail);
+				//비번 변경
+				mapper.mbrUpdatePwd(mbrPw, mbrEmail);
+				model.addAttribute("mbrPw", mbrPw);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
