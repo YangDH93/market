@@ -39,7 +39,7 @@
 					<tr>
 						<c:choose>
 							<c:when test="${loginUser != 'admin' }">
-								<th colspan="6" align="center" style="padding: 30px 30px">
+								<th colspan="5" align="center" style="padding: 30px 30px">
 									찜 목록이 존재하지 않습니다.
 								</th>
 							</c:when>
