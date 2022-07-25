@@ -25,7 +25,7 @@
 		<!-- 목록 : 테이블형식 -->
 <div class="prodTable_st" style="text-align: center;">
 	<table border="1"
-		style="border-color: #C0C0C0; width: 100%; border-collapse: collapse;">
+		style="border-color: #C0C0C0; width: 100%; border-collapse: collapse; table-layout: fixed;">
 		<!-- 테이블 머리 -->
 		<thead
 			style="background-color: #FFB300; color: white; font-weight: 600;">
