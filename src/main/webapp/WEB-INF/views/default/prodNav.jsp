@@ -96,7 +96,9 @@
 		<ul class="manage_ul" style="padding-left: 0; list-style: none; display: inline-block;">
 			<li class="manage_li"><a href="${contextPath }/product/prodStatus">상품관리</a></li>
 			<li class="manage_li"><a href="${contextPath }/product/sellsComplete">구매/판매 내역</a></li>
-			<li class="manage_li"><a href="${contextPath }/product/userPick">찜 목록</a></li>
+			<c:if test="${loginUser != 'admin' }">
+				<li class="manage_li"><a href="${contextPath }/product/userPick">찜 목록</a></li>
+			</c:if>
 		</ul>
 	</div>
 </body>

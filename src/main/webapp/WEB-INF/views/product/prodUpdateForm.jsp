@@ -306,15 +306,15 @@ function buttonChk(){
 	}else if($('#prodTitle').val() == ''){
 		$("#prodTitle").focus();
 		alert('제목은 필수항목 입니다.');
+	}else if($('#cateCode').val() == ''){
+		$("#cateCode").focus();
+		alert('카테고리는 필수항목 입니다');
 	}else if($('#trdLocation').val() == ''){
 		$("#trdLocation").focus();
 		alert('주소는 필수항목 입니다');
 	}else if($('#price').val() == ''){
 		$("#price").focus();
 		alert('가격은 필수항목 입니다.');
-	}else if($('#cateCode').val() == ''){
-		$("#cateCode").focus();
-		alert('카테고리는 필수항목 입니다');
 	}else if($('#prodContent').val() == ''){
 		$("#prodContent").focus();
 		alert('상품은 설명은 필수항목 입니다');
