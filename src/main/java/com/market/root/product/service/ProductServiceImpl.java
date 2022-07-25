@@ -190,6 +190,7 @@ public class ProductServiceImpl implements ProductService{
 				mapper.upHit(map);
 				model.addAttribute("timer",timer);
 				model.addAttribute("prod",mapper.oneProduct(map));
+				oneCateclick(model, map);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -261,6 +262,39 @@ public class ProductServiceImpl implements ProductService{
 				getCateName += cDto.getCateName();
 			}
 			model.addAttribute("cateNameAll", getCateName);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//하나의 상품 카테고리 click model
+	@Override
+	public void oneCateclick(Model model, Map<Object, Object> map) {
+		try {
+			ProductDTO dto = mapper.oneProduct(map);
+			ArrayList<CategoriesDTO> arr = cMapper.oneCateAll(dto.getCateCode());
+			String cateTier1 = "";
+			String cateTier2 = "";
+			String cateTier3 = "";
+			for(int i=0; i<arr.size(); i++) {
+				CategoriesDTO cDto = arr.get(i);
+				if(i == 0) {
+					cateTier1 += "<a href='cateSerchView?cateCode="+cDto.getCateCode()+"'>";
+					cateTier1 += cDto.getCateName();
+					cateTier1 += "</a>";
+					model.addAttribute("cateTier1", cateTier1);
+				}else if(i == 1) {
+					cateTier2 += "<a href='cateSerchView?cateCode="+cDto.getCateCode()+"'>";
+					cateTier2 += cDto.getCateName();
+					cateTier2 += "</a>";
+					model.addAttribute("cateTier2", cateTier2);
+				}else if(i == 2) {
+					cateTier3 += "<a href='cateSerchView?cateCode="+cDto.getCateCode()+"'>";
+					cateTier3 += cDto.getCateName();
+					cateTier3 += "</a>";
+					model.addAttribute("cateTier3", cateTier3);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

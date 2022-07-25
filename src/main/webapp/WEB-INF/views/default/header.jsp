@@ -195,6 +195,9 @@ function h_nondisBox(){
 							<a class="hvNQEV" href="${contextPath}/member/register">회원가입</a>
 						</c:when>
 						<c:otherwise>
+							<span class="hvNQEV" style="color: black; font-weight: bold;">
+								${userName } 님 환영합니다
+							</span>
 							<a class="hvNQEV" href="${contextPath}/member/pwdChkForm?mbrId=${loginUser }">회원정보 수정</a>
 							<a class="hvNQEV" href="${contextPath}/member/logout">로그아웃</a>
 							<a class="hvNQEV" href="${contextPath}/customer/csList">고객센터</a>

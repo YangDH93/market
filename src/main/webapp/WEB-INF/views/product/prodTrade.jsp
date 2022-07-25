@@ -17,7 +17,13 @@
 	margin: 0 auto;
 	padding: 40px 0;
 }
-
+.cate_wrap {
+	width: 1024px;
+	height: 15px;
+	margin: 0 auto;
+	padding: 20px 0;
+	border-bottom: 1px solid #C0C0C0;
+}
 .status-grey::after {
 	content: "";
 	width: 1px;
@@ -52,6 +58,10 @@
 	overflow: hidden;
 	white-space: nowrap;
 	
+}
+.ca_Sp a{
+	color : rgb(102, 102, 102);
+	text-decoration: none;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
@@ -146,6 +156,17 @@ function pickStatus(){
 </head>
 <body onload="pickStatus();">
 <%@include file="../default/header.jsp" %>
+	<section class="cate_wrap">
+		<c:if test="${cateTier1 != null}">
+			<span class="ca_Sp">${cateTier1 }</span>
+		</c:if>
+		<c:if test="${cateTier2 != null}">
+			> <span class="ca_Sp">${cateTier2 }</span>
+		</c:if>
+		<c:if test="${cateTier3 != null}">
+			> <span class="ca_Sp">${cateTier3 }</span>
+		</c:if>
+	</section>
 	<section class="trd_wrap">
 		<div style="display: flex; justify-content: space-between;"><!-- 상단 -->
 			<div style="width: 450px;"><!-- 상단왼쪽 -->
