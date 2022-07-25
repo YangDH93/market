@@ -28,10 +28,7 @@
 		<thead style="background-color: #FFB300; border-color: #FFB300; color: white; font-weight: 600;">
 			<tr>
 				<th>사진</th> <th>판매상태</th> <th>상품명</th>
-				<th>가격</th>
-				<c:if test="${loginUser != 'admin' }">
-					<th>기능</th>
-				</c:if>
+				<th>가격</th><th>기능</th>
 			</tr>
 		</thead>
 		<!-- 테이블 몸통(내용 리스트로 가져옴) -->
@@ -81,8 +78,8 @@
 							white-space: nowrap; text-overflow: ellipsis; width: 150px;
 							display: block;">${psdto.prodTitle }
 								</span>
-						</div>
 							</div>
+						</div>
 						</td>
 						<td id="td_st" style="text-align: center;">${psdto.price}원</td> 
 						<td id="td_st">
